@@ -102,6 +102,10 @@ module "vpc" {
 }
 ```
 
+Modules use [terraform-docs](https://terraform-docs.io/) to generate README.md files. Once
+[terraform-docs#833](https://github.com/terraform-docs/terraform-docs/pull/833) is merged this will work as expected.
+
+
 [//]: # (Extra sections)
 [//]: # (OPTIONAL)
 [//]: # (This should not be called "Extra Sections".)
