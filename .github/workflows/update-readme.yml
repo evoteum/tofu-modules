@@ -27,7 +27,17 @@ jobs:
         module: ${{ fromJson(needs.find-modules.outputs.matrix) }}
       max-parallel: 1
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout this repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Get full history for better merging
+      
+      - name: Debug git state
+        run: |
+          echo "Current commit: $(git rev-parse HEAD)"
+          echo "Remote commit: $(git ls-remote origin main | cut -f1)"
+          git status
+
       - name: Checkout config file
         uses: actions/checkout@v4
         with:
@@ -36,8 +46,15 @@ jobs:
           sparse-checkout: |
             .terraform-docs.yml
           sparse-checkout-cone-mode: false
+
       - name: Move config to root
         run: mv config-temp/.terraform-docs.yml .terraform-docs.yml && rm -rf config-temp
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - uses: terraform-docs/gh-actions@main
         with:
           working-dir: ${{ matrix.module }}
@@ -45,3 +62,9 @@ jobs:
           output-method: inject
           git-push: "true"
           git-commit-message: "docs: update module documentation"
+
+      - name: Debug git state
+        run: |
+          echo "Current commit: $(git rev-parse HEAD)"
+          echo "Remote commit: $(git ls-remote origin main | cut -f1)"
+          git status
