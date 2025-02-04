@@ -1,0 +1,47 @@
+name: Auto-Update Module README
+
+on:
+  push:
+    paths:
+      - '*/*/**'  # Any change in subdirectories under namespace/module
+      - '!*'      # Ignore changes to the root directory
+      
+
+jobs:
+  find-modules:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.find-modules.outputs.modules }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: find-modules
+        run: |
+          MODULES=$(find . -mindepth 2 -maxdepth 2 -type d | sed 's|^./||' | jq -R -s -c 'split("\n")[:-1]')
+          echo "modules=$MODULES" >> $GITHUB_OUTPUT
+
+  update-readme:
+    needs: find-modules
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module: ${{ fromJson(needs.find-modules.outputs.matrix) }}
+      max-parallel: 1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout config file
+        uses: actions/checkout@v4
+        with:
+          repository: evoteum/estate-config
+          path: config-temp
+          sparse-checkout: |
+            .terraform-docs.yml
+          sparse-checkout-cone-mode: false
+      - name: Move config to root
+        run: mv config-temp/.terraform-docs.yml .terraform-docs.yml && rm -rf config-temp
+      - uses: terraform-docs/gh-actions@main
+        with:
+          working-dir: ${{ matrix.module }}
+          output-file: README.md
+          output-method: inject
+          git-push: "true"
+          git-commit-message: "docs: update module documentation"

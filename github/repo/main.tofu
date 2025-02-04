@@ -1,0 +1,65 @@
+terraform {
+  required_providers {
+    github = {
+      source  = "integrations/github"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "github" {
+  app_auth {}
+}
+
+resource "github_repository" "repo" {
+  name                        = var.repo_name
+  description                 = var.repo_description
+  homepage_url                = var.homepage_url
+  visibility                  = var.visibility
+  has_issues                  = var.has_issues
+  has_discussions             = var.has_discussions
+  has_projects                = var.has_projects
+  has_wiki                    = var.has_wiki
+  is_template                 = var.is_template
+  allow_merge_commit          = var.allow_merge_commit
+  allow_squash_merge          = var.allow_squash_merge
+  allow_rebase_merge          = var.allow_rebase_merge
+  allow_auto_merge            = var.allow_auto_merge
+  squash_merge_commit_title   = var.squash_merge_commit_title
+  squash_merge_commit_message = var.squash_merge_commit_message
+  merge_commit_title          = var.merge_commit_title
+  merge_commit_message        = var.merge_commit_message
+  delete_branch_on_merge      = var.delete_branch_on_merge
+  web_commit_signoff_required = true
+  has_downloads               = var.has_downloads
+  auto_init                   = false
+  gitignore_template          = var.gitignore_template
+  license_template            = var.license_template
+  archive_on_destroy          = true
+  vulnerability_alerts        = var.vulnerability_alerts
+  topics                      = var.topics
+
+  lifecycle {
+    ignore_changes = [
+      archived
+    ]
+  }
+}
+
+
+resource "github_repository_file" "readme" {
+  repository = var.repo_name
+  file       = "README.md"
+  content = templatefile("${path.module}/README.md.template", {
+    REPO_NAME        = var.repo_name,
+    REPO_DESCRIPTION = var.repo_description
+  })
+  commit_message = "Initialize README.md"
+
+  lifecycle {
+    create_before_destroy = true
+    ignore_changes = [
+      all
+    ]
+  }
+}

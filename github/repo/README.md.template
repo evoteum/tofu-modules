@@ -1,4 +1,3 @@
-
 [//]: # (STANDARD README)
 [//]: # (https://github.com/RichardLitt/standard-readme)
 [//]: # (----------------------------------------------)
@@ -9,8 +8,7 @@
 [//]: # (Match repository name)
 [//]: # (REQUIRED)
 
-# tofu-modules
-
+# ${REPO_NAME}
 
 [//]: # (Banner)
 [//]: # (OPTIONAL)
@@ -30,16 +28,16 @@
 [//]: # (Must be less than 120 characters)
 [//]: # (Must match GitHub's description)
 
-Modules for OpenTofu
+${REPO_DESCRIPTION}
 
 [//]: # (Long Description)
 [//]: # (OPTIONAL)
 [//]: # (Must not have its own title)
 [//]: # (A detailed description of the repo)
 
-Welcome to the **OpenTofu Modules Repository**! This repository contains reusable **OpenTofu modules** for managing infrastructure across multiple namespaces, including **AWS, GitHub, Quay and others**.
 
-Wherever you need to define a new thing in Tofu, you can use these modules to do so. They are designed to be **reusable**, **composable** and **easy to use**. Always aim to create a new module rather than a unique resource.
+
+The configuration of this repo is managed by OpenTofu.
 
 ## Table of Contents
 
@@ -50,6 +48,10 @@ Wherever you need to define a new thing in Tofu, you can use these modules to do
 1. [Background](#background)
 1. [Install](#install)
 1. [Usage](#usage)
+1. [Any extra sections as required]
+1. [API](#api)
+1. [Maintainers](#maintainers)
+1. [Thanks](#thanks)
 1. [Contributing](#contributing)
 1. [License](#license)
 
@@ -57,14 +59,10 @@ Wherever you need to define a new thing in Tofu, you can use these modules to do
 [//]: # (OPTIONAL)
 [//]: # (May go here if it is important to highlight security concerns.)
 
-This repo is public and does not contain any sensitive information. All secrets are variables in the CI/CD pipeline.
 
 [//]: # (## Background)
 [//]: # (OPTIONAL)
 [//]: # (Explain the motivation and abstract dependencies for this repo)
-
-These modules are designed to be reusable and composable. They are intended to be used across multiple namespaces and to be easy to use. They are designed to be used with OpenTofu, a configuration management tool.
-
 
 ## Install
 
@@ -72,35 +70,13 @@ These modules are designed to be reusable and composable. They are intended to b
 [//]: # (OPTIONAL IF documentation repo)
 [//]: # (ELSE REQUIRED)
 
-Nothing to install. Just import the modules you need into your Tofu configuration file.
-
 
 
 ## Usage
 [//]: # (REQUIRED)
 [//]: # (Explain what the thing does. Use screenshots and/or videos.)
 
-The repo is organised into the directory structure `[namespace]/[resource]`. For example:
 
-```shell
-.
-├── quay
-│   ├── repo
-│   └── org
-├── github
-│   └── repo
-└── aws
-    ├── dynamodb
-    └── app_runner
-```
-
-To use the modules, you can import them into your Tofu configuration file like so:
-
-```tofu
-module "vpc" {
-  source = "git::https://github.com/evoteum/tofu-modules.git//aws/vpc?ref=main"
-}
-```
 
 [//]: # (Extra sections)
 [//]: # (OPTIONAL)
@@ -109,9 +85,11 @@ module "vpc" {
 [//]: # (each of which must have their own titles.)
 
 
+
 [//]: # (## API)
 [//]: # (OPTIONAL)
 [//]: # (Describe exported functions and objects)
+
 
 
 [//]: # (## Maintainers)
@@ -120,17 +98,26 @@ module "vpc" {
 [//]: # (along with one way of contacting them - GitHub link or email.)
 
 
+
 [//]: # (## Thanks)
 [//]: # (OPTIONAL)
 [//]: # (State anyone or anything that significantly)
 [//]: # (helped with the development of this project)
 
 
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!-- !!!!!   DO NOT EDIT BELOW THIS LINE   !!!!! -->
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
 ## Contributing
 [//]: # (REQUIRED)
-If you need any help, please log an issue. PRs are welcome.
+If you need any help, please log an issue and one of our team will get back to you.
+
+PRs are welcome.
+
 
 ## License
 [//]: # (REQUIRED)
 
-All our code is licenced under the AGPL v3.0. See the [LICENSE](LICENSE) file for details.
+All our code is licenced under the AGPL-3.0. See [LICENSE](LICENSE) for more information.
