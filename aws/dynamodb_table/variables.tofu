@@ -10,8 +10,14 @@ variable "table_name" {
 }
 
 variable "environment" {
-  description = "Environment (dev/staging/prod)"
+  description = "Environment name; must be one of: ${join(", ", module.common.environment_names)}"
   type        = string
+  default     = "prod"
+  
+  validation {
+    condition     = contains(module.common.environment_names, var.environment)
+    error_message = "Environment must be one of: ${join(", ", module.common.environment_names)}"
+  }
 }
 
 variable "global_secondary_index_name" {

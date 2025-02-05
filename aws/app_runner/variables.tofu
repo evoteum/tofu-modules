@@ -1,5 +1,5 @@
 variable "project_name" {
-  description = "Project name to be used for resource naming"
+  description = "Project name"
   type        = string
 }
 
@@ -9,7 +9,7 @@ variable "aws_region" {
 }
 
 variable "container_image" {
-  description = "Docker image URL"
+  description = "Continer image URL"
   type        = string
 }
 
@@ -35,4 +35,27 @@ variable "health_check_path" {
   description = "Health check path for the service"
   type        = string
   default     = "/health"
+}
+
+variable "port" {
+  description = "Port the container listens on"
+  type        = number
+  default     = 8080
+}
+
+variable "enable_ecr" {
+  description = "Enable ECR access for App Runner"
+  type        = bool
+  default     = false
+}
+
+variable "environment" {
+  description = "Environment name; must be one of: ${join(", ", module.common.environment_names)}"
+  type        = string
+  default     = "prod"
+  
+  validation {
+    condition     = contains(module.common.environment_names, var.environment)
+    error_message = "Environment must be one of: ${join(", ", module.common.environment_names)}"
+  }
 }

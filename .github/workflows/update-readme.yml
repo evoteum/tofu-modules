@@ -8,7 +8,24 @@ on:
       
 
 jobs:
+  check-tofu-support:
+    runs-on: ubuntu-latest
+    outputs:
+      proceed: ${{ steps.check-terraform-docs-pr.outputs.proceed }}
+    steps:
+      - id: check-terraform-docs-pr
+        # Check if the Terraform-Docs PR https://github.com/terraform-docs/terraform-docs/pull/833 is merged
+        run: |
+          PR_STATUS=$(curl -s https://api.github.com/repos/terraform-docs/terraform-docs/pulls/833 | jq -r '.merged')
+          if [ "$PR_STATUS" = "true" ]; then
+            echo "proceed=true" >> $GITHUB_OUTPUT
+          else
+            echo "proceed=false" >> $GITHUB_OUTPUT
+          fi
+
   find-modules:
+    needs: check-tofu-support
+    if: needs.check-tofu-support.outputs.proceed == 'true'
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.find-modules.outputs.modules }}
@@ -21,6 +38,7 @@ jobs:
 
   update-readme:
     needs: find-modules
+    if: needs.find-modules.outputs.matrix != '[]'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -63,7 +81,6 @@ jobs:
           output-method: inject
           git-push: "true"
           git-commit-message: "docs: update module documentation"
-
       - name: Debug git state
         run: |
           echo "Current commit: $(git rev-parse HEAD)"
