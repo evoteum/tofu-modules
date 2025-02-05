@@ -80,27 +80,34 @@ Nothing to install. Just import the modules you need into your Tofu configuratio
 [//]: # (REQUIRED)
 [//]: # (Explain what the thing does. Use screenshots and/or videos.)
 
-The repo is organised into the directory structure `[namespace]/[resource]`. For example:
+The repo is organised into the directory structure `[namespace]/[resource]`.
 
+It contains the following modules:
+
+[//]: # (BEGIN_MODULE_TREE)
 ```shell
 .
 ├── quay
-│   ├── repo
-│   └── org
+│   ├── repo
+│   └── org
 ├── github
-│   └── repo
+│   └── repo
 └── aws
     ├── dynamodb
     └── app_runner
 ```
+[//]: # (END_MODULE_TREE)
 
-To use the modules, you can import them into your Tofu configuration file like so:
+To use the modules, you can import them into your Tofu configuration like so:
 
 ```tofu
-module "vpc" {
-  source = "git::https://github.com/evoteum/tofu-modules.git//aws/vpc?ref=main"
+module "networking" {
+  source = "git@github.com:evoteum/tofu-modules.git//aws/networking?ref=main"
 }
 ```
+
+As these are only small modules, we have chosen not to publish them to the Tofu registry, as this would require
+individual repositories for each module.
 
 Modules use [terraform-docs](https://terraform-docs.io/) to generate README.md files. Once
 [terraform-docs#833](https://github.com/terraform-docs/terraform-docs/pull/833) is merged this will work as expected.

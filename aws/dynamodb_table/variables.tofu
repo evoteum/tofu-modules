@@ -10,13 +10,13 @@ variable "table_name" {
 }
 
 variable "environment" {
-  description = "Environment name; must be one of: ${join(", ", module.common.environment_names)}"
+  description = "Environment name; must be one of: ${join(", ", module.common.environments)}"
   type        = string
-  default     = "prod"
+  default     = "production"
   
   validation {
-    condition     = contains(module.common.environment_names, var.environment)
-    error_message = "Environment must be one of: ${join(", ", module.common.environment_names)}"
+    condition     = contains(module.common.environments, var.environment)
+    error_message = "Environment must be one of: ${join(", ", module.common.environments)}"
   }
 }
 

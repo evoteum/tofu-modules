@@ -1,0 +1,58 @@
+name: Update Module Tree
+
+on:
+  push:
+    paths:
+      - '*/*/**'  # Any change in subdirectories under namespace/module
+      - '!.github/**'  # Ignore changes in .github directory
+    branches:
+      - main
+
+jobs:
+  update-tree:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate tree
+        run: |
+          # Install tree if not present
+          sudo apt-get update && sudo apt-get install -y tree
+          
+          # Generate tree output
+          TREE=$(tree -d -L 2)
+          
+          # Create temp file
+          tmp_file=$(mktemp)
+          
+          # Write to temp file, preserving everything else
+          awk -v tree="$TREE" '
+            /\[\/\/\]: # \(BEGIN_MODULE_TREE\)/ {
+              print
+              print "```shell"
+              print tree
+              print "```"
+              p = 1
+              next
+            }
+            /\[\/\/\]: # \(END_MODULE_TREE\)/ {
+              p = 0
+              print
+              next
+            }
+            !p {
+              print
+            }
+          ' README.md > "$tmp_file"
+          
+          # Replace original file
+          mv "$tmp_file" README.md
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add README.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update module tree" && git push) 

@@ -43,13 +43,15 @@ jobs:
     strategy:
       matrix:
         module: ${{ fromJson(needs.find-modules.outputs.matrix) }}
-      max-parallel: 1
+      max-parallel: 1000
     steps:
       - name: Checkout this repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Get full history for better merging
-      
+          sparse-checkout: |
+            ${{ matrix.module }}
+          sparse-checkout-cone-mode: false    
+           
       - name: Debug git state
         run: |
           echo "Current commit: $(git rev-parse HEAD)"
@@ -68,8 +70,9 @@ jobs:
       - name: Move config to root
         run: mv config-temp/.terraform-docs.yml .terraform-docs.yml && rm -rf config-temp
 
-      - name: Configure Git and pull latest
+      - name: Appease the GitHub Actions gods with a ceremonial git pull. Because reasons ¯\_(ツ)_/¯
         run: |
+          echo "Handles an intermittent race condition, even when max-parallel is set to 1."
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git pull origin main

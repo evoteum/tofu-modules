@@ -1,9 +1,10 @@
 module "common" {
-  source = "../../common"
+  source = "git@github.com:evoteum/tofu-modules.git//common/vars?ref=main"
 }
 
 resource "aws_cloudfront_distribution" "main" {
-  enabled = true
+  enabled     = true
+  price_class = var.price_class
 
   tags = {
     Name        = "${var.project_name}-${var.environment}-distribution"
@@ -27,31 +28,31 @@ resource "aws_cloudfront_distribution" "main" {
     origin_id   = "s3-fallback"
   }
 
-  cached_methods         = ["GET", "HEAD", "OPTIONS"]
   default_cache_behavior {
     allowed_methods        = var.cloudfront_allowed_methods
     cached_methods         = var.cloudfront_cached_methods
     target_origin_id       = "primary"
     viewer_protocol_policy = "redirect-to-https"
-
-    cookies {
-      forwarded_values {
-        query_string = true
-        cookies {
-          forward = "all"
-        }
-      }
-      # Failover to S3 if App Runner returns 5xx errors
-      origin_request_policy_id = aws_cloudfront_origin_request_policy.all_viewer.id
-      event_type   = "viewer-request"
-      # Failover to S3 if App Runner returns 5xx errors
-      function_association {
-        event_type   = "viewer-request"
-        function_arn = aws_cloudfront_function.failover.arn
+    min_ttl                = var.min_ttl
+    default_ttl            = var.default_ttl
+    max_ttl                = var.max_ttl
+    compress               = true # Enable gzip/Brotli compression
+    forwarded_values {
+      query_string = true
+      cookies {
+        forward = "all"
       }
     }
 
-    path_pattern           = "/static/*"
+    # Failover to S3 if App Runner returns 5xx errors
+    origin_request_policy_id = aws_cloudfront_origin_request_policy.all_viewer.id
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.failover.arn
+    }
+
+
   }
 
   # Fallback behavior for S3

@@ -1,3 +1,7 @@
+module "common" {
+  source = "git@github.com:evoteum/tofu-modules.git//common/vars?ref=main"
+}
+
 resource "aws_dynamodb_table" "table" {
   name         = "${var.project_name}-${var.table_name}"
   billing_mode = "PAY_PER_REQUEST"

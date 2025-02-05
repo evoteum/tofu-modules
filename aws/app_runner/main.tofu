@@ -1,5 +1,5 @@
 module "common" {
-  source = "../../common"
+  source = "git@github.com:evoteum/tofu-modules.git//common/vars?ref=main"
 }
 
 resource "aws_apprunner_service" "service" {
@@ -22,14 +22,30 @@ resource "aws_apprunner_service" "service" {
     auto_deployments_enabled = true
   }
 
+  auto_scaling_configuration_name = "${var.project_name}-${var.environment}-scaling"
+
   instance_configuration {
     cpu               = var.cpu
     memory            = var.memory
     instance_role_arn = aws_iam_role.app_runner.arn
+    min_instances     = var.min_instances
+    max_instances     = var.max_instances
   }
 
   health_check_configuration {
-    path = var.health_check_path
+    path                = var.health_check_path
+    protocol            = "HTTP"
+    interval            = var.health_check_interval
+    timeout             = var.health_check_timeout
+    healthy_threshold   = var.health_check_healthy_threshold
+    unhealthy_threshold = var.health_check_unhealthy_threshold
+  }
+
+  network_configuration {
+    egress_configuration {
+      egress_type       = var.vpc_connector_arn != null ? "VPC" : "DEFAULT"
+      vpc_connector_arn = var.vpc_connector_arn
+    }
   }
 }
 
