@@ -87,14 +87,20 @@ It contains the following modules:
 [//]: # (BEGIN_MODULE_TREE)
 ```shell
 .
-├── quay
-│   ├── repo
-│   └── org
+├── aws
+│   ├── app_runner
+│   ├── cloudfront
+│   ├── dynamodb_table
+│   └── networking
+├── common
+│   └── vars
 ├── github
-│   └── repo
-└── aws
-    ├── dynamodb
-    └── app_runner
+│   └── repo
+└── quay
+    ├── org
+    └── repo
+
+13 directories
 ```
 [//]: # (END_MODULE_TREE)
 
