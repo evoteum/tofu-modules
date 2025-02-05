@@ -21,8 +21,8 @@ jobs:
           # Install tree if not present
           sudo apt-get update && sudo apt-get install -y tree
           
-          # Generate tree output
-          TREE=$(tree -d -L 2)
+          # Generate tree output without directory count
+          TREE=$(tree -d -L 2 | sed '$d')
           
           # Create temp file
           tmp_file=$(mktemp)
