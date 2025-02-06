@@ -1,6 +1,9 @@
 name: Auto-Update Module README
 
 on:
+  schedule:
+    - cron: '0 0 * * *'  # Run every day at midnight
+  workflow_dispatch:
   push:
     paths:
       - '*/*/**'  # Any change in subdirectories under namespace/module
@@ -22,6 +25,43 @@ jobs:
           else
             echo "proceed=false" >> $GITHUB_OUTPUT
           fi
+
+  remove-broken-advisement:
+    needs: check-tofu-support
+    if: needs.check-tofu-support.outputs.proceed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Remove broken advisement
+        run: |
+          # Create temp file
+          tmp_file=$(mktemp)
+          
+          # Write to temp file, preserving everything else except terraform-docs advisement section
+          awk '
+            /\[\/\/\]: # \(BEGIN_TERRAFORM_DOCS_ADVISEMENT\)/ {
+              p = 1
+              next
+            }
+            /\[\/\/\]: # \(END_TERRAFORM_DOCS_ADVISEMENT\)/ {
+              p = 0
+              next
+            }
+            !p {
+              print
+            }
+          ' README.md > "$tmp_file"
+          
+          # Replace original file
+          mv "$tmp_file" README.md
+          
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add README.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "docs: remove terraform-docs advisement" && git push)
 
   find-modules:
     needs: check-tofu-support
