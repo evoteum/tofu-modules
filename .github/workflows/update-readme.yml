@@ -21,8 +21,10 @@ jobs:
         run: |
           PR_STATUS=$(curl -s https://api.github.com/repos/terraform-docs/terraform-docs/pulls/833 | jq -r '.merged')
           if [ "$PR_STATUS" = "true" ]; then
+            echo "terraform-docs supports OpenTofu!"
             echo "proceed=true" >> $GITHUB_OUTPUT
           else
+            echo "terraform-docs does not support OpenTofu yet."
             echo "proceed=false" >> $GITHUB_OUTPUT
           fi
 
