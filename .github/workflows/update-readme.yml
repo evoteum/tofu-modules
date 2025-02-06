@@ -13,24 +13,20 @@ on:
 jobs:
   check-tofu-support:
     runs-on: ubuntu-latest
-    outputs:
-      proceed: ${{ steps.check-terraform-docs-pr.outputs.proceed }}
     steps:
       - id: check-terraform-docs-pr
-        # Check if the Terraform-Docs PR https://github.com/terraform-docs/terraform-docs/pull/833 is merged
         run: |
           PR_STATUS=$(curl -s https://api.github.com/repos/terraform-docs/terraform-docs/pulls/833 | jq -r '.merged')
           if [ "$PR_STATUS" = "true" ]; then
             echo "terraform-docs supports OpenTofu!"
-            echo "proceed=true" >> $GITHUB_OUTPUT
+            exit 0
           else
             echo "terraform-docs does not support OpenTofu yet."
-            echo "proceed=false" >> $GITHUB_OUTPUT
+            exit 1
           fi
 
   remove-broken-advisement:
     needs: check-tofu-support
-    if: needs.check-tofu-support.outputs.proceed == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -67,7 +63,6 @@ jobs:
 
   find-modules:
     needs: check-tofu-support
-    if: needs.check-tofu-support.outputs.proceed == 'true'
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.find-modules.outputs.modules }}
