@@ -115,9 +115,10 @@ module "networking" {
 As these are only small modules, we have chosen not to publish them to the Tofu registry, as this would require
 individual repositories for each module.
 
-[//]: # (BEGIN_TERRAFORM_DOCS_ADVISEMENT)
+Modules use [terraform-docs](https://terraform-docs.io/) to generate README.md files.
 
-Modules use [terraform-docs](https://terraform-docs.io/) to generate README.md files. Once
+[//]: # (BEGIN_TERRAFORM_DOCS_ADVISEMENT)
+Once
 [terraform-docs#833](https://github.com/terraform-docs/terraform-docs/pull/833) is merged this will work as expected.
 
 [//]: # (END_TERRAFORM_DOCS_ADVISEMENT)
