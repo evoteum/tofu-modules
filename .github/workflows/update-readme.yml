@@ -14,7 +14,7 @@ jobs:
   check-tofu-support:
     runs-on: ubuntu-latest
     steps:
-      - name: Does terraform-docs support OpenTofu .tofu files yet? Success = yes; fail = no
+      - name: Does terraform-docs support OpenTofu tofu files yet - Success--yes fail--no
         id: check-terraform-docs-pr
         run: |
           PR_STATUS=$(curl -s https://api.github.com/repos/terraform-docs/terraform-docs/pulls/833 | jq -r '.merged')
