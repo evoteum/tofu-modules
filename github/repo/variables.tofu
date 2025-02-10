@@ -51,12 +51,6 @@ variable "has_wiki" {
   default     = false
 }
 
-variable "is_template" {
-  description = "Mark this repository as a template repository"
-  type        = bool
-  default     = false
-}
-
 variable "allow_merge_commit" {
   description = "Allow merge commits"
   type        = bool

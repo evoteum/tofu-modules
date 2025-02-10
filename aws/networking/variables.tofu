@@ -7,7 +7,7 @@ variable "environment" {
   description = "Environment name; must be one of: ${join(", ", module.common.environments)}"
   type        = string
   default     = "production"
-  
+
   validation {
     condition     = contains(module.common.environments, var.environment)
     error_message = "Environment must be one of: ${join(", ", module.common.environments)}"
