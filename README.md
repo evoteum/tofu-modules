@@ -99,8 +99,6 @@ It contains the following modules:
 └── quay
     ├── org
     └── repo
-
-13 directories
 ```
 [//]: # (END_MODULE_TREE)
 
