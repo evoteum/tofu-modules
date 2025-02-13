@@ -28,11 +28,6 @@ output "repo_git_clone_url" {
   value       = github_repository.repo.git_clone_url
 }
 
-output "repo_default_branch" {
-  description = "The default branch of the repository"
-  value       = github_repository.repo.default_branch
-}
-
 output "repo_full_name" {
   description = "The full name of the repository (org/repo-name)"
   value       = github_repository.repo.full_name

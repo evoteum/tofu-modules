@@ -56,7 +56,7 @@ resource "github_repository_file" "readme" {
   lifecycle {
     create_before_destroy = true
     ignore_changes = [
-      all
+      content,
     ]
   }
 }
