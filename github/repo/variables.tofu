@@ -20,11 +20,6 @@ variable "visibility" {
   description = "The visibility of the repository (must be 'public' or 'private')"
   type        = string
   default     = "public"
-
-  validation {
-    condition     = contains(["public", "private", null], var.visibility)
-    error_message = "Invalid value for visibility. Allowed values are 'public' or 'private'."
-  }
 }
 
 variable "has_issues" {
@@ -132,10 +127,5 @@ variable "vulnerability_alerts" {
 variable "topics" {
   description = "A list of topics for the repository (maximum 20)"
   type        = list(string)
-  default     = []
-
-  validation {
-    condition     = length(var.topics) <= 20 || var.topics == null
-    error_message = "The 'topics' list can contain a maximum of 20 values."
-  }
+  default     = null
 }
