@@ -27,7 +27,7 @@ resource "github_repository" "repo" {
   merge_commit_title          = var.merge_commit_title != null? var.merge_commit_title : null
   merge_commit_message        = var.merge_commit_message != null? var.merge_commit_message : null
   delete_branch_on_merge      = var.delete_branch_on_merge != null? var.delete_branch_on_merge : null
-  web_commit_signoff_required = true
+  web_commit_signoff_required = false
   has_downloads               = var.has_downloads != null? var.has_downloads : null
   auto_init                   = false
   gitignore_template          = var.gitignore_template != null? var.gitignore_template : null
