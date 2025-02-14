@@ -43,8 +43,20 @@ resource "github_repository" "repo" {
   }
 }
 
+resource "github_branch" "main" {
+  branch     = "main"
+  repository = github_repository.repo.name
+}
+
+resource "github_branch_default" "main" {
+  branch     = github_branch.main.branch
+  repository = github_branch.main.repository
+}
 
 resource "github_repository_file" "readme" {
+  depends_on = [
+    github_branch_default.main
+  ]
   repository = var.repo_name
   file       = "README.md"
   content = templatefile("${path.module}/README.md.template", {
