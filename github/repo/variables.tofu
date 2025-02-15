@@ -22,6 +22,12 @@ variable "allow_squash_merge" {
   default     = true
 }
 
+variable "archived" {
+  description = "Whether the repository is archived"
+  type        = bool
+  default     = false
+}
+
 variable "delete_branch_on_merge" {
   description = "Automatically delete the branch after merging"
   type        = bool
