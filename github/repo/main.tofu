@@ -13,28 +13,28 @@ resource "github_repository" "repo" {
   description                 = var.repo_description
   homepage_url                = var.homepage_url != null ? var.homepage_url : null
   visibility                  = var.visibility != null ? var.visibility : null
-  has_issues                  = var.has_issues != null? var.has_issues : null
-  has_discussions             = var.has_discussions != null? var.has_discussions : null
-  has_projects                = var.has_projects != null? var.has_projects : null
-  has_wiki                    = var.has_wiki != null? var.has_wiki : null
+  has_issues                  = var.has_issues != null ? var.has_issues : null
+  has_discussions             = var.has_discussions != null ? var.has_discussions : null
+  has_projects                = var.has_projects != null ? var.has_projects : null
+  has_wiki                    = var.has_wiki != null ? var.has_wiki : null
   is_template                 = false
-  allow_merge_commit          = var.allow_merge_commit != null? var.allow_merge_commit : null
-  allow_squash_merge          = var.allow_squash_merge != null? var.allow_squash_merge : null
-  allow_rebase_merge          = var.allow_rebase_merge != null? var.allow_rebase_merge : null
-  allow_auto_merge            = var.allow_auto_merge != null? var.allow_auto_merge : null
-  squash_merge_commit_title   = var.squash_merge_commit_title != null? var.squash_merge_commit_title : null
-  squash_merge_commit_message = var.squash_merge_commit_message != null? var.squash_merge_commit_message : null
-  merge_commit_title          = var.merge_commit_title != null? var.merge_commit_title : null
-  merge_commit_message        = var.merge_commit_message != null? var.merge_commit_message : null
-  delete_branch_on_merge      = var.delete_branch_on_merge != null? var.delete_branch_on_merge : null
+  allow_merge_commit          = var.allow_merge_commit != null ? var.allow_merge_commit : null
+  allow_squash_merge          = var.allow_squash_merge != null ? var.allow_squash_merge : null
+  allow_rebase_merge          = var.allow_rebase_merge != null ? var.allow_rebase_merge : null
+  allow_auto_merge            = var.allow_auto_merge != null ? var.allow_auto_merge : null
+  squash_merge_commit_title   = var.squash_merge_commit_title != null ? var.squash_merge_commit_title : null
+  squash_merge_commit_message = var.squash_merge_commit_message != null ? var.squash_merge_commit_message : null
+  merge_commit_title          = var.merge_commit_title != null ? var.merge_commit_title : null
+  merge_commit_message        = var.merge_commit_message != null ? var.merge_commit_message : null
+  delete_branch_on_merge      = var.delete_branch_on_merge != null ? var.delete_branch_on_merge : null
   web_commit_signoff_required = false
-  has_downloads               = var.has_downloads != null? var.has_downloads : null
+  has_downloads               = var.has_downloads != null ? var.has_downloads : null
   auto_init                   = false
-  gitignore_template          = var.gitignore_template != null? var.gitignore_template : null
-  license_template            = var.license_template != null? var.license_template : null
+  gitignore_template          = var.gitignore_template != null ? var.gitignore_template : null
+  license_template            = var.license_template != null ? var.license_template : null
   archive_on_destroy          = true
-  vulnerability_alerts        = var.vulnerability_alerts != null? var.vulnerability_alerts : null
-  topics                      = var.topics != null? var.topics : null
+  vulnerability_alerts        = var.vulnerability_alerts != null ? var.vulnerability_alerts : null
+  topics                      = var.topics != null ? var.topics : null
 
   lifecycle {
     ignore_changes = [
@@ -44,11 +44,17 @@ resource "github_repository" "repo" {
 }
 
 resource "github_branch" "main" {
-  branch     = "main"
+  depends_on = [
+    github_repository.repo
+  ]
+  branch     = var.trunk_branch_name
   repository = github_repository.repo.name
 }
 
 resource "github_branch_default" "main" {
+  depends_on = [
+    github_branch.main
+  ]
   branch     = github_branch.main.branch
   repository = github_branch.main.repository
 }
