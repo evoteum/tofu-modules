@@ -37,6 +37,7 @@ ${REPO_DESCRIPTION}
 
 
 
+[//]: # (Keep this note to help people understand how to configure this repo.)
 The configuration of this repo is managed by OpenTofu in [${MANAGEMENT_REPO_NAME}](${MANAGEMENT_REPO_URL}).
 
 ## Table of Contents
@@ -58,6 +59,7 @@ The configuration of this repo is managed by OpenTofu in [${MANAGEMENT_REPO_NAME
 [//]: # (## Security)
 [//]: # (OPTIONAL)
 [//]: # (May go here if it is important to highlight security concerns.)
+
 
 
 [//]: # (## Background)
@@ -105,10 +107,6 @@ The configuration of this repo is managed by OpenTofu in [${MANAGEMENT_REPO_NAME
 [//]: # (helped with the development of this project)
 
 
-
-<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<!-- !!!!!   DO NOT EDIT BELOW THIS LINE   !!!!! -->
-<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
 ## Contributing
 [//]: # (REQUIRED)
