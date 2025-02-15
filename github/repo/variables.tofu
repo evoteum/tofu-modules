@@ -82,6 +82,16 @@ variable "license_template" {
   default     = "agpl-3.0"
 }
 
+variable "management_repo_name" {
+  description = "The name of the repository that is managing the created repository"
+  type        = string
+}
+
+variable "management_repo_url" {
+  description = "The URL of the repository that is managing the created repository"
+  type        = string
+}
+
 variable "merge_commit_message" {
   description = "Message format for merge commits"
   type        = string

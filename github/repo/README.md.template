@@ -37,7 +37,7 @@ ${REPO_DESCRIPTION}
 
 
 
-The configuration of this repo is managed by OpenTofu.
+The configuration of this repo is managed by OpenTofu in [${MANAGEMENT_REPO_NAME}](${MANAGEMENT_REPO_URL}).
 
 ## Table of Contents
 

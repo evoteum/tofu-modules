@@ -50,11 +50,6 @@ resource "github_branch" "main" {
   ]
   branch     = var.trunk_branch_name
   repository = github_repository.repo.name
-  lifecycle {
-    ignore_changes = [
-      archived,
-    ]
-  }
 }
 
 resource "github_branch_default" "main" {
@@ -63,11 +58,6 @@ resource "github_branch_default" "main" {
   ]
   branch     = github_branch.main.branch
   repository = github_branch.main.repository
-  lifecycle {
-    ignore_changes = [
-      archived
-    ]
-  }
 }
 
 resource "github_repository_file" "readme" {
@@ -77,8 +67,10 @@ resource "github_repository_file" "readme" {
   repository = var.repo_name
   file       = "README.md"
   content = templatefile("${path.module}/README.md.template", {
-    REPO_NAME        = var.repo_name,
-    REPO_DESCRIPTION = var.repo_description
+    REPO_NAME            = var.repo_name,
+    REPO_DESCRIPTION     = var.repo_description,
+    MANAGEMENT_REPO_NAME = var.management_repo_name,
+    MANAGEMENT_REPO_URL  = var.management_repo_url,
   })
   commit_message = "Initialize README.md"
 
@@ -86,7 +78,6 @@ resource "github_repository_file" "readme" {
     create_before_destroy = true
     ignore_changes = [
       content,
-      archived,
     ]
   }
 }
