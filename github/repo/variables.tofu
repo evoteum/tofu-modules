@@ -151,3 +151,9 @@ variable "vulnerability_alerts" {
   type        = bool
   default     = true
 }
+
+variable "include_tofu" {
+  description = "Include the initial tofu structure in the repository"
+  type = bool
+  default = false
+}

@@ -1,5 +1,5 @@
-module "common" {
-  source = "git@github.com:evoteum/tofu-modules.git//common/vars?ref=main"
+module "common_vars" {
+  source = "github.com:evoteum/tofu-modules.git//common/vars?ref=main"
 }
 
 resource "aws_dynamodb_table" "table" {

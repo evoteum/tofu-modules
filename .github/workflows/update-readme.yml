@@ -11,23 +11,8 @@ on:
       
 
 jobs:
-  check-tofu-support:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Does terraform-docs support OpenTofu .tofu files yet? success=yes fail=no
-        id: check-terraform-docs-pr
-        run: |
-          PR_STATUS=$(curl -s https://api.github.com/repos/terraform-docs/terraform-docs/pulls/833 | jq -r '.merged')
-          if [ "$PR_STATUS" = "true" ]; then
-            echo "terraform-docs supports OpenTofu!"
-            exit 0
-          else
-            echo "terraform-docs does not support OpenTofu yet."
-            exit 1
-          fi
-
   remove-broken-advisement:
-    needs: check-tofu-support
+    if: ${{ vars.TERRAFORM_DOCS_IS_TOFU_COMPATIBLE == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -63,7 +48,7 @@ jobs:
           git diff --quiet && git diff --staged --quiet || (git commit -m "docs: remove terraform-docs advisement" && git push)
 
   find-modules:
-    needs: check-tofu-support
+    if: ${{ vars.TERRAFORM_DOCS_IS_TOFU_COMPATIBLE == 'true' }}
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.find-modules.outputs.modules }}

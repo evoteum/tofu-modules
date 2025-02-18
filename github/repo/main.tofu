@@ -64,7 +64,7 @@ resource "github_repository_file" "readme" {
   depends_on = [
     github_branch_default.main
   ]
-  repository = var.repo_name
+  repository = github_repository.repo.name
   file       = "README.md"
   content = templatefile("${path.module}/README.md.template", {
     REPO_NAME            = var.repo_name,
@@ -72,7 +72,39 @@ resource "github_repository_file" "readme" {
     MANAGEMENT_REPO_NAME = var.management_repo_name,
     MANAGEMENT_REPO_URL  = var.management_repo_url,
   })
-  commit_message = "Initialize README.md"
+  commit_message = "Initial commit"
+
+  lifecycle {
+    create_before_destroy = true
+    ignore_changes = [
+      content,
+    ]
+  }
+}
+
+resource "github_repository_file" "tofu_main" {
+  count = var.include_tofu ? 1 : 0
+  content = templatefile("${path.module}/main.tofu.template", {
+  })
+  file       = "tofu/main.tofu"
+  repository = github_repository.repo.name
+  commit_message = "Initial commit"
+
+  lifecycle {
+    create_before_destroy = true
+    ignore_changes = [
+      content,
+    ]
+  }
+}
+
+resource "github_repository_file" "tofu_apply" {
+  count = var.include_tofu ? 1 : 0
+  content    = templatefile("${path.module}/tofu-apply.yml.template", {
+  })
+  file       = ".github/workflows/tofu-apply.yml"
+  repository = github_repository.repo.name
+  commit_message = "Initial commit"
 
   lifecycle {
     create_before_destroy = true
