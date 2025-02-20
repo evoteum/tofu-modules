@@ -91,8 +91,10 @@ It contains the following modules:
 │   ├── app_runner
 │   ├── cloudfront
 │   ├── dynamodb_table
-│   └── networking
+│   ├── networking
+│   └── s3
 ├── common
+│   ├── bootstrap
 │   └── vars
 ├── github
 │   └── repo
