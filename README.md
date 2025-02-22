@@ -94,7 +94,6 @@ It contains the following modules:
 │   ├── networking
 │   └── s3
 ├── common
-│   ├── bootstrap
 │   └── vars
 ├── github
 │   └── repo
