@@ -81,35 +81,3 @@ resource "github_repository_file" "readme" {
     ]
   }
 }
-
-resource "github_repository_file" "tofu_main" {
-  count = var.include_tofu ? 1 : 0
-  content = templatefile("${path.module}/main.tofu.template", {
-  })
-  file       = "tofu/main.tofu"
-  repository = github_repository.repo.name
-  commit_message = "Initial commit"
-
-  lifecycle {
-    create_before_destroy = true
-    ignore_changes = [
-      content,
-    ]
-  }
-}
-
-resource "github_repository_file" "tofu_apply" {
-  count = var.include_tofu ? 1 : 0
-  content    = templatefile("${path.module}/tofu-apply.yml.template", {
-  })
-  file       = ".github/workflows/tofu-apply.yml"
-  repository = github_repository.repo.name
-  commit_message = "Initial commit"
-
-  lifecycle {
-    create_before_destroy = true
-    ignore_changes = [
-      content,
-    ]
-  }
-}
