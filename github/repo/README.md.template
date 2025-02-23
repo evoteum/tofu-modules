@@ -8,7 +8,7 @@
 [//]: # (Match repository name)
 [//]: # (REQUIRED)
 
-# ${REPO_NAME}
+# ${NAME}
 
 [//]: # (Banner)
 [//]: # (OPTIONAL)
@@ -28,7 +28,7 @@
 [//]: # (Must be less than 120 characters)
 [//]: # (Must match GitHub's description)
 
-${REPO_DESCRIPTION}
+${DESCRIPTION}
 
 [//]: # (Long Description)
 [//]: # (OPTIONAL)
