@@ -117,13 +117,13 @@ variable "merge_commit_title" {
   default     = "MERGE_MESSAGE"
 }
 
-variable "repo_description" {
+variable "description" {
   description = "The description of the repository"
   type        = string
   sensitive   = false
 }
 
-variable "repo_name" {
+variable "name" {
   description = "The name of the repository"
   type        = string
   sensitive   = false

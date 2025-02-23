@@ -9,8 +9,8 @@ terraform {
 
 
 resource "github_repository" "repo" {
-  name                        = var.repo_name
-  description                 = var.repo_description
+  name                        = var.name
+  description                 = var.description
   homepage_url                = var.homepage_url
   visibility                  = var.visibility
   has_issues                  = var.has_issues
