@@ -56,6 +56,7 @@ variable "has_issues" {
   description = "Enable GitHub issues"
   type        = bool
   default     = true
+  nullable    = false
 }
 
 variable "has_projects" {
@@ -154,6 +155,6 @@ variable "vulnerability_alerts" {
 
 variable "include_tofu" {
   description = "Include the initial tofu structure in the repository"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
