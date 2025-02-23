@@ -86,7 +86,6 @@ variable "homepage_url" {
   description = "The optional homepage URL for the repository"
   type        = string
   default     = null
-  nullable    = false
 }
 
 variable "license_template" {
