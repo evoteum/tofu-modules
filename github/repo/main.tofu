@@ -67,8 +67,8 @@ resource "github_repository_file" "readme" {
   repository = github_repository.repo.name
   file       = "README.md"
   content = templatefile("${path.module}/README.md.template", {
-    REPO_NAME            = var.repo_name,
-    REPO_DESCRIPTION     = var.repo_description,
+    NAME            = var.name,
+    DESCRIPTION     = var.description,
     MANAGEMENT_REPO_NAME = var.management_repo_name,
     MANAGEMENT_REPO_URL  = var.management_repo_url,
   })
