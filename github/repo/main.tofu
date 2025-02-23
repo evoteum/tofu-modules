@@ -73,7 +73,7 @@ resource "github_repository_file" "readme" {
     MANAGEMENT_REPO_URL  = var.management_repo_url,
   })
   commit_message = "Initial commit"
-
+  overwrite_on_create = true
   lifecycle {
     create_before_destroy = true
     ignore_changes = [
