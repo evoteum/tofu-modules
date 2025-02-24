@@ -38,6 +38,7 @@ resource "github_repository" "repo" {
   topics                      = var.topics
 
   lifecycle {
+    prevent_destroy = true
     ignore_changes = [
       archived
     ]
@@ -50,6 +51,9 @@ resource "github_branch" "main" {
   ]
   branch     = var.trunk_branch_name
   repository = github_repository.repo.name
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "github_branch_default" "main" {
@@ -58,6 +62,9 @@ resource "github_branch_default" "main" {
   ]
   branch     = github_branch.main.branch
   repository = github_branch.main.repository
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "github_repository_file" "readme" {
@@ -76,6 +83,7 @@ resource "github_repository_file" "readme" {
   overwrite_on_create = true
   lifecycle {
     create_before_destroy = true
+    prevent_destroy = true
     ignore_changes = [
       content,
     ]
