@@ -11,8 +11,4 @@ resource "quay_repository" "repo" {
   namespace      = var.organization
   visibility     = var.visibility
   description    = var.description
-  tags_immutable = true
-  scanning_configuration {
-    enabled = true
-  }
 } 
