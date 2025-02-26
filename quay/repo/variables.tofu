@@ -1,4 +1,4 @@
-variable "repository_name" {
+variable "name" {
   description = "Name of the Quay repository to create"
   type        = string
 }

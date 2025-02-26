@@ -7,8 +7,8 @@ terraform {
 }
 
 resource "quay_repository" "repo" {
-  namespace      = var.organization
   name           = var.name
+  namespace      = var.organization
   visibility     = var.visibility
   description    = var.description
   tags_immutable = true
