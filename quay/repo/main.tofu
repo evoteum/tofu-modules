@@ -6,6 +6,10 @@ terraform {
   }
 }
 
+provider "quay" {
+  url = var.quay_url
+}
+
 resource "quay_repository" "repo" {
   name           = var.name
   namespace      = var.organization
