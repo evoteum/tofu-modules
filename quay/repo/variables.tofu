@@ -22,4 +22,10 @@ variable "description" {
   description = "Description of the repository"
   type        = string
   default     = ""
-} 
+}
+
+variable "quay_url" {
+    description = "URL of the Quay server"
+    type        = string
+    default     = "https://quay.io"
+}
