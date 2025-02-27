@@ -230,3 +230,9 @@ variable "vulnerability_alerts" {
   default     = true
   nullable    = false
 }
+
+variable "quay_url" {
+  type        = string
+  description = "The URL of the Quay server"
+}
+

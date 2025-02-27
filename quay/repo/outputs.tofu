@@ -14,5 +14,5 @@ output "name" {
 
 output "url" {
   description = "The URL of the created repository"
-  value       = "quay.io/repository/${var.organisation}/${local.repo_name}"
+  value       = "${var.quay_url}/repository/${var.organisation}/${local.repo_name}"
 }

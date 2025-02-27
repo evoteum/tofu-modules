@@ -1,5 +1,9 @@
 locals {
-  container_repo_readme = "Containers are published on [quay.io](${module.quay_repository.url})"
+  container_repo      = merge(module.quay_repository)
+  quay_domain_elements = split(var.quay_url, "/")
+  quay_domain = reverse(local.quay_domain_elements)[0]
+  container_readme = "Containers are published on [${local.quay_domain}](${local.container_repo.url})"
+  container_repo_link = var.artifact_type == "container" ? local.container_readme : ""
 }
 
 resource "github_repository" "repo" {
@@ -69,7 +73,7 @@ resource "github_repository_file" "readme" {
   file       = "README.md"
   content = templatefile("${path.module}/templates/README.md.tftpl", {
     NAME                 = var.name,
-    CONTAINER_REPO       = local.container_repo_readme,
+    CONTAINER_REPO_LINK  = local.container_repo_link,
     DESCRIPTION          = var.description,
     MANAGEMENT_REPO_NAME = var.management_repo_name,
     MANAGEMENT_REPO_URL  = var.management_repo_url,
