@@ -10,7 +10,4 @@ module "quay_repository" {
   organisation = var.organisation
   visibility   = var.visibility
   description  = local.quay_description
-  lifecycle {
-    prevent_destroy = true
-  }
 }
