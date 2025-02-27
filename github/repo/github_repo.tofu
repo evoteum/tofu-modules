@@ -1,8 +1,7 @@
 locals {
-  container_repo      = merge(module.quay_repository)
   quay_domain_elements = split(var.quay_url, "/")
   quay_domain = reverse(local.quay_domain_elements)[0]
-  container_readme = "Containers are published on [${local.quay_domain}](${local.container_repo.url})"
+  container_readme = "Containers are published on [${local.quay_domain}](${module.quay_repository["repo"].url})"
   container_repo_link = var.artifact_type == "container" ? local.container_readme : ""
 }
 
