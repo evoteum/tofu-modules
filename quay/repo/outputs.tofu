@@ -1,9 +1,18 @@
+locals {
+  repo = merge(
+    quay_repository.prevent_destroy,
+    quay_repository.allow_destroy,
+  )
+  repo_name = values(local.repo)[0].name
+
+}
+
 output "name" {
   description = "The name of the created repository"
-  value       = quay_repository.repo.name
+  value       = local.repo_name
 }
 
 output "url" {
   description = "The URL of the created repository"
-  value       = "quay.io/${var.organisation}/${quay_repository.repo.name}"
-} 
+  value       = "quay.io/repository/${var.organisation}/${local.repo_name}"
+}
