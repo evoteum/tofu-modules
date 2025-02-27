@@ -14,6 +14,12 @@ variable "organisation" {
   type        = string
 }
 
+variable "prevent_destroy" {
+  description = "Prevent the repo from being destroyed"
+  type        = bool
+  default     = true
+}
+
 variable "quay_url" {
   description = "URL of the Quay server"
   type        = string

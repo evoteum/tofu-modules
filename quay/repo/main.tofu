@@ -13,4 +13,7 @@ resource "quay_repository" "repo" {
   namespace   = var.organisation
   visibility  = var.visibility
   description = var.description
+  lifecycle {
+    prevent_destroy = var.prevent_destroy
+  }
 } 
