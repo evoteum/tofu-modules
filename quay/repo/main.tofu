@@ -7,7 +7,7 @@ terraform {
 }
 
 resource "quay_repository" "prevent_destroy" {
-  for_each    = var.prevent_destroy ? { "protected" = true } : {}
+  for_each    = var.prevent_destroy ? { "repo" = true } : {}
   name        = var.name
   namespace   = var.organisation
   visibility  = var.visibility
@@ -18,7 +18,7 @@ resource "quay_repository" "prevent_destroy" {
 }
 
 resource "quay_repository" "allow_destroy" {
-  for_each    = var.prevent_destroy ? {} : { "unprotected" = true }
+  for_each    = var.prevent_destroy ? {} : { "repo" = true }
   name        = var.name
   namespace   = var.organisation
   visibility  = var.visibility
