@@ -2,7 +2,7 @@ variable "allow_auto_merge" {
   description = "Allow auto-merging of pull requests"
   type        = bool
   default     = false
-    nullable    = false
+  nullable    = false
 
 }
 
@@ -17,7 +17,7 @@ variable "allow_rebase_merge" {
   description = "Allow rebase merging"
   type        = bool
   default     = false
-    nullable    = false
+  nullable    = false
 }
 
 variable "allow_squash_merge" {
@@ -28,14 +28,48 @@ variable "allow_squash_merge" {
 }
 
 variable "archived" {
-  description = "Whether the repository is archived"
+  description = "The repository is archived"
   type        = bool
   default     = false
   nullable    = false
 }
 
+variable "artifact_type" {
+  description = "Artifact that the project needs to produce. Currently supports 'container'."
+  type        = string
+  default     = ""
+  nullable    = false
+}
+
+variable "build_flags" {
+  description = "additional flags needed to build"
+  type        = string
+  default     = ""
+  nullable    = false
+}
+
 variable "delete_branch_on_merge" {
   description = "Automatically delete the branch after merging"
+  type        = bool
+  default     = true
+  nullable    = false
+}
+
+variable "description" {
+  description = "The description of the repository"
+  type        = string
+  sensitive   = false
+}
+
+variable "environments" {
+  description = "list of environments to deploy to"
+  type        = string
+  default     = ""
+  nullable    = false
+}
+
+variable "fail_fast" {
+  description = "If one environment fails to deploy, all deployments should fail"
   type        = bool
   default     = true
   nullable    = false
@@ -51,14 +85,14 @@ variable "has_discussions" {
   description = "Enable GitHub discussions"
   type        = bool
   default     = false
-    nullable    = false
+  nullable    = false
 }
 
 variable "has_downloads" {
   description = "Enable GitHub release downloads"
   type        = bool
   default     = true
-    nullable    = false
+  nullable    = false
 }
 
 variable "has_issues" {
@@ -86,6 +120,27 @@ variable "homepage_url" {
   description = "The optional homepage URL for the repository"
   type        = string
   default     = null
+}
+
+variable "include_tofu" {
+  description = "Include the initial tofu structure in the repository"
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
+variable "language" {
+  description = "source code language"
+  type        = string
+  default     = ""
+  nullable    = false
+}
+
+variable "language_version" {
+  description = "version of the source code language"
+  type        = string
+  default     = ""
+  nullable    = false
 }
 
 variable "license_template" {
@@ -117,16 +172,22 @@ variable "merge_commit_title" {
   default     = "MERGE_MESSAGE"
 }
 
-variable "description" {
-  description = "The description of the repository"
-  type        = string
-  sensitive   = false
-}
-
 variable "name" {
   description = "The name of the repository"
   type        = string
   sensitive   = false
+}
+
+variable "organisation" {
+  description = "Name of the organisation we are deploying to"
+  type        = string
+}
+
+variable "project_path" {
+  description = "path to the source code"
+  type        = string
+  default     = ""
+  nullable    = false
 }
 
 variable "squash_merge_commit_message" {
@@ -167,12 +228,5 @@ variable "vulnerability_alerts" {
   description = "Enable security vulnerability alerts"
   type        = bool
   default     = true
-  nullable    = false
-}
-
-variable "include_tofu" {
-  description = "Include the initial tofu structure in the repository"
-  type        = bool
-  default     = false
   nullable    = false
 }

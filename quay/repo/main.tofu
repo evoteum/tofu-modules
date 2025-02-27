@@ -11,8 +11,8 @@ provider "quay" {
 }
 
 resource "quay_repository" "repo" {
-  name           = var.name
-  namespace      = var.organization
-  visibility     = var.visibility
-  description    = var.description
+  name        = var.name
+  namespace   = var.organisation
+  visibility  = var.visibility
+  description = var.description
 } 

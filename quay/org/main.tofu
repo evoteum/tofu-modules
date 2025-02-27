@@ -7,8 +7,6 @@ terraform {
 }
 
 resource "quay_organization" "org" {
-  name        = var.organization_name
+  name        = var.organisation
   email       = var.email
-  visibility  = var.visibility
-  description = var.description
 }
