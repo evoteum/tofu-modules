@@ -1,3 +1,7 @@
+locals {
+  container_repo_readme = "Containers are published on [quay.io](${module.quay_repository.url})"
+}
+
 resource "github_repository" "repo" {
   name                        = var.name
   description                 = var.description
@@ -63,8 +67,9 @@ resource "github_repository_file" "readme" {
   ]
   repository = github_repository.repo.name
   file       = "README.md"
-  content = templatefile("templates/README.md.tftpl", {
+  content = templatefile("${path.module}/templates/README.md.tftpl", {
     NAME                 = var.name,
+    CONTAINER_REPO       = local.container_repo_readme,
     DESCRIPTION          = var.description,
     MANAGEMENT_REPO_NAME = var.management_repo_name,
     MANAGEMENT_REPO_URL  = var.management_repo_url,
@@ -78,10 +83,4 @@ resource "github_repository_file" "readme" {
       content,
     ]
   }
-}
-
-resource "github_actions_variable" "fail_fast" {
-  repository    = github_repository.repo.name
-  variable_name = "FAIL_FAST"
-  value         = var.fail_fast
 }
