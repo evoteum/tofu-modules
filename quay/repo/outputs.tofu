@@ -16,3 +16,9 @@ output "url" {
   description = "The URL of the created repository"
   value       = "${var.quay_url}/repository/${var.organisation}/${local.repo_name}"
 }
+
+output "path" {
+  description = "The path of the created repository"
+  value       = "${var.quay_domain}/repository/${var.organisation}/${local.repo_name}"
+}
+

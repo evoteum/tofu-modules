@@ -1,7 +1,5 @@
 locals {
-  quay_domain_elements = split(var.quay_url, "/")
-  quay_domain = reverse(local.quay_domain_elements)[0]
-  container_repo_link = var.artifact_type == "container" ? "Containers are published on [${local.quay_domain}](${module.quay_repository["repo"].url})" : ""
+  container_repo_link = local.needs_container ? "Containers are published on [${var.quay_domain}](${module.quay_repository["repo"].url})" : ""
 }
 
 resource "github_repository" "repo" {
@@ -70,11 +68,10 @@ resource "github_repository_file" "readme" {
   repository = github_repository.repo.name
   file       = "README.md"
   content = templatefile("${path.module}/templates/README.md.tftpl", {
-    NAME                 = var.name,
-    CONTAINER_REPO_LINK  = local.container_repo_link,
-    DESCRIPTION          = var.description,
-    MANAGEMENT_REPO_NAME = var.management_repo_name,
-    MANAGEMENT_REPO_URL  = var.management_repo_url,
+    NAME                = var.name,
+    CONTAINER_REPO_LINK = local.container_repo_link,
+    DESCRIPTION         = var.description,
+    CONTROLLER_FOOTER   = local.controller_footer["repo"],
   })
   commit_message      = "Initial commit"
   overwrite_on_create = true
@@ -84,5 +81,20 @@ resource "github_repository_file" "readme" {
     ignore_changes = [
       content,
     ]
+  }
+}
+
+resource "github_repository_file" "container_repo" {
+  for_each = local.needs_container ? { "file" = {} } : {}
+
+  content = templatefile("${path.module}/templates/README.md.tftpl", {
+    CONTAINER_REPO_LINK = local.container_repo_link,
+    CONTROLLER_FOOTER   = local.controller_footer["file"],
+  })
+  file           = "docs/container_repo.md"
+  repository     = github_repository.repo.name
+  commit_message = "Update link to container repo"
+  lifecycle {
+    prevent_destroy = true
   }
 }

@@ -4,7 +4,7 @@ locals {
 
 module "quay_repository" {
   source   = "github.com/evoteum/tofu-modules.git//quay/repo"
-  for_each = var.artifact_type == "container" ? { "repo" = {} } : {}
+  for_each = local.needs_container ? { "repo" = {} } : {}
 
   name         = var.name
   organisation = var.organisation
