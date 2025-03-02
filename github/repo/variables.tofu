@@ -233,6 +233,10 @@ variable "vulnerability_alerts" {
 
 variable "quay_url" {
   type        = string
-  description = "The URL of the Quay server"
+  description = "The HTML URL of the Quay server"
 }
 
+variable "quay_domain" {
+  type = string
+  description = "The quay url used "
+}

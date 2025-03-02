@@ -26,6 +26,12 @@ variable "quay_url" {
   default     = "https://quay.io"
 }
 
+variable "quay_domain" {
+  description = "domain of the Quay server"
+  type        = string
+  default     = "quay.io"
+}
+
 variable "visibility" {
   description = "Repository visibility (public or private)"
   type        = string
