@@ -122,27 +122,6 @@ variable "homepage_url" {
   default     = null
 }
 
-variable "include_tofu" {
-  description = "Include the initial tofu structure in the repository"
-  type        = bool
-  default     = false
-  nullable    = false
-}
-
-variable "language" {
-  description = "source code language"
-  type        = string
-  default     = ""
-  nullable    = false
-}
-
-variable "language_version" {
-  description = "version of the source code language"
-  type        = string
-  default     = ""
-  nullable    = false
-}
-
 variable "license_template" {
   description = "License template to use"
   type        = string
@@ -181,13 +160,6 @@ variable "name" {
 variable "organisation" {
   description = "Name of the organisation we are deploying to"
   type        = string
-}
-
-variable "project_path" {
-  description = "path to the source code"
-  type        = string
-  default     = ""
-  nullable    = false
 }
 
 variable "squash_merge_commit_message" {
@@ -229,14 +201,4 @@ variable "vulnerability_alerts" {
   type        = bool
   default     = true
   nullable    = false
-}
-
-variable "quay_url" {
-  type        = string
-  description = "The HTML URL of the Quay server"
-}
-
-variable "quay_domain" {
-  type        = string
-  description = "The quay url used "
 }

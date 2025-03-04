@@ -37,9 +37,6 @@ ${DESCRIPTION}
 
 
 
-${CONTAINER_REPO_LINK}
-
-
 ## Table of Contents
 
 [//]: # (REQUIRED)
