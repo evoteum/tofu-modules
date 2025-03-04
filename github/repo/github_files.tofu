@@ -1,3 +1,7 @@
+locals {
+  controller_repo_link = "This repo publishes containers at [${var.management_repo_name}](${var.management_repo_url})."
+}
+
 resource "github_repository_file" "readme" {
   depends_on = [
     github_branch_default.main
