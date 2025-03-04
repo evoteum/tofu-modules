@@ -8,8 +8,8 @@ output "name" {
   value       = github_repository.repo.name
 }
 
-output "url" {
-  description = "The web URL of the GitHub repository"
+output "html_url" {
+  description = "The HTML URL of the GitHub repository"
   value       = github_repository.repo.html_url
 }
 
