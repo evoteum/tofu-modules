@@ -34,20 +34,6 @@ variable "archived" {
   nullable    = false
 }
 
-variable "artifact_type" {
-  description = "Artifact that the project needs to produce. Currently supports 'container'."
-  type        = string
-  default     = ""
-  nullable    = false
-}
-
-variable "build_flags" {
-  description = "additional flags needed to build"
-  type        = string
-  default     = ""
-  nullable    = false
-}
-
 variable "delete_branch_on_merge" {
   description = "Automatically delete the branch after merging"
   type        = bool
@@ -59,20 +45,6 @@ variable "description" {
   description = "The description of the repository"
   type        = string
   sensitive   = false
-}
-
-variable "environments" {
-  description = "list of environments to deploy to"
-  type        = string
-  default     = ""
-  nullable    = false
-}
-
-variable "fail_fast" {
-  description = "If one environment fails to deploy, all deployments should fail"
-  type        = bool
-  default     = true
-  nullable    = false
 }
 
 variable "gitignore_template" {
