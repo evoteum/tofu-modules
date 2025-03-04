@@ -122,4 +122,7 @@ All our code is licenced under the AGPL-3.0. See [LICENSE](LICENSE) for more inf
 
 ---
 
-${CONTROLLER_FOOTER}
+> [!WARNING]  
+> This repo is controlled by OpenTofu in the ${CONTROLLER_REPO_LINK} repository.  
+>  
+> Manual changes will be overwritten the next time OpenTofu runs.

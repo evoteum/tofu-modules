@@ -237,6 +237,6 @@ variable "quay_url" {
 }
 
 variable "quay_domain" {
-  type = string
+  type        = string
   description = "The quay url used "
 }

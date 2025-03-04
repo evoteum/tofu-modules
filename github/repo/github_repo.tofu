@@ -1,7 +1,3 @@
-locals {
-  container_repo_link = local.needs_container ? "Containers are published on [${var.quay_domain}](${module.quay_repository["repo"].url})" : ""
-}
-
 resource "github_repository" "repo" {
   name                        = var.name
   description                 = var.description
@@ -56,44 +52,6 @@ resource "github_branch_default" "main" {
   ]
   branch     = github_branch.main.branch
   repository = github_branch.main.repository
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
-resource "github_repository_file" "readme" {
-  depends_on = [
-    github_branch_default.main
-  ]
-  repository = github_repository.repo.name
-  file       = "README.md"
-  content = templatefile("${path.module}/templates/README.md.tftpl", {
-    NAME                = var.name,
-    CONTAINER_REPO_LINK = local.container_repo_link,
-    DESCRIPTION         = var.description,
-    CONTROLLER_FOOTER   = local.controller_footer["repo"],
-  })
-  commit_message      = "Initial commit"
-  overwrite_on_create = true
-  lifecycle {
-    create_before_destroy = true
-    prevent_destroy       = true
-    ignore_changes = [
-      content,
-    ]
-  }
-}
-
-resource "github_repository_file" "container_repo" {
-  for_each = local.needs_container ? { "file" = {} } : {}
-
-  content = templatefile("${path.module}/templates/README.md.tftpl", {
-    CONTAINER_REPO_LINK = local.container_repo_link,
-    CONTROLLER_FOOTER   = local.controller_footer["file"],
-  })
-  file           = "docs/container_repo.md"
-  repository     = github_repository.repo.name
-  commit_message = "Update link to container repo"
   lifecycle {
     prevent_destroy = true
   }

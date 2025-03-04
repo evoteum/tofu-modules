@@ -1,0 +1,16 @@
+name: lint-containerfile
+
+on:
+  push:
+    paths:
+      - "**/Containerfile"
+
+permissions:
+  id-token: write
+  contents: write
+  actions: write
+
+jobs:
+  linting-containerfile:
+    uses: evoteum/estate-reusable-workflows/.github/workflows/lint-containerfile.yml@main
+    secrets: inherit
