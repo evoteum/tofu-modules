@@ -1,6 +1,6 @@
 locals {
-  repo_secret = local.is_repo_scope && var.sensitive ? { var.name = { repository = var.scope, value = var.value } } : {}
-  org_secret  = local.is_org_scope && var.sensitive ? { var.name = var.value } : {}
+  repo_secret = local.is_repo_scope && var.sensitive ? { var.name : { repository = var.scope, value = var.value } } : {}
+  org_secret  = local.is_org_scope && var.sensitive ? { var.name : var.value } : {}
 }
 
 resource "github_actions_secret" "repo_secret" {
