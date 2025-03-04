@@ -99,7 +99,10 @@ It contains the following modules:
 ├── common
 │   └── vars
 ├── github
-│   └── repo
+│   ├── documentation
+│   ├── repo
+│   ├── variable
+│   └── workflows
 └── quay
     ├── org
     └── repo
