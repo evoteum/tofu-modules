@@ -12,9 +12,9 @@ resource "quay_repository" "prevent_destroy" {
   namespace   = var.organisation
   visibility  = var.visibility
   description = var.description
-#   lifecycle {
-#     prevent_destroy = true
-#   }
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "quay_repository" "allow_destroy" {
