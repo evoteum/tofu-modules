@@ -6,13 +6,13 @@ locals {
 resource "github_actions_secret" "repo_secret" {
   for_each        = local.repo_secret
   repository      = var.scope
-  secret_name     = var.name
+  secret_name     = local.name
   plaintext_value = var.value
 }
 
 resource "github_actions_organization_secret" "org_secret" {
   for_each        = local.org_secret
-  secret_name     = var.name
+  secret_name     = local.name
   plaintext_value = var.value
   visibility      = "all"
 }

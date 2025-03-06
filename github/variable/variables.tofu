@@ -15,7 +15,7 @@ variable "scope" {
 }
 
 variable "name" {
-  description = "The name of the variable"
+  description = "The name of the variable. Will be capitalised."
   type        = string
 }
 
