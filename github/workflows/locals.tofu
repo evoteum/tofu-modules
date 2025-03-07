@@ -7,7 +7,7 @@ locals {
 
   workflow_inputs = { for key, workflow in local.workflows_with_inputs :
     key => { for input_name in keys(workflow.required_inputs) :
-      input_name => var[input_name] if can(var[input_name])
+      input_name => lookup(var, input_name, null) if contains(keys(var), input_name)
     }
   }
 

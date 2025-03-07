@@ -8,7 +8,7 @@ resource "github_repository_file" "generated_callers" {
   content = templatefile("${path.module}/templates/generic-caller.yml", {
     CONTROLLER_REPO_NAME = var.controller_repo_name
     INPUTS               = join("\n", [for key, value in local.workflow_inputs[each.key] : "      ${key}: \"${value}\""])
-    SOURCE_PATH          = var.source_path
+    SOURCE_PATH          = strcontains(each.key, "tofu") ? "tofu" : var.source_path
     WORKFLOW_NAME        = each.key
   })
 
