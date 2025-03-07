@@ -1,5 +1,5 @@
 resource "github_repository_file" "generated_callers" {
-  for_each = local.workflows_with_inputs
+  for_each   = local.workflows_with_inputs
   depends_on = [data.github_repository_file.workflow_definitions]
 
   repository = var.repo_name
