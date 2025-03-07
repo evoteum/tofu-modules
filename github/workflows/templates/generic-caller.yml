@@ -1,0 +1,17 @@
+###################################################################################
+# ⚠️ This file is controlled by OpenTofu in the ${CONTROLLER_REPO_NAME} repository.
+#    Manual changes will be overwritten the next time OpenTofu runs.
+###################################################################################
+
+name: ${WORKFLOW_NAME}
+
+on:
+  push:
+    paths:
+      - "${SOURCE_PATH}/**"
+
+jobs:
+  call-workflow:
+    uses: evoteum/estate-reusable-workflows/.github/workflows/${WORKFLOW_NAME}.yml@main
+    with:
+      ${INPUTS}
