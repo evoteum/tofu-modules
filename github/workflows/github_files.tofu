@@ -1,5 +1,5 @@
 resource "github_repository_file" "generated_callers" {
-  for_each   = local.workflows_with_inputs
+  for_each   = local.enabled_workflows
   depends_on = [data.github_repository_file.workflow_definitions]
 
   repository = var.repository
@@ -7,8 +7,7 @@ resource "github_repository_file" "generated_callers" {
 
   content = templatefile("${path.module}/templates/generic-caller.yml", {
     CONTROLLER_REPO_NAME = var.controller_repo_name
-    INPUTS               = join("\n", [for key, value in local.workflow_inputs[each.key] : "      ${key}: \"${value}\""])
-    SOURCE_PATH          = strcontains(each.key, "tofu") ? "tofu" : var.source_path
+    SOURCE_PATH          = strcontains(each.key, "tofu") ? "tofu" : lookup(var.repository_configuration[condition_key], "source_path", "*")
     WORKFLOW_NAME        = each.key
   })
 

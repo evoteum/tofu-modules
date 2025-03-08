@@ -1,74 +1,14 @@
-variable "artifact_type" {
-  description = "The type of artifact that the project needs to output"
-  type        = string
-  default     = null
-}
-
 variable "controller_repo_name" {
-  description = "The name of the repository that controls the target repository"
   type        = string
-  default     = "estate-repos"
-  nullable    = false
-
-}
-
-variable "language" {
-  description = "The language that the source code is written in"
-  type        = string
-  default     = null
-}
-
-variable "language_version" {
-  description = "The version of the language that the source code is written in"
-  type        = string
-  default     = null
-}
-
-variable "linters" {
-  description = "Which linters should be included?"
-  type        = list(string)
-  default     = null
-}
-
-variable "needs_tofu" {
-  description = "Has OpenTofu code at tofu/[environment]"
-  type        = bool
-  default     = false
-  nullable    = false
+  description = "The name of the controller repository"
 }
 
 variable "repository" {
-  description = "Name of the target GitHub repository"
   type        = string
-  nullable    = false
+  description = "Name of the repository to configure workflows for"
 }
 
-variable "reusable_workflows_repository" {
-  description = "Name of the repository used to store reusable workflows"
-  type        = string
-  default     = "estate-reusable-workflows"
-  nullable    = false
-
-}
-
-variable "source_path" {
-  description = "The repository path to the source code"
-  type        = string
-  default     = ""
-}
-
-variable "todo_issue_disabled" {
-  description = "TODO to Issue is disabled"
-  type        = bool
-  default     = false
-  nullable    = false
-
-}
-
-variable "workflow_definitions" {
-  description = "The name of the file in the root of the reusable workflows repository that defines the conditions for the workflows"
-  type        = string
-  default     = "workflows.yml"
-  nullable    = false
-
+variable "repository_configuration" {
+  type        = map(any)
+  description = "Configuration map for the target repository"
 }
