@@ -12,7 +12,7 @@ locals {
         condition = condition_key
         required = required_value
         provided = try(var.repository_configuration[condition_key], null)
-        matches  = try(var.repository_configuration[condition_key], null) == required_value || try(var.repository_configuration[condition_key], null) == tobool(required_value)
+        matches  = try(var.repository_configuration[condition_key], null) == required_value || try(var.repository_configuration[condition_key], null) == try(tobool(required_value))
       }
     ]
   }
