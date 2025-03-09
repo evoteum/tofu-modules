@@ -12,7 +12,9 @@ locals {
         condition = condition_key
         required = required_value
         provided = try(var.repository_configuration[condition_key], null)
-        matches  = try(var.repository_configuration[condition_key], null) == required_value || try(var.repository_configuration[condition_key], null) == try(tobool(required_value))
+        matches = can(tobool(try(var.repository_configuration[condition_key], null))) ?
+          tobool(var.repository_configuration[condition_key]) == tobool(required_value) :
+          try(var.repository_configuration[condition_key], null) == required_value
       }
     ]
   }
@@ -21,7 +23,9 @@ locals {
     workflow => true
     if length(condition) > 0 && anytrue([
       for condition_key, required_value in condition :
-      try(var.repository_configuration[condition_key], null) == required_value
+      can(tobool(try(var.repository_configuration[condition_key], null))) ?
+        tobool(var.repository_configuration[condition_key]) == tobool(required_value) :
+        try(var.repository_configuration[condition_key], null) == required_value
     ])
   }
 }
