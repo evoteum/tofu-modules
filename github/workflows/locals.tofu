@@ -6,5 +6,9 @@ locals {
       for condition_key, required_value in workflow :
       try(var.repository_configuration[condition_key], null) == required_value
     ]) : false
+    if length(workflow) > 0 ? alltrue([
+      for condition_key, required_value in workflow :
+      try(var.repository_configuration[condition_key], null) == required_value
+    ]) : false
   }
 }
