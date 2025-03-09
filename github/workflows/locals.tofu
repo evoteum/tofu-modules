@@ -21,7 +21,10 @@ locals {
     workflow => true
     if length(condition) > 0 && anytrue([
       for condition_key, required_value in condition :
-      try(var.repository_configuration[condition_key], null) == required_value
+      try(
+        tobool(var.repository_configuration[condition_key]) == tobool(required_value),
+        var.repository_configuration[condition_key] == required_value
+      )
     ])
   }
 }
