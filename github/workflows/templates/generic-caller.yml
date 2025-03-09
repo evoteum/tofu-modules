@@ -17,5 +17,5 @@ permissions:
 
 jobs:
   call-workflow:
-    uses: evoteum/estate-reusable-workflows/.github/workflows/${WORKFLOW_NAME}.yml@main
+    uses: evoteum/${REUSABLE_WORKFLOWS_REPOSITORY}/.github/workflows/${WORKFLOW_NAME}.yml@main
     
