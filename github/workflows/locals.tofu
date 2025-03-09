@@ -12,9 +12,11 @@ locals {
         condition = condition_key
         required = required_value
         provided = try(var.repository_configuration[condition_key], null)
-        matches = can(tobool(try(var.repository_configuration[condition_key], null))) ?
-          tobool(var.repository_configuration[condition_key]) == tobool(required_value) :
-          try(var.repository_configuration[condition_key], null) == required_value
+        matches = (
+          can(tobool(try(var.repository_configuration[condition_key], null))) ?
+            tobool(var.repository_configuration[condition_key]) == tobool(required_value) :
+            try(var.repository_configuration[condition_key], null) == required_value
+        )
       }
     ]
   }
