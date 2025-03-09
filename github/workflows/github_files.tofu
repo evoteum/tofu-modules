@@ -8,7 +8,7 @@ resource "github_repository_file" "generated_callers" {
   content = templatefile("${path.module}/templates/generic-caller.yml", {
     CONTROLLER_REPO_NAME          = var.controller_repo_name
     REUSABLE_WORKFLOWS_REPOSITORY = var.reusable_workflows_repository
-    SOURCE_PATH                   = startswith(each.key, "tofu-") ? "tofu" : lookup(var.repository_configuration[condition_key], "source_path", "*")
+    SOURCE_PATH                   = startswith(each.key, "tofu-") ? "tofu" : lookup(var.repository_configuration, "source_path", "*")
     WORKFLOW_NAME                 = each.key
   })
 
