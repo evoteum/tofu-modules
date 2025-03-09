@@ -1,4 +1,4 @@
-resource "github_repository_file" "generated_callers" {
+resource "github_repository_file" "caller_workflow" {
   for_each   = local.enabled_workflows
   depends_on = [data.github_repository_file.workflow_definitions]
 
