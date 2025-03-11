@@ -23,3 +23,9 @@ variable "workflow_definitions" {
   description = "The name of the file that defines workflow conditions"
   default     = "workflows.yml"
 }
+
+variable "organisation" {
+  type        = string
+  description = "The name of the organisation"
+  default     = "evoteum"
+}

@@ -1,0 +1,47 @@
+###################################################################################
+# ⚠️ This file is controlled by OpenTofu in the {{ controller_repo_name }} repository.
+#    Manual changes will be overwritten the next time OpenTofu runs.
+###################################################################################
+
+name: {{ workflow_name }}
+
+on:
+  push:
+    {% if 'source_path' in repository_configuration or 'trigger_files' in repository_configuration %}
+    paths:
+      {% if 'source_path' in repository_configuration %}
+      - "{{ source_path }}/**"
+      {% endif %}
+      {% if 'trigger_files' in repository_configuration %}
+      {% for file in repository_configuration.trigger_files %}
+      - "{{ file }}"
+      {% endfor %}
+      {% endif %}
+    {% endif %}
+  {% if (workflow_name.startswith('tofu-') and repository_configuration.tofu_build_schedule) or
+        (not workflow_name.startswith('tofu-') and repository_configuration.app_build_schedule) %}
+  schedule:
+    - cron: '{{ repository_configuration.tofu_build_schedule if workflow_name.startswith('tofu-') else repository_configuration.app_build_schedule }}'  # {{ cron_schedules[repository_configuration.tofu_build_schedule if workflow_name.startswith('tofu-') else repository_configuration.app_build_schedule] | default('Custom schedule') }}
+  {% endif %}
+
+{% if workflow_permissions %}
+permissions:
+  {% for permission, access in workflow_permissions.items() %}
+  {{ permission }}: {{ access }}
+  {% endfor %}
+{% endif %}
+
+jobs:
+  call-{{ workflow_name }}:
+    uses: {{ organisation }}/{{ reusable_workflows_repository }}/.github/workflows/{{ workflow_name }}.yml@main
+    {% if workflow_inputs %}
+    with:
+      {% for name, config in workflow_inputs.items() %}
+      {% if name in repository_configuration %}
+      {{ name }}: {{ repository_configuration[name] }}
+      {% elif not config.default %}
+      {{ name }}: # Set this value in the {{ controller_repo_name }} repository configuration
+      {% endif %}
+      {% endfor %}
+    {% endif %}
+    
