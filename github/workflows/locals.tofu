@@ -10,15 +10,23 @@ locals {
     null
   )
 
-  effective_repository_configuration = merge(
+  # Base configuration with environment_directories if needed
+  base_effective_configuration = merge(
     var.repository_configuration,
     local.environment_directories != null && can(local.workflow_inputs["tofu-apply-all-environments"].environment_directories) ? {
       "environment_directories" = local.environment_directories
-    } : {},
-    startswith(workflow_name, "tofu-") ? {
-      "source_path" = "tofu"
     } : {}
   )
+
+  # Create per-workflow configurations
+  effective_repository_configuration = { for workflow_name, _ in local.workflows :
+    workflow_name => merge(
+      local.base_effective_configuration,
+      startswith(workflow_name, "tofu-") ? {
+        "source_path" = "tofu"
+      } : {}
+    )
+  }
 
   workflow_inputs = { for workflow, content in local.source_workflows :
     workflow => try(content.on.workflow_call.inputs, {})
@@ -37,5 +45,4 @@ locals {
       try(var.repository_configuration[condition_key], null) == required_value
     ])
   }
-
 }
