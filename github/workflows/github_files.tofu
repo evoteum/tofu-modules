@@ -15,7 +15,7 @@ locals {
     ) != null
   }
   workflow_cron_description = { for name, cron in local.workflow_cron_expression :
-    name => lookup(var.cron_schedules, cron, "Custom schedule")
+    name => lookup(local.cron_schedules, cron, "Custom schedule")
   }
 }
 
