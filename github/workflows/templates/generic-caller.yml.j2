@@ -6,8 +6,8 @@
 name: {{ workflow_name }}
 
 on:
+{% if repository_configuration.source_path or repository_configuration.trigger_files %}
   push:
-    {% if repository_configuration.source_path or repository_configuration.trigger_files %}
     paths:
       {% if repository_configuration.source_path %}
       - "{{ source_path }}/**"
@@ -17,7 +17,7 @@ on:
       - "{{ file }}"
       {% endfor %}
       {% endif %}
-    {% endif %}
+{% endif %}
 
   {% if cron_expression %}
   schedule:

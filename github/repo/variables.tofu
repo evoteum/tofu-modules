@@ -102,11 +102,13 @@ variable "license_template" {
 }
 
 variable "management_repo_name" {
+  # should be controller_repo_name
   description = "The name of the repository that is managing the created repository"
   type        = string
 }
 
 variable "management_repo_url" {
+  # should be controller_repo_url
   description = "The URL of the repository that is managing the created repository"
   type        = string
 }
