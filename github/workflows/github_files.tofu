@@ -27,7 +27,7 @@ resource "github_repository_file" "caller_workflow" {
 
   repository = var.repository
   file       = ".github/workflows/${each.key}.yml"
-  content    = jinja_template.workflow[each.key].result
+  content    = data.jinja_template.workflow[each.key].result
 
   commit_message      = "Update content"
   overwrite_on_create = true
