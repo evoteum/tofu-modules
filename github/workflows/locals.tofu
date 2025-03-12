@@ -3,27 +3,21 @@ locals {
   source_workflows = { for workflow in keys(local.workflows) :
     workflow => data.github_repository_file.workflows[workflow].content
   }
-
+  
   environment_directories = try(
-    tostring(var.repository_configuration.environments),
-    join(",", var.repository_configuration.environments),
+    join(",", var.repository_configuration.environment_directories),
+    var.repository_configuration.environment_directories,
     null
   )
 
-  # Base configuration with environment_directories if needed
-  base_effective_configuration = merge(
-    var.repository_configuration,
-    local.environment_directories != null && can(local.workflow_inputs["tofu-apply-all-environments"].environment_directories) ? {
-      "environment_directories" = local.environment_directories
-    } : {}
-  )
-
-  # Create per-workflow configurations
   effective_repository_configuration = { for workflow_name, _ in local.workflows :
     workflow_name => merge(
-      local.base_effective_configuration,
+      var.repository_configuration,
       startswith(workflow_name, "tofu-") ? {
         "source_path" = "tofu"
+      } : {},
+      local.environment_directories != null ? {
+        "environment_directories" = local.environment_directories
       } : {}
     )
   }
