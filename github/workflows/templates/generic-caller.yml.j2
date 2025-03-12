@@ -37,8 +37,8 @@ jobs:
     {% if workflow_inputs %}
     with:
       {% for name, config in workflow_inputs.items() %}
-      {% if name in repository_configuration %}
-      {{ name }}: {{ repository_configuration[name] }}
+      {% if name in effective_repository_configuration %}
+      {{ name }}: {{ effective_repository_configuration[name] }}
       {% elif not config.default %}
       {{ name }}: # Set this value in the {{ controller_repo_name }} repository configuration
       {% endif %}
