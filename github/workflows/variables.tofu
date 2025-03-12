@@ -18,7 +18,7 @@ variable "reusable_workflows_repository" {
   description = "The name of the repository where reusable workflows are stored"
 }
 
-variable "workflow_definitions" {
+variable "workflow_conditions" {
   type        = string
   description = "The name of the file that defines workflow conditions"
   default     = "workflows.yml"

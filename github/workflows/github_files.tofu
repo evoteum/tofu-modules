@@ -23,7 +23,7 @@ data "jinja_template" "workflow" {
 
 resource "github_repository_file" "caller_workflow" {
   for_each   = local.enabled_workflows
-  depends_on = [data.github_repository_file.workflow_definitions]
+  depends_on = [data.github_repository_file.workflow_conditions]
 
   repository = var.repository
   file       = ".github/workflows/${each.key}.yml"

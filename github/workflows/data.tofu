@@ -1,14 +1,14 @@
-data "github_repository" "workflows" {
+data "github_repository" "reusable_workflows" {
   name = var.reusable_workflows_repository
 }
 
-data "github_repository_file" "workflow_definitions" {
-  repository = data.github_repository.workflows.name
-  file       = var.workflow_definitions
+data "github_repository_file" "workflow_conditions" {
+  repository = data.github_repository.reusable_workflows.name
+  file       = var.workflow_conditions
 }
 
 data "github_repository_file" "workflows" {
-  for_each   = yamldecode(data.github_repository_file.workflow_definitions.content)
-  repository = data.github_repository.workflows.name
+  for_each   = yamldecode(data.github_repository_file.workflow_conditions.content)
+  repository = data.github_repository.reusable_workflows.name
   file       = ".github/workflows/${each.key}.yml"
 }
