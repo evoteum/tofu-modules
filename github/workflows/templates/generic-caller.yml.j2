@@ -6,6 +6,7 @@
 name: {{ workflow_name }}
 
 on:
+  workflow_dispatch:
 {% if repository_configuration.source_path or repository_configuration.trigger_files %}
   push:
     paths:
