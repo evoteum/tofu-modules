@@ -1,12 +1,11 @@
 locals {
   workflows = yamldecode(data.github_repository_file.workflow_definitions.content)
-  source_workflows = data.github_repository_file.workflows.content
 
-  workflow_inputs = { for workflow, content in local.source_workflows :
+  workflow_inputs = { for workflow, content in data.github_repository_file.workflows.content :
     workflow => try(content.on.workflow_call.inputs, {})
   }
 
-  workflow_permissions = { for workflow, content in local.source_workflows :
+  workflow_permissions = { for workflow, content in data.github_repository_file.workflows.content :
     workflow => try(content.permissions, {})
   }
 
