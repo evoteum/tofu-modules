@@ -7,21 +7,21 @@ name: {{ workflow_name }}
 
 on:
   push:
-    {% if 'source_path' in repository_configuration or 'trigger_files' in repository_configuration %}
+    {% if repository_configuration.source_path or repository_configuration.trigger_files %}
     paths:
-      {% if 'source_path' in repository_configuration %}
+      {% if repository_configuration.source_path %}
       - "{{ source_path }}/**"
       {% endif %}
-      {% if 'trigger_files' in repository_configuration %}
+      {% if repository_configuration.trigger_files %}
       {% for file in repository_configuration.trigger_files %}
       - "{{ file }}"
       {% endfor %}
       {% endif %}
     {% endif %}
-  {% if (workflow_name.startswith('tofu-') and repository_configuration.tofu_build_schedule) or
-        (not workflow_name.startswith('tofu-') and repository_configuration.app_build_schedule) %}
+
+  {% if cron_expression %}
   schedule:
-    - cron: '{{ repository_configuration.tofu_build_schedule if workflow_name.startswith('tofu-') else repository_configuration.app_build_schedule }}'  # {{ cron_schedules[repository_configuration.tofu_build_schedule if workflow_name.startswith('tofu-') else repository_configuration.app_build_schedule] | default('Custom schedule') }}
+    - cron: "{{ cron_expression }}"  # {{ cron_description }}
   {% endif %}
 
 {% if workflow_permissions %}
@@ -33,7 +33,7 @@ permissions:
 
 jobs:
   call-{{ workflow_name }}:
-    uses: {{ organisation }}/{{ reusable_workflows_repository }}/.github/workflows/{{ workflow_name }}.yml@main
+    uses: {{ organisation }}/{{ reusable_workflows_repo }}/.github/workflows/{{ workflow_name }}.yml@main
     {% if workflow_inputs %}
     with:
       {% for name, config in workflow_inputs.items() %}
@@ -44,4 +44,3 @@ jobs:
       {% endif %}
       {% endfor %}
     {% endif %}
-    

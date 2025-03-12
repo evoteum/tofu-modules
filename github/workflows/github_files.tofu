@@ -1,23 +1,45 @@
+locals {
+  is_tofu_workflow = { for name in keys(local.workflows) :
+    name => can(regex("^tofu-", name))
+  }
+  workflow_cron_expression = { for name, condition in local.workflows :
+    name => lookup(
+      var.repository_configuration,
+      local.is_tofu_workflow[name] ? "tofu_build_schedule" : "app_build_schedule",
+      null
+    )
+    if lookup(
+      var.repository_configuration,
+      local.is_tofu_workflow[name] ? "tofu_build_schedule" : "app_build_schedule",
+      null
+    ) != null
+  }
+  workflow_cron_description = { for name, cron in local.workflow_cron_expression :
+    name => lookup(var.cron_schedules, cron, "Custom schedule")
+  }
+}
+
 data "jinja_template" "workflow" {
   for_each = local.enabled_workflows
 
   context {
-    type = "yaml"
-    data = yamlencode({
-      workflow_name                 = each.key
-      reusable_workflows_repository = var.reusable_workflows_repository
-      source_path                   = startswith(each.key, "tofu-") ? "tofu" : lookup(var.repository_configuration, "source_path", "*")
-      workflow_inputs               = local.workflow_inputs[each.key]
-      workflow_permissions          = local.workflow_permissions[each.key]
-      repository_configuration      = var.repository_configuration
-      cron_schedules                = local.cron_schedules
-      owner                         = var.organisation
+    type = "json"
+    data = jsonencode({
+      workflow_name            = each.key
+      reusable_workflows_repo  = var.reusable_workflows_repository
+      source_path              = lookup(var.repository_configuration, "source_path", "*")
+      workflow_inputs          = local.workflow_inputs[each.key]
+      workflow_permissions     = local.workflow_permissions[each.key]
+      repository_configuration = var.repository_configuration
+      cron_expression          = lookup(local.workflow_cron_expression, each.key, null) # Raw cron
+      cron_description         = lookup(local.workflow_cron_description, each.key, "Custom schedule") # Human-readable explanation
+      organisation             = var.organisation
     })
   }
 
   source {
     template  = file("${path.module}/templates/generic-caller.yml.j2")
-    directory = "${path.module}/templates"
+    directory = path.module
   }
 }
 
