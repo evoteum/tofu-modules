@@ -1,6 +1,8 @@
 locals {
   source_workflows = data.github_repository_file.workflows
 
+  workflow_conditions = yamldecode(data.github_repository_file.workflow_conditions.content)
+
   environments = try(
     join(",", var.repository_configuration.environment_directories),
     var.repository_configuration.environment_directories,
@@ -27,7 +29,7 @@ locals {
     workflow => try(content.permissions, {})
   }
 
-  enabled_workflows = { for workflow, condition in data.github_repository_file.workflow_conditions.content :
+  enabled_workflows = { for workflow, condition in local.workflow_conditions :
     workflow => true
     if length(condition) > 0 && alltrue([
       for condition_key, required_value in condition :
