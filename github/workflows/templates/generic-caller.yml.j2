@@ -7,41 +7,41 @@ name: {{ workflow_name }}
 
 on:
   workflow_dispatch:
-{% if repository_configuration.source_path or repository_configuration.trigger_files %}
+{%- if repository_configuration.source_path or repository_configuration.trigger_files %}
   push:
     paths:
-      {% if repository_configuration.source_path %}
+      {%- if repository_configuration.source_path %}
       - "{{ source_path }}/**"
-      {% endif %}
-      {% if repository_configuration.trigger_files %}
-      {% for file in repository_configuration.trigger_files %}
+      {%- endif %}
+      {%- if repository_configuration.trigger_files %}
+      {%- for file in repository_configuration.trigger_files %}
       - "{{ file }}"
-      {% endfor %}
-      {% endif %}
-{% endif %}
+      {%- endfor %}
+      {%- endif %}
+{%- endif %}
 
-  {% if cron_expression %}
+  {%- if cron_expression %}
   schedule:
     - cron: "{{ cron_expression }}"  # {{ cron_description }}
-  {% endif %}
+  {%- endif %}
 
-{% if workflow_permissions %}
+{%- if workflow_permissions %}
 permissions:
-  {% for permission, access in workflow_permissions.items() %}
+  {%- for permission, access in workflow_permissions.items() %}
   {{ permission }}: {{ access }}
-  {% endfor %}
-{% endif %}
+  {%- endfor %}
+{%- endif %}
 
 jobs:
   call-{{ workflow_name }}:
     uses: {{ organisation }}/{{ reusable_workflows_repo }}/.github/workflows/{{ workflow_name }}.yml@main
-    {% if workflow_inputs %}
+    {%- if workflow_inputs %}
     with:
-      {% for name, config in workflow_inputs.items() %}
-      {% if name in effective_repository_configuration[workflow_name] %}
-      {{ name }}: {{ effective_repository_configuration[workflow_name][name] }}
-      {% elif not config.default %}
-      {{ name }}: # Set this value in the {{ controller_repo_name }} repository configuration
-      {% endif %}
-      {% endfor %}
-    {% endif %}
+      {%- for name, config in workflow_inputs.items() %}
+      {%- if name in repository_configuration[workflow_name] %}
+      {{ name }}: {{ repository_configuration[workflow_name][name] }}
+      {%- elif not config.default %}
+      # {{ name }}: Please set this value in the {{ controller_repo_name }} repository configuration
+      {%- endif %}
+      {%- endfor %}
+    {%- endif %}

@@ -31,9 +31,9 @@ data "jinja_template" "workflow" {
       source_path              = lookup(var.repository_configuration, "source_path", "*")
       workflow_inputs          = local.workflow_inputs[each.key]
       workflow_permissions     = local.workflow_permissions[each.key]
-      repository_configuration = var.repository_configuration
-      cron_expression          = lookup(local.workflow_cron_expression, each.key, null) # Raw cron
-      cron_description         = lookup(local.workflow_cron_description, each.key, "Custom schedule") # Human-readable explanation
+      repository_configuration = local.effective_repository_configuration[each.key]
+      cron_expression          = lookup(local.workflow_cron_expression, each.key, null)
+      cron_description         = lookup(local.workflow_cron_description, each.key, "Custom schedule")
       organisation             = var.organisation
     })
   }
