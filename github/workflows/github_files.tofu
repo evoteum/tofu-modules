@@ -1,8 +1,8 @@
 locals {
-  is_tofu_workflow = { for name in keys(local.workflows) :
+  is_tofu_workflow = { for name in keys(local.source_workflows) :
     name => can(regex("^tofu-", name))
   }
-  workflow_cron_expression = { for name, condition in local.workflows :
+  workflow_cron_expression = { for name, condition in local.source_workflows :
     name => lookup(
       var.repository_configuration,
       local.is_tofu_workflow[name] ? "tofu_build_schedule" : "app_build_schedule",
@@ -27,7 +27,7 @@ data "jinja_template" "workflow" {
     data = jsonencode({
       workflow_name            = each.key
       reusable_workflows_repo  = var.reusable_workflows_repository
-      controller_repo_name = var.controller_repo_name
+      controller_repo_name     = var.controller_repo_name
       source_path              = lookup(var.repository_configuration, "source_path", "*")
       workflow_inputs          = local.workflow_inputs[each.key]
       workflow_permissions     = local.workflow_permissions[each.key]
