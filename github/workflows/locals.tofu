@@ -1,5 +1,15 @@
 locals {
-  source_workflows = data.github_repository_file.workflows
+  source_workflows = { for workflow, content in data.github_repository_file.workflows :
+    workflow => yamldecode(content.content)
+  }
+
+  # Debug output
+  debug_workflows = { for workflow, content in local.source_workflows :
+    workflow => {
+      "raw"         = content
+      "permissions" = try(content.permissions, "no permissions found")
+    }
+  }
 
   workflow_conditions = yamldecode(data.github_repository_file.workflow_conditions.content)
 
@@ -39,3 +49,9 @@ locals {
     ])
   }
 }
+
+output "debug_workflow_content" {
+  value = local.debug_workflows
+}
+
+some_variable = 3

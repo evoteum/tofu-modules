@@ -25,12 +25,10 @@ on:
     - cron: "{{ cron_expression }}"  # {{ cron_description }}
   {%- endif %}
 
-{%- if workflow_permissions %}
 permissions:
   {%- for permission, access in workflow_permissions.items() %}
   {{ permission }}: {{ access }}
   {%- endfor %}
-{%- endif %}
 
 jobs:
   call-{{ workflow_name }}:
