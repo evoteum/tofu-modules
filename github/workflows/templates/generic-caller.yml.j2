@@ -26,7 +26,7 @@ on:
   {%- endif %}
 
 permissions:
-  {%- for permission, access in workflow_permissions.items() %}
+  {%- for permission, access in workflow_permissions %}
   {{ permission }}: {{ access }}
   {%- endfor %}
 
@@ -35,7 +35,7 @@ jobs:
     uses: {{ organisation }}/{{ reusable_workflows_repo }}/.github/workflows/{{ workflow_name }}.yml@main
     {%- if workflow_inputs %}
     with:
-      {%- for name, config in workflow_inputs.items() %}
+      {%- for name, config in workflow_inputs %}
       {%- if name in repository_configuration[workflow_name] %}
       {{ name }}: {{ repository_configuration[workflow_name][name] }}
       {%- elif not config.default %}
