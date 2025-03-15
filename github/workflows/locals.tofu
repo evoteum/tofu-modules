@@ -53,5 +53,3 @@ locals {
 output "debug_workflow_content" {
   value = local.debug_workflows
 }
-
-some_variable = 3
