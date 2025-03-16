@@ -34,8 +34,8 @@ locals {
   workflow_inputs = { for workflow, content in local.source_workflows :
     workflow => {
       for name, config in try(content.on.workflow_call.inputs, {}) :
-        name => try(var.repository_configuration[name], config.default)
-        if try(var.repository_configuration[name], null) != null || try(config.default, null) != null
+      name => try(var.repository_configuration[name], config.default)
+      if try(var.repository_configuration[name], null) != null || try(config.default, null) != null
     }
   }
 
@@ -52,8 +52,4 @@ locals {
       try(var.repository_configuration[condition_key], null) == required_value
     ])
   }
-}
-
-output "debug_workflow_content" {
-  value = local.debug_workflows
 }
