@@ -17,6 +17,7 @@ locals {
   workflow_cron_description = { for name, cron in local.workflow_cron_expression :
     name => lookup(local.cron_schedules, cron, "Custom schedule")
   }
+
 }
 
 data "jinja_template" "workflow" {
@@ -26,15 +27,16 @@ data "jinja_template" "workflow" {
     type = "json"
     data = jsonencode({
       workflow_name            = each.key
-      reusable_workflows_repo  = var.reusable_workflows_repository
       controller_repo_name     = var.controller_repo_name
+      cron_description         = lookup(local.workflow_cron_description, each.key, "Custom schedule")
+      cron_expression          = lookup(local.workflow_cron_expression, each.key, null)
+      last_updated             = timestamp()
+      organisation             = var.organisation
+      repository_configuration = local.effective_repository_configuration[each.key]
+      reusable_workflows_repo  = var.reusable_workflows_repository
       source_path              = lookup(var.repository_configuration, "source_path", "*")
       workflow_inputs          = local.workflow_inputs[each.key]
       workflow_permissions     = local.workflow_permissions[each.key]
-      repository_configuration = local.effective_repository_configuration[each.key]
-      cron_expression          = lookup(local.workflow_cron_expression, each.key, null)
-      cron_description         = lookup(local.workflow_cron_description, each.key, "Custom schedule")
-      organisation             = var.organisation
     })
   }
 
