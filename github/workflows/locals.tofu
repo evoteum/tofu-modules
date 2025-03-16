@@ -32,7 +32,11 @@ locals {
   }
 
   workflow_inputs = { for workflow, content in local.source_workflows :
-    workflow => try(content.on.workflow_call.inputs, {})
+    workflow => {
+      for name, config in try(content.on.workflow_call.inputs, {}) :
+        name => try(var.repository_configuration[name], config.default)
+        if try(var.repository_configuration[name], null) != null || try(config.default, null) != null
+    }
   }
 
   workflow_permissions = { for workflow, content in local.source_workflows :

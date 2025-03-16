@@ -35,11 +35,7 @@ jobs:
     uses: {{ organisation }}/{{ reusable_workflows_repo }}/.github/workflows/{{ workflow_name }}.yml@main
     {%- if workflow_inputs %}
     with:
-      {%- for name, config in workflow_inputs %}
-      {%- if name in repository_configuration %}
-      {{ name }}: {{ repository_configuration[name] }}
-      {%- elif not config.default %}
-      # {{ name }}: Please set this value in the {{ controller_repo_name }} repository configuration
-      {%- endif %}
+      {%- for name, value in workflow_inputs %}
+      {{ name }}: {{ value }}
       {%- endfor %}
     {%- endif %}
