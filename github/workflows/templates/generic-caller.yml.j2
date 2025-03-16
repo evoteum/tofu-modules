@@ -34,6 +34,7 @@ jobs:
   call-{{ workflow_name }}:
     uses: {{ organisation }}/{{ reusable_workflows_repo }}/.github/workflows/{{ workflow_name }}.yml@main
     {%- if workflow_inputs %}
+    secrets: inherit
     with:
       {%- for name, value in workflow_inputs %}
       {{ name }}: {{ value }}
