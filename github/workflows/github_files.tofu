@@ -39,7 +39,7 @@ data "jinja_template" "workflow" {
   }
 
   source {
-    template  = file("${path.module}/templates/generic-caller.yml.j2")
+    template  = file("${path.module}/templates/reusable-workflow-caller.yml.j2")
     directory = path.module
   }
 }
@@ -52,6 +52,6 @@ resource "github_repository_file" "caller_workflow" {
   file       = ".github/workflows/${each.key}.yml"
   content    = data.jinja_template.workflow[each.key].result
 
-  commit_message      = "Update content"
+  commit_message      = "Update workflow"
   overwrite_on_create = true
 }
