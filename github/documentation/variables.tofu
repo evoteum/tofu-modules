@@ -1,11 +1,3 @@
-variable "repository_name" {
-  type = string
-}
-
-variable "repository_owner" {
-  type = string
-}
-
 variable "artefact_type" {
   description = "Type of artefact this repo produces (e.g., container)"
   type        = string
@@ -32,4 +24,12 @@ variable "quay_repository_url" {
   description = "The HTML url of the quay repo"
   type        = string
   default     = null
+}
+
+variable "repository_name" {
+  type = string
+}
+
+variable "repository_owner" {
+  type = string
 }

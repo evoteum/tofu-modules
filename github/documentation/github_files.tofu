@@ -5,7 +5,7 @@ locals {
     time_static.init.month,
     time_static.init.day
   )
-  container_docs = ["container_repo.md"]
+  container_docs = var.quay_repository_url == null ? [] : ["container_repository.md"]
   common_docs = [
     "docs/adr/0001-record-architecture-decisions.md",
     "docs/adr/README.md",
@@ -17,7 +17,7 @@ locals {
     concat(
       [
         local.common_docs,
-        var.quay_repository_url != null ? local.container_docs : [],
+        local.container_docs ,
       ]
     )
   )
