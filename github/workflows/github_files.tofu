@@ -30,7 +30,6 @@ data "jinja_template" "workflow" {
       controller_repo_name     = var.controller_repo_name
       cron_description         = lookup(local.workflow_cron_description, each.key, "Custom schedule")
       cron_expression          = lookup(local.workflow_cron_expression, each.key, null)
-      last_updated             = timestamp()
       organisation             = var.organisation
       repository_configuration = local.effective_repository_configuration[each.key]
       reusable_workflows_repo  = var.reusable_workflows_repository
