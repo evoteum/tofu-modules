@@ -31,7 +31,7 @@ resource "github_repository_file" "docs" {
       REPOSITORY_NAME     = var.repository_name
       REPOSITORY_OWNER    = var.repository_owner
     }),
-    file("${path.module}/footer.md")
+    file("${path.module}/templates/footer.md")
   ])
   commit_message      = "Update"
   overwrite_on_create = true
