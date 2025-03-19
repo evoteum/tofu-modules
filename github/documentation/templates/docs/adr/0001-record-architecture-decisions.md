@@ -1,6 +1,6 @@
 # 1. Record architecture decisions
 
-Date: %{INIT_DATE}
+Date: ${INIT_DATE}
 
 ## Status
 
