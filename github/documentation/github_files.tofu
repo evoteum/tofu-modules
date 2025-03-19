@@ -5,22 +5,15 @@ locals {
     time_static.init.month,
     time_static.init.day
   )
-  container_docs = var.quay_repository_url == null ? [] : ["container_repository.md"]
+  container_repository_doc = var.quay_repository_url == null ? "" : "container_repository.md"
   common_docs = [
     "docs/adr/0001-record-architecture-decisions.md",
     "docs/adr/README.md",
     "docs/README.md",
     "docs/github_variables.md",
+    local.container_repository_doc,
   ]
-
-  markdown_files = compact(
-    concat(
-      [
-        local.common_docs,
-        local.container_docs ,
-      ]
-    )
-  )
+  markdown_files = compact(local.common_docs)
 }
 
 resource "time_static" "init" {}
