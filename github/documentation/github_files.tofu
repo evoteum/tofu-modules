@@ -25,11 +25,12 @@ resource "github_repository_file" "docs" {
   file       = each.value
   content = join("\n", [
     templatefile("${path.module}/templates/${each.value}", {
-      ARTEFACT_TYPE       = var.artefact_type
-      CONTAINER_REPO_LINK = local.container_repo_link
-      INIT_DATE           = local.init_date
-      REPOSITORY_NAME     = var.repository_name
-      REPOSITORY_OWNER    = var.repository_owner
+      ARTEFACT_TYPE        = var.artefact_type
+      CONTAINER_REPO_LINK  = local.container_repo_link
+      CONTROLLER_REPO_LINK = local.controller_repo_link
+      INIT_DATE            = local.init_date
+      REPOSITORY_NAME      = var.repository_name
+      REPOSITORY_OWNER     = var.repository_owner
     }),
     file("${path.module}/templates/footer.md")
   ])
