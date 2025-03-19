@@ -13,7 +13,7 @@ locals {
     "docs/github_variables.md",
     local.container_repository_doc,
   ]
-  markdown_files = compact(local.common_docs)
+  markdown_files = toset(compact(local.common_docs))
 }
 
 resource "time_static" "init" {}
