@@ -1,8 +1,8 @@
-variable "repo_name" {
+variable "repository_name" {
   type = string
 }
 
-variable "repo_owner" {
+variable "repository_owner" {
   type = string
 }
 
@@ -28,8 +28,8 @@ variable "quay_domain" {
   default     = "quay.io"
 }
 
-variable "quay_repo_url" {
+variable "quay_repository_url" {
   description = "The HTML url of the quay repo"
   type        = string
-  default     = ""
+  default     = null
 }

@@ -1,34 +1,51 @@
 locals {
-  controller_repo_link = "[${var.management_repo_name}](${var.management_repo_url})"
-
+  init_date = format(
+    "%04d-%02d-%02d",
+    time_static.init.year,
+    time_static.init.month,
+    time_static.init.day
+  )
   container_docs = ["container_repo.md"]
-  common_docs    = []
+  common_docs = [
+    "docs/adr/0001-record-architecture-decisions.md",
+    "docs/adr/README.md",
+    "docs/README.md",
+    "docs/github_variables.md",
+  ]
 
   markdown_files = compact(
     concat(
       [
         local.common_docs,
-        var.artefact_type == "container" ? local.container_docs : [],
+        var.quay_repository_url != null ? local.container_docs : [],
       ]
     )
   )
 }
 
+resource "time_static" "init" {}
 
-resource "github_repository_file" "markdown_docs" {
-  for_each = toset(local.markdown_files)
+resource "github_repository_file" "docs" {
+  for_each = local.markdown_files
 
-  repository = var.repo_name
-  file       = "docs/${each.value}"
+  repository = var.repository_name
+  file       = each.value
   content = join("\n", [
-    templatefile("${path.module}/templates/${each.value}.md", {
-      repo_name           = var.repo_name
-      repo_owner          = var.repo_owner
-      artefact_type       = var.artefact_type
+    templatefile("${path.module}/templates/${each.value}", {
+      ARTEFACT_TYPE       = var.artefact_type
       CONTAINER_REPO_LINK = local.container_repo_link
+      INIT_DATE           = local.init_date
+      REPOSITORY_NAME     = var.repository_name
+      REPOSITORY_OWNER    = var.repository_owner
     }),
     file("${path.module}/footer.md")
   ])
-  commit_message      = "Updating ${each.value} with latest content"
+  commit_message      = "Update"
   overwrite_on_create = true
+}
+
+resource "github_repository_file" "adr_dir" {
+  content    = "docs/adr"
+  file       = ".adr-dir"
+  repository = var.repository_name
 }
