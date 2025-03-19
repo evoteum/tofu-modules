@@ -47,6 +47,8 @@ ${DESCRIPTION}
 1. [Install](#install)
 1. [Usage](#usage)
 1. [Any extra sections as required]
+1. [Documentation](#documentation)
+1. [Repository Configuration](#repository-configuration)
 1. [API](#api)
 1. [Maintainers](#maintainers)
 1. [Thanks](#thanks)
@@ -85,6 +87,18 @@ ${DESCRIPTION}
 
 
 
+## Documentation
+
+Further documentation is in the [`docs`](docs/) directory.
+
+## Repository Configuration
+
+> [!WARNING]  
+> This repo is controlled by OpenTofu in the ${CONTROLLER_REPO_LINK} repository.  
+>  
+> Manual configuration changes will be overwritten the next time OpenTofu runs.
+
+
 [//]: # (## API)
 [//]: # (OPTIONAL)
 [//]: # (Describe exported functions and objects)
@@ -116,10 +130,3 @@ PRs are welcome.
 [//]: # (REQUIRED)
 
 All our code is licenced under the AGPL-3.0. See [LICENSE](LICENSE) for more information.
-
----
-
-> [!WARNING]  
-> This repo is controlled by OpenTofu in the ${CONTROLLER_REPO_LINK} repository.  
->  
-> Manual changes will be overwritten the next time OpenTofu runs.
