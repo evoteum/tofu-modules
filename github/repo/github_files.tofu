@@ -2,6 +2,25 @@ locals {
   controller_repo_link = "[${var.management_repo_name}](${var.management_repo_url})."
 }
 
+resource "random_shuffle" "party_emoji" {
+  # Because it's delightfully silly :D
+  input        = [
+    "🌟",
+    "🍾",
+    "🎂",
+    "🎈",
+    "🎉",
+    "🎊",
+    "👯",
+    "😜",
+    "🥂",
+    "🥳",
+    "🪅",
+    "🪩",
+  ]
+  result_count = 1
+}
+
 resource "github_repository_file" "readme" {
   depends_on = [
     github_branch_default.main
@@ -13,7 +32,7 @@ resource "github_repository_file" "readme" {
     DESCRIPTION          = var.description,
     CONTROLLER_REPO_LINK = local.controller_repo_link,
   })
-  commit_message      = "Initial commit"
+  commit_message      = "Initial commit ${random_shuffle.party_emoji.result}"
   overwrite_on_create = true
   lifecycle {
     create_before_destroy = true
