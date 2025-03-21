@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     quay = {
-      source = "registry.terraform.io/enthought/quay"
+      source = "enthought/quay"
     }
   }
 }
