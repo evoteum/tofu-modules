@@ -1,5 +1,6 @@
 locals {
   controller_repo_link = "[${var.management_repo_name}](${var.management_repo_url})."
+  random_party_emoji = join("", random_shuffle.party_emoji.result)
 }
 
 resource "random_shuffle" "party_emoji" {
@@ -32,7 +33,7 @@ resource "github_repository_file" "readme" {
     DESCRIPTION          = var.description,
     CONTROLLER_REPO_LINK = local.controller_repo_link,
   })
-  commit_message      = "Initial commit ${random_shuffle.party_emoji.result}"
+  commit_message      = "Initial commit ${local.random_party_emoji}"
   overwrite_on_create = true
   lifecycle {
     create_before_destroy = true
