@@ -33,7 +33,7 @@ locals {
 
   workflow_inputs = { for workflow, content in local.source_workflows :
     workflow => {
-      for name in keys(try(yamldecode(content).on.workflow_call.inputs, {})) :
+      for name in keys(content.on.workflow_call.inputs, {}) :
       name => var.repository_configuration[name]
       if try(var.repository_configuration[name], null) != null
     }
