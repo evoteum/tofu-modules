@@ -17,7 +17,9 @@ locals {
   workflow_cron_description = { for name, cron in local.workflow_cron_expression :
     name => lookup(local.cron_schedules, cron, "Custom schedule")
   }
-
+  source_path = { for name in keys(local.source_workflows) :
+    name => lookup(var.repository_configuration, "source_path", local.is_tofu_workflow[name] ? "tofu" : "*")
+  }
 }
 
 data "jinja_template" "workflow" {
@@ -33,7 +35,7 @@ data "jinja_template" "workflow" {
       organisation             = var.organisation
       repository_configuration = local.effective_repository_configuration[each.key]
       reusable_workflows_repo  = var.reusable_workflows_repository
-      source_path              = lookup(var.repository_configuration, "source_path", "*")
+      source_path              = local.source_path[each.key]
       workflow_inputs          = local.workflow_inputs[each.key]
       workflow_permissions     = local.workflow_permissions[each.key]
     })
