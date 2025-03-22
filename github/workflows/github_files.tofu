@@ -18,7 +18,7 @@ locals {
     name => lookup(local.cron_schedules, cron, "Custom schedule")
   }
   source_path = { for name in keys(local.source_workflows) :
-    name => lookup(var.repository_configuration, "source_path", local.is_tofu_workflow[name] ? "tofu" : "*")
+    name => local.is_tofu_workflow[name] ? "tofu" : lookup(var.repository_configuration, "source_path", "*")
   }
 }
 
