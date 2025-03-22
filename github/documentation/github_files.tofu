@@ -25,12 +25,16 @@ resource "github_repository_file" "docs" {
   file       = each.value
   content = join("\n", [
     templatefile("${path.module}/templates/${each.value}", {
-      ARTEFACT_TYPE        = var.artefact_type
-      CONTAINER_REPO_LINK  = local.container_repo_link
-      CONTROLLER_REPO_LINK = local.controller_repo_link
-      INIT_DATE            = local.init_date
-      REPOSITORY_NAME      = var.repository_name
-      REPOSITORY_OWNER     = var.repository_owner
+      ARTEFACT_TYPE               = var.artefact_type
+      CONTAINER_REPO_LINK         = local.container_repo_link
+      CONTROLLER_REPO_LINK        = local.controller_repo_link
+      INIT_DATE                   = local.init_date
+      REPOSITORY_NAME             = var.repository_name
+      REPOSITORY_OWNER            = var.repository_owner
+      ORGANISATION_SECRET_NAMES   = local.github_organisation_secret_names
+      ORGANISATION_VARIABLE_NAMES = local.github_organisation_variable_names
+      REPOSITORY_SECRET_NAMES     = local.github_repository_secret_names
+      REPOSITORY_VARIABLE_NAMES   = local.github_repository_variable_names
     }),
     templatefile("${path.module}/templates/footer.md", {
       CONTROLLER_REPO_LINK = local.controller_repo_link
@@ -46,3 +50,7 @@ resource "github_repository_file" "adr_dir" {
   file       = ".adr-dir"
   repository = var.repository_name
 }
+
+
+
+
