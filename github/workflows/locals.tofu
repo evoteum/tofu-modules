@@ -41,7 +41,7 @@ locals {
       for condition_key, required_value in condition :
       required_value == "EXISTS" ?
         try(var.repository_configuration[condition_key], null) != null :
-        type(required_value) == "list" ?
+        can(tolist(required_value)) ?
           try(var.repository_configuration[condition_key], null) != null && 
           contains(required_value, try(var.repository_configuration[condition_key], null)) :
           can(tobool(try(var.repository_configuration[condition_key], null))) && can(tobool(required_value)) ?
