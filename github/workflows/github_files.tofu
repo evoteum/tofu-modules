@@ -36,7 +36,6 @@ data "jinja_template" "workflow" {
       repository_configuration = local.effective_repository_configuration[each.key]
       reusable_workflows_repo  = var.reusable_workflows_repository
       source_path              = local.source_path[each.key]
-      workflow_inputs          = local.workflow_inputs[each.key]
       workflow_permissions     = local.workflow_permissions[each.key]
     })
   }
