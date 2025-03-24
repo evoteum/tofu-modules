@@ -5,7 +5,7 @@ locals {
     time_static.init.month,
     time_static.init.day
   )
-  container_repository_doc = var.quay_repository_url == null ? "" : "docs/container_repository.md"
+  container_repository_doc = var.quay_repository_url == "" ? "" : "docs/container_repository.md"
   common_docs = [
     "docs/adr/0001-record-architecture-decisions.md",
     "docs/adr/README.md",

@@ -23,7 +23,7 @@ variable "quay_domain" {
 variable "quay_repository_url" {
   description = "The HTML url of the quay repo"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "repository_name" {
