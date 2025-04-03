@@ -13,12 +13,12 @@ output "name" {
 }
 
 output "url" {
-  description = "The URL of the created repository"
+  description = "The URL of the created repository, for use with HTML hyperlinks"
   value       = "${var.quay_url}/repository/${var.organisation}/${local.repo_name}"
 }
 
 output "path" {
-  description = "The path of the created repository"
-  value       = "${var.quay_domain}/repository/${var.organisation}/${local.repo_name}"
+  description = "The path of the created repository, for use with podman & containers"
+  value       = "${var.quay_domain}/${var.organisation}/${local.repo_name}"
 }
 

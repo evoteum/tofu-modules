@@ -1,7 +1,8 @@
 terraform {
   required_providers {
     quay = {
-      source = "enthought/quay"
+      source  = "enthought/quay"
+      version = "0.5.1"
     }
   }
 }
