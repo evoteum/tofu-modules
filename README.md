@@ -98,8 +98,6 @@ It contains the following modules:
 │   └── s3
 ├── cloudflare
 │   └── zone
-├── common
-│   └── vars
 ├── github
 │   ├── documentation
 │   ├── repo
