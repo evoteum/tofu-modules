@@ -130,3 +130,29 @@ PRs are welcome.
 [//]: # (REQUIRED)
 
 All our code is licenced under the AGPL-3.0. See [LICENSE](LICENSE) for more information.
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+No providers.
+
+## Modules
+
+No modules.
+
+## Resources
+
+No resources.
+
+## Inputs
+
+No inputs.
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->
