@@ -1,7 +1,3 @@
-module "common" {
-  source = "git@github.com:evoteum/tofu-modules.git//common/vars?ref=main"
-}
-
 resource "aws_vpc" "main" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
