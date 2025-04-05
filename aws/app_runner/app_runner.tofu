@@ -57,3 +57,9 @@ resource "aws_apprunner_auto_scaling_configuration_version" "main" {
     Environment = var.environment
   }
 }
+
+resource "aws_apprunner_custom_domain_association" "service" {
+  for_each    = length(local.base_domain) > 0 ? { custom_domain : local.base_domain } : {}
+  service_arn = aws_apprunner_service.service.arn
+  domain_name = each.value
+}
