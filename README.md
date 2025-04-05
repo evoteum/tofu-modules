@@ -122,11 +122,6 @@ individual repositories for each module.
 
 Modules use [terraform-docs](https://terraform-docs.io/) to generate README.md files.
 
-[//]: # (BEGIN_TERRAFORM_DOCS_ADVISEMENT)
-Once
-[terraform-docs#833](https://github.com/terraform-docs/terraform-docs/pull/833) is merged this will work as expected.
-
-[//]: # (END_TERRAFORM_DOCS_ADVISEMENT)
 
 [//]: # (Extra sections)
 [//]: # (OPTIONAL)
