@@ -1,10 +1,11 @@
 variable "aws_region" {
   description = "AWS region"
   type        = string
+  default = "eu-west-2"
 }
 
 variable "container_image" {
-  description = "Continer image URL"
+  description = "Container image URL"
   type        = string
 }
 
