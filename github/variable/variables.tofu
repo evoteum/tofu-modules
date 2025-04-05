@@ -21,6 +21,6 @@ variable "name" {
 
 variable "value" {
   description = "The value of the variable"
-  type        = string
+  type        = any
   sensitive   = true
 }
