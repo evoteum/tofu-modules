@@ -93,7 +93,7 @@ It contains the following modules:
 ├── aws
 │   ├── app_runner
 │   ├── cloudfront
-│   ├── dynamodb_table
+│   ├── dynamodb
 │   ├── networking
 │   └── s3
 ├── cloudflare
