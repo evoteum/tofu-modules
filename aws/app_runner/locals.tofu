@@ -43,4 +43,5 @@ locals {
       length(local.domain_parts)
     )
   )
+  resource_prefix = "${var.project_name}-${var.environment}"
 }

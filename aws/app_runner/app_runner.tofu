@@ -1,5 +1,5 @@
 resource "aws_apprunner_service" "service" {
-  service_name = "${var.project_name}-${var.environment}-service"
+  service_name = "${local.resource_prefix}-service"
 
   source_configuration {
     image_repository {
@@ -44,14 +44,14 @@ resource "aws_apprunner_service" "service" {
 }
 
 resource "aws_apprunner_auto_scaling_configuration_version" "main" {
-  auto_scaling_configuration_name = "${var.project_name}-${var.environment}-scaling"
+  auto_scaling_configuration_name = "${local.resource_prefix}-scaling"
 
   max_concurrency = var.max_concurrency
   max_size        = var.max_instances
   min_size        = var.min_instances
 
   tags = {
-    Name        = "${var.project_name}-${var.environment}-scaling"
+    Name        = "${local.resource_prefix}-scaling"
     Environment = var.environment
   }
 }

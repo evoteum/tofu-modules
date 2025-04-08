@@ -75,10 +75,22 @@ variable "max_concurrency" {
   default     = 100
 }
 
+variable "max_instances" {
+  description = "Maximum number of instances"
+  type        = number
+  default     = 10
+}
+
 variable "memory" {
   description = "Memory in MB for the service"
   type        = number
   default     = 2048
+}
+
+variable "min_instances" {
+  description = "Minimum number of instances"
+  type        = number
+  default     = 0
 }
 
 variable "port" {
