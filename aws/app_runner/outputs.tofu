@@ -5,5 +5,5 @@ output "url" {
 
 output "dns_records" {
   description = "The DNS values needed to configure a custom domain name"
-  value       = length(var.custom_domain) > 0 ? aws_apprunner_custom_domain_association.service.dns_target : null
+  value       = length(var.custom_domain) > 0 ? aws_apprunner_custom_domain_association.service.dns_target[var.custom_domain] : null
 }
