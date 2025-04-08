@@ -22,8 +22,6 @@ resource "aws_apprunner_service" "service" {
     cpu               = var.cpu
     memory            = var.memory
     instance_role_arn = aws_iam_role.app_runner.arn
-    min_instances     = var.min_instances
-    max_instances     = var.max_instances
   }
 
   health_check_configuration {
