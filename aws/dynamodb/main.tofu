@@ -11,7 +11,7 @@ resource "aws_dynamodb_table" "this" {
     for_each = var.attributes
     content {
       name = attribute.value.name
-      type = attribute.value.type
+      type = upper(attribute.value.type)
     }
   }
 
