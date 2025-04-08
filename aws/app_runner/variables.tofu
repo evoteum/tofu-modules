@@ -90,7 +90,7 @@ variable "memory" {
 variable "min_instances" {
   description = "Minimum number of instances"
   type        = number
-  default     = 0
+  default     = 1
 }
 
 variable "port" {
