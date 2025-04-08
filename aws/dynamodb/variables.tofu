@@ -4,16 +4,12 @@ variable "environment" {
   default     = "production"
 }
 
-variable "global_secondary_index_hash_key" {
-  description = "Hash key of the global secondary index"
-  type        = string
-  sensitive   = false
-}
-
-variable "global_secondary_index_name" {
-  description = "Name of the global secondary index"
-  type        = string
-  sensitive   = false
+variable "attributes" {
+  description = "The name and type of each attribute. type can be S (string), N (number), B (binary)."
+  type = list(object({
+    name = string
+    type = string
+  }))
 }
 
 variable "project_name" {
