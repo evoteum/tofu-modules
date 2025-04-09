@@ -4,14 +4,6 @@ variable "environment" {
   default     = "production"
 }
 
-variable "attributes" {
-  description = "The name and type of each attribute. type can be S (string), N (number), B (binary)."
-  type = list(object({
-    name = string
-    type = string
-  }))
-}
-
 variable "project_name" {
   description = "Project name to be used for resource naming"
   type        = string

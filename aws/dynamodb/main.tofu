@@ -5,16 +5,7 @@ locals {
 resource "aws_dynamodb_table" "this" {
   name         = local.table_name
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "${var.table_name}_id"
-
-  dynamic "attribute" {
-    for_each = var.attributes
-    content {
-      name = attribute.value.name
-      type = upper(attribute.value.type)
-    }
-  }
-
+  hash_key     = "${var.table_name}_key"
 
   tags = {
     Name = local.table_name
