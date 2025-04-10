@@ -1,7 +1,36 @@
+variable "application_source_uri" {
+  description = "URI of the application source. Must be one of:\n- A GitHub repository URL (must contain \"github.com\")\n- An ECR image URI (must contain \"dkr.ecr.<region>.amazonaws.com\")"
+  type        = string
+
+  validation {
+    condition = (
+      contains(var.application_source_uri, "github.com") ||
+      can(regex("dkr\\.ecr\\.[^.]+\\.amazonaws\\.com", var.application_source_uri))
+    )
+    error_message = "The 'application_source_uri' must contain either 'github.com' for source code or 'dkr.ecr.<region>.amazonaws.com' for an ECR container image."
+  }
+}
+
+variable "auto_deployments_enabled" {
+  description = "Whether continuous integration from the source repository is enabled for the App Runner service. If set to true, each repository change (source code commit or new image version) starts a deployment."
+  type        = bool
+  default     = true
+}
+
+variable "aws_apprunner_connection_arn" {
+  description = "ARN of the existing AWS AppRunner Connection - ensure you have manually enabled it!"
+}
+
 variable "aws_region" {
   description = "AWS region"
   type        = string
   default     = "eu-west-2"
+}
+
+variable "build_command" {
+  description = "If using source deployment, the command needed to build the application"
+  type        = string
+  default     = ""
 }
 
 variable "container_image" {
@@ -69,6 +98,12 @@ variable "health_check_unhealthy_threshold" {
   default     = 3
 }
 
+variable "is_publicly_accessible" {
+  description = "Should this application be publicly accessible?"
+  type        = bool
+  default     = true
+}
+
 variable "max_concurrency" {
   description = "Maximum number of concurrent requests per instance"
   type        = number
@@ -93,6 +128,11 @@ variable "min_instances" {
   default     = 1
 }
 
+variable "organisation" {
+  description = "The name of the organisation"
+  type        = string
+}
+
 variable "port" {
   description = "Port the container listens on"
   type        = number
@@ -102,6 +142,24 @@ variable "port" {
 variable "project_name" {
   description = "Project name"
   type        = string
+}
+
+variable "repository_url" {
+  description = "The web address of the git repository"
+  type        = string
+
+}
+
+variable "runtime" {
+  description = "The language and version to use for the App Runner runtime. Example: { language = \"nodejs\", version = \"16\" }"
+  type = object({
+    language = string
+    version  = string
+  })
+  default = {
+    language = "go"
+    version  = "1"
+  }
 }
 
 variable "runtime_environment_variables" {
@@ -120,6 +178,18 @@ variable "service_arns" {
     kms       = optional(list(string), []) # KMS keys
   })
   default = {}
+}
+
+variable "source_branch" {
+  description = "If using source deployment, which branch should be deployed?"
+  type        = string
+  default     = "main"
+}
+
+variable "start_command" {
+  description = "If using source deployment, the command needed to run the application"
+  type        = string
+  default     = ""
 }
 
 variable "vpc_connector_arn" {
