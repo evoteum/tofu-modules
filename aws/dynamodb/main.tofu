@@ -1,5 +1,5 @@
 locals {
-  table_name = lower("${var.project_name}-${var.environment}-${var.table_name}")
+  table_name    = lower("${var.project_name}-${var.environment}-${var.table_name}")
   hash_key_name = "${var.table_name}-key"
 }
 

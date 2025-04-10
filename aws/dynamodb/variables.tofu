@@ -13,5 +13,5 @@ variable "table_name" {
   description = "Name of the DynamoDB table"
   type        = string
   sensitive   = false
-  default = "table"
+  default     = "table"
 }
