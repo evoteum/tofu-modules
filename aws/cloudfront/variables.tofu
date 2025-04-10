@@ -1,17 +1,19 @@
-variable "project_name" {
-  description = "Project name"
-  type        = string
+variable "allowed_methods" {
+  description = "Allowed HTTP methods"
+  type        = list(string)
+  default     = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+}
+
+variable "cached_methods" {
+  description = "HTTP methods to cache"
+  type        = list(string)
+  default     = ["GET", "HEAD", "OPTIONS"]
 }
 
 variable "environment" {
-  description = "Environment name; must be one of: ${join(", ", module.common.environments)}"
+  description = "Environment name; must be one of the permitted environment names"
   type        = string
   default     = "production"
-
-  validation {
-    condition     = contains(module.common.environments, var.environment)
-    error_message = "Environment must be one of: ${join(", ", module.common.environments)}"
-  }
 }
 
 variable "origin_url" {
@@ -29,14 +31,7 @@ variable "price_class" {
   }
 }
 
-variable "allowed_methods" {
-  description = "Allowed HTTP methods"
-  type        = list(string)
-  default     = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
-}
-
-variable "cached_methods" {
-  description = "HTTP methods to cache"
-  type        = list(string)
-  default     = ["GET", "HEAD", "OPTIONS"]
+variable "project_name" {
+  description = "Project name"
+  type        = string
 }

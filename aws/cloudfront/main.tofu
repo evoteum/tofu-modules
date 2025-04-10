@@ -1,7 +1,3 @@
-module "common" {
-  source = "git@github.com:evoteum/tofu-modules.git//common/vars?ref=main"
-}
-
 resource "aws_cloudfront_distribution" "main" {
   enabled     = true
   price_class = var.price_class
@@ -36,7 +32,7 @@ resource "aws_cloudfront_distribution" "main" {
     min_ttl                = var.min_ttl
     default_ttl            = var.default_ttl
     max_ttl                = var.max_ttl
-    compress               = true # Enable gzip/Brotli compression
+    compress               = true
     forwarded_values {
       query_string = true
       cookies {
