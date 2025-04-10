@@ -97,6 +97,7 @@ It contains the following modules:
 │   ├── networking
 │   └── s3
 ├── cloudflare
+│   ├── dns_record
 │   └── zone
 ├── github
 │   ├── documentation
