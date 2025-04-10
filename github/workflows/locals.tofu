@@ -30,7 +30,7 @@ locals {
       } : {}
     )
   }
-  
+
   workflow_permissions = { for workflow, content in local.source_workflows :
     workflow => try(content.permissions, {})
   }
@@ -40,13 +40,13 @@ locals {
     if length(condition) > 0 && alltrue([
       for condition_key, required_value in condition :
       required_value == "EXISTS" ?
-        try(var.repository_configuration[condition_key], null) != null :
-        can(tolist(required_value)) ?
-          try(var.repository_configuration[condition_key], null) != null && 
-          contains(required_value, try(var.repository_configuration[condition_key], "")) :
-          can(tobool(try(var.repository_configuration[condition_key], null))) && can(tobool(required_value)) ?
-            tobool(try(var.repository_configuration[condition_key], null)) == tobool(required_value) :
-            try(var.repository_configuration[condition_key], null) == required_value
+      try(var.repository_configuration[condition_key], null) != null :
+      can(tolist(required_value)) ?
+      try(var.repository_configuration[condition_key], null) != null &&
+      contains(required_value, try(var.repository_configuration[condition_key], "")) :
+      can(tobool(try(var.repository_configuration[condition_key], null))) && can(tobool(required_value)) ?
+      tobool(try(var.repository_configuration[condition_key], null)) == tobool(required_value) :
+      try(var.repository_configuration[condition_key], null) == required_value
     ])
   }
 }

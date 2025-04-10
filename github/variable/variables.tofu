@@ -1,5 +1,5 @@
 variable "sensitive" {
-  description = "The variable is sensitive"
+  description = "The variable is a secret"
   type        = bool
   default     = false
 }
@@ -21,6 +21,6 @@ variable "name" {
 
 variable "value" {
   description = "The value of the variable"
-  type        = string
+  type        = any
   sensitive   = true
 }
