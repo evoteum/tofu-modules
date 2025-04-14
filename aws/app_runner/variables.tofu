@@ -19,23 +19,13 @@ variable "auto_deployments_enabled" {
 
 variable "aws_apprunner_connection_arn" {
   description = "ARN of the existing AWS AppRunner Connection - ensure you have manually enabled it!"
-}
-
-variable "aws_region" {
-  description = "AWS region"
   type        = string
-  default     = "eu-west-2"
 }
 
 variable "build_command" {
   description = "If using source deployment, the command needed to build the application"
   type        = string
   default     = ""
-}
-
-variable "container_image" {
-  description = "Container image URL"
-  type        = string
 }
 
 variable "cpu" {
@@ -48,12 +38,6 @@ variable "custom_domain" {
   description = "Custom domain endpoint to associate"
   type        = string
   default     = ""
-}
-
-variable "database_arns" {
-  description = "List of database ARNs this App Runner service needs access to"
-  type        = list(string)
-  default     = []
 }
 
 variable "enable_ecr" {
@@ -104,28 +88,10 @@ variable "is_publicly_accessible" {
   default     = true
 }
 
-variable "max_concurrency" {
-  description = "Maximum number of concurrent requests per instance"
-  type        = number
-  default     = 100
-}
-
-variable "max_instances" {
-  description = "Maximum number of instances"
-  type        = number
-  default     = 10
-}
-
 variable "memory" {
   description = "Memory in MB for the service"
   type        = number
   default     = 2048
-}
-
-variable "min_instances" {
-  description = "Minimum number of instances"
-  type        = number
-  default     = 1
 }
 
 variable "organisation" {
@@ -144,12 +110,6 @@ variable "project_name" {
   type        = string
 }
 
-variable "repository_url" {
-  description = "The web address of the git repository"
-  type        = string
-
-}
-
 variable "runtime" {
   description = "The language and version to use for the App Runner runtime. Example: { language = \"nodejs\", version = \"16\" }"
   type = object({
@@ -164,6 +124,12 @@ variable "runtime" {
 
 variable "runtime_environment_variables" {
   description = "Environment variables for the App Runner service"
+  type        = map(string)
+  default     = {}
+}
+
+variable "runtime_environment_secrets" {
+  description = "Environment secrets for the App Runner service"
   type        = map(string)
   default     = {}
 }

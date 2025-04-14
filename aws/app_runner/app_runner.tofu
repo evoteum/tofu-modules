@@ -13,8 +13,15 @@ resource "aws_apprunner_service" "this" {
   source_configuration {
     auto_deployments_enabled = var.auto_deployments_enabled
 
+    dynamic "authentication_configuration" {
+      for_each = local.is_code_source ? { code_source : local.is_code_source } : {}
+      content {
+        connection_arn = var.aws_apprunner_connection_arn
+      }
+    }
+
     dynamic "code_repository" {
-      for_each = local.is_code_source ? [1] : []
+      for_each = local.is_code_source ? { code_source : local.is_code_source } : {}
       content {
         repository_url = var.application_source_uri
         source_code_version {
@@ -24,22 +31,26 @@ resource "aws_apprunner_service" "this" {
         code_configuration {
           configuration_source = "API"
           code_configuration_values {
-            runtime       = local.apprunner_runtime
-            build_command = var.build_command
-            start_command = var.start_command
-            port          = var.port
+            runtime                       = local.apprunner_runtime
+            build_command                 = var.build_command
+            start_command                 = var.start_command
+            port                          = var.port
+            runtime_environment_secrets   = var.runtime_environment_secrets
+            runtime_environment_variables = var.runtime_environment_variables
           }
         }
       }
     }
 
     dynamic "image_repository" {
-      for_each = local.is_container_source ? [1] : []
+      for_each = local.is_container_source ? { image_source : local.is_container_source } : {}
       content {
         image_identifier      = var.application_source_uri
         image_repository_type = "ECR_PUBLIC"
         image_configuration {
-          port = var.port
+          port                          = var.port
+          runtime_environment_secrets   = var.runtime_environment_secrets
+          runtime_environment_variables = var.runtime_environment_variables
         }
       }
     }

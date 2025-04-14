@@ -1,5 +1,3 @@
-
-
 locals {
   has_dynamodb    = length([for arn in var.service_arns.databases : arn if can(regex("^arn:aws:dynamodb:", arn))]) > 0
   has_rds         = length([for arn in var.service_arns.databases : arn if can(regex("^arn:aws:rds:", arn))]) > 0
@@ -28,21 +26,8 @@ locals {
   kms_arns = var.service_arns.kms
 
   hostname     = regex("^[a-z]+://([^/]+)", var.custom_domain)[0]
-  domain_parts = split(".", local.hostname)
+  base_domain = regex("^https?://([^/:?#]+)", var.custom_domain)[0]
 
-  base_domain = join(
-    ".",
-    slice(
-      local.domain_parts,
-      length(local.domain_parts) - (
-        contains(
-          ["co.uk", "org.uk", "gov.uk", "ac.uk"],
-          join(".", slice(local.domain_parts, length(local.domain_parts) - 2, length(local.domain_parts)))
-        ) ? 3 : 2
-      ),
-      length(local.domain_parts)
-    )
-  )
   resource_prefix = "${var.project_name}-${var.environment}"
 
   is_custom_vpc = length(var.vpc_connector_arn) > 0 ? true : false
