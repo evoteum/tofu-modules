@@ -1,5 +1,5 @@
 data "aws_iam_policy_document" "dynamodb" {
-  for_each = local.has_dynamodb ? [1] : []
+  for_each = local.has_dynamodb ? { enabled : true } : {}
 
   statement {
     effect = "Allow"
@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "dynamodb" {
 }
 
 data "aws_iam_policy_document" "rds" {
-  for_each = local.has_rds ? [1] : []
+  for_each = local.has_rds ? { enabled : true } : {}
 
   statement {
     effect = "Allow"
@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "rds" {
 }
 
 data "aws_iam_policy_document" "elasticache" {
-  for_each = local.has_elasticache ? [1] : []
+  for_each = local.has_elasticache ? { enabled : true } : {}
 
   statement {
     effect = "Allow"
@@ -42,7 +42,7 @@ data "aws_iam_policy_document" "elasticache" {
 }
 
 data "aws_iam_policy_document" "s3" {
-  for_each = local.has_s3 ? [1] : []
+  for_each = local.has_s3 ? { enabled : true } : {}
 
   statement {
     effect = "Allow"
@@ -57,7 +57,7 @@ data "aws_iam_policy_document" "s3" {
 }
 
 data "aws_iam_policy_document" "secrets_manager" {
-  for_each = local.has_secrets_manager ? [1] : []
+  for_each = local.has_secrets_manager ? { enabled : true } : {}
 
   statement {
     effect = "Allow"
@@ -69,7 +69,7 @@ data "aws_iam_policy_document" "secrets_manager" {
 }
 
 data "aws_iam_policy_document" "ssm" {
-  for_each = local.has_ssm ? [1] : []
+  for_each = local.has_ssm ? { enabled : true } : {}
 
   statement {
     effect = "Allow"
@@ -82,7 +82,7 @@ data "aws_iam_policy_document" "ssm" {
 }
 
 data "aws_iam_policy_document" "sqs" {
-  for_each = local.has_sqs ? [1] : []
+  for_each = local.has_sqs ? { enabled : true } : {}
 
   statement {
     effect = "Allow"
@@ -97,7 +97,7 @@ data "aws_iam_policy_document" "sqs" {
 }
 
 data "aws_iam_policy_document" "sns" {
-  for_each = local.has_sns ? [1] : []
+  for_each = local.has_sns ? { enabled : true } : {}
 
   statement {
     effect = "Allow"
@@ -109,7 +109,7 @@ data "aws_iam_policy_document" "sns" {
 }
 
 data "aws_iam_policy_document" "kms" {
-  for_each = local.has_kms ? [1] : []
+  for_each = local.has_kms ? { enabled : true } : {}
 
   statement {
     effect = "Allow"

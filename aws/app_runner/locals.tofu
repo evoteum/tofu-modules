@@ -25,7 +25,7 @@ locals {
   has_kms  = length(var.service_arns.kms) > 0
   kms_arns = var.service_arns.kms
 
-  hostname     = regex("^[a-z]+://([^/]+)", var.custom_domain)[0]
+  hostname    = regex("^[a-z]+://([^/]+)", var.custom_domain)[0]
   base_domain = regex("^https?://([^/:?#]+)", var.custom_domain)[0]
 
   resource_prefix = "${var.project_name}-${var.environment}"
