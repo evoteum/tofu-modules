@@ -1,5 +1,5 @@
 data "aws_iam_policy_document" "dynamodb" {
-  count = local.has_dynamodb ? 1 : 0
+  for_each = local.has_dynamodb ? [1] : []
 
   statement {
     effect = "Allow"
@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "dynamodb" {
 }
 
 data "aws_iam_policy_document" "rds" {
-  count = local.has_rds ? 1 : 0
+  for_each = local.has_rds ? [1] : []
 
   statement {
     effect = "Allow"
@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "rds" {
 }
 
 data "aws_iam_policy_document" "elasticache" {
-  count = local.has_elasticache ? 1 : 0
+  for_each = local.has_elasticache ? [1] : []
 
   statement {
     effect = "Allow"
@@ -42,7 +42,7 @@ data "aws_iam_policy_document" "elasticache" {
 }
 
 data "aws_iam_policy_document" "s3" {
-  count = local.has_s3 ? 1 : 0
+  for_each = local.has_s3 ? [1] : []
 
   statement {
     effect = "Allow"
@@ -57,7 +57,7 @@ data "aws_iam_policy_document" "s3" {
 }
 
 data "aws_iam_policy_document" "secrets_manager" {
-  count = local.has_secrets_manager ? 1 : 0
+  for_each = local.has_secrets_manager ? [1] : []
 
   statement {
     effect = "Allow"
@@ -69,7 +69,7 @@ data "aws_iam_policy_document" "secrets_manager" {
 }
 
 data "aws_iam_policy_document" "ssm" {
-  count = local.has_ssm ? 1 : 0
+  for_each = local.has_ssm ? [1] : []
 
   statement {
     effect = "Allow"
@@ -82,7 +82,7 @@ data "aws_iam_policy_document" "ssm" {
 }
 
 data "aws_iam_policy_document" "sqs" {
-  count = local.has_sqs ? 1 : 0
+  for_each = local.has_sqs ? [1] : []
 
   statement {
     effect = "Allow"
@@ -97,7 +97,7 @@ data "aws_iam_policy_document" "sqs" {
 }
 
 data "aws_iam_policy_document" "sns" {
-  count = local.has_sns ? 1 : 0
+  for_each = local.has_sns ? [1] : []
 
   statement {
     effect = "Allow"
@@ -109,7 +109,7 @@ data "aws_iam_policy_document" "sns" {
 }
 
 data "aws_iam_policy_document" "kms" {
-  count = local.has_kms ? 1 : 0
+  for_each = local.has_kms ? [1] : []
 
   statement {
     effect = "Allow"

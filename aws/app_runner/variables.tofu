@@ -1,14 +1,6 @@
 variable "application_source_uri" {
-  description = "URI of the application source. Must be one of:\n- A GitHub repository URL (must contain \"github.com\")\n- An ECR image URI (must contain \"dkr.ecr.<region>.amazonaws.com\")"
+  description = "URI of the application source. Must be one of:\n- A GitHub repository URL (must contain \"github.com\")\n- An ECR image URI "
   type        = string
-
-  validation {
-    condition = (
-      contains(var.application_source_uri, "github.com") ||
-      can(regex("dkr\\.ecr\\.[^.]+\\.amazonaws\\.com", var.application_source_uri))
-    )
-    error_message = "The 'application_source_uri' must contain either 'github.com' for source code or 'dkr.ecr.<region>.amazonaws.com' for an ECR container image."
-  }
 }
 
 variable "auto_deployments_enabled" {
