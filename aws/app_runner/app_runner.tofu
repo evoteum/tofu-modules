@@ -14,14 +14,18 @@ resource "aws_apprunner_service" "this" {
     auto_deployments_enabled = var.auto_deployments_enabled
 
     dynamic "authentication_configuration" {
-      for_each = local.is_code_source ? { code_source : local.is_code_source } : {}
+      for_each = {
+        for key, val in { enabled = local.is_code_source } : key => val if val
+      }
       content {
         connection_arn = var.aws_apprunner_connection_arn
       }
     }
 
     dynamic "code_repository" {
-      for_each = local.is_code_source ? { code_source : local.is_code_source } : {}
+      for_each = {
+        for key, val in { enabled = local.is_code_source } : key => val if val
+      }
       content {
         repository_url = var.application_source_uri
         source_code_version {
@@ -43,7 +47,9 @@ resource "aws_apprunner_service" "this" {
     }
 
     dynamic "image_repository" {
-      for_each = local.is_container_source ? { image_source : local.is_container_source } : {}
+      for_each = {
+        for key, val in { enabled = local.is_container_source } : key => val if val
+      }
       content {
         image_identifier      = var.application_source_uri
         image_repository_type = "ECR_PUBLIC"
@@ -67,7 +73,9 @@ resource "aws_apprunner_service" "this" {
       is_publicly_accessible = var.is_publicly_accessible
     }
     dynamic "egress_configuration" {
-      for_each = local.is_custom_vpc ? { enabled : true } : {}
+      for_each = {
+        for key, val in { enabled = local.is_custom_vpc } : key => val if val
+      }
       content {
         egress_type       = "VPC"
         vpc_connector_arn = var.vpc_connector_arn
@@ -75,7 +83,9 @@ resource "aws_apprunner_service" "this" {
     }
 
     dynamic "egress_configuration" {
-      for_each = local.is_custom_vpc ? {} : { enabled : true }
+      for_each = {
+        for key, val in { enabled = local.is_custom_vpc } : key => val if val
+      }
       content {
         egress_type = "DEFAULT"
       }
@@ -85,7 +95,9 @@ resource "aws_apprunner_service" "this" {
 }
 
 resource "aws_apprunner_custom_domain_association" "service" {
-  for_each    = length(local.base_domain) > 0 ? { custom_domain : local.base_domain } : {}
+  for_each = {
+    for key, val in { enabled = local.base_domain != null } : key => val if val
+  }
   service_arn = aws_apprunner_service.this.arn
   domain_name = each.value
 }

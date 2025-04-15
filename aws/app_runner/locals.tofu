@@ -30,7 +30,7 @@ locals {
 
   resource_prefix = "${var.project_name}-${var.environment}"
 
-  is_custom_vpc = length(var.vpc_connector_arn) == null ? false : true
+  is_custom_vpc = var.vpc_connector_arn == null ? false : true
 
   is_github_source = can(regex("github\\.com", var.application_source_uri))
   is_ecr_source    = can(regex("public\\.ecr\\.aws", var.application_source_uri))

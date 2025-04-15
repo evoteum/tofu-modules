@@ -1,5 +1,7 @@
 data "aws_iam_policy_document" "dynamodb" {
-  for_each = local.has_dynamodb ? { enabled : true } : {}
+  for_each = {
+    for key, val in { enabled = local.has_dynamodb } : key => val if val
+  }
 
   statement {
     effect = "Allow"
@@ -18,7 +20,9 @@ data "aws_iam_policy_document" "dynamodb" {
 }
 
 data "aws_iam_policy_document" "rds" {
-  for_each = local.has_rds ? { enabled : true } : {}
+  for_each = {
+    for key, val in { enabled = local.has_rds } : key => val if val
+  }
 
   statement {
     effect = "Allow"
@@ -30,7 +34,9 @@ data "aws_iam_policy_document" "rds" {
 }
 
 data "aws_iam_policy_document" "elasticache" {
-  for_each = local.has_elasticache ? { enabled : true } : {}
+  for_each = {
+    for key, val in { enabled = local.has_elasticache } : key => val if val
+  }
 
   statement {
     effect = "Allow"
@@ -42,7 +48,9 @@ data "aws_iam_policy_document" "elasticache" {
 }
 
 data "aws_iam_policy_document" "s3" {
-  for_each = local.has_s3 ? { enabled : true } : {}
+  for_each = {
+    for key, val in { enabled = local.has_s3 } : key => val if val
+  }
 
   statement {
     effect = "Allow"
@@ -57,7 +65,9 @@ data "aws_iam_policy_document" "s3" {
 }
 
 data "aws_iam_policy_document" "secrets_manager" {
-  for_each = local.has_secrets_manager ? { enabled : true } : {}
+  for_each = {
+    for key, val in { enabled = local.has_secrets_manager } : key => val if val
+  }
 
   statement {
     effect = "Allow"
@@ -69,7 +79,9 @@ data "aws_iam_policy_document" "secrets_manager" {
 }
 
 data "aws_iam_policy_document" "ssm" {
-  for_each = local.has_ssm ? { enabled : true } : {}
+  for_each = {
+    for key, val in { enabled = local.has_ssm } : key => val if val
+  }
 
   statement {
     effect = "Allow"
@@ -82,7 +94,9 @@ data "aws_iam_policy_document" "ssm" {
 }
 
 data "aws_iam_policy_document" "sqs" {
-  for_each = local.has_sqs ? { enabled : true } : {}
+  for_each = {
+    for key, val in { enabled = local.has_sqs } : key => val if val
+  }
 
   statement {
     effect = "Allow"
@@ -97,7 +111,9 @@ data "aws_iam_policy_document" "sqs" {
 }
 
 data "aws_iam_policy_document" "sns" {
-  for_each = local.has_sns ? { enabled : true } : {}
+  for_each = {
+    for key, val in { enabled = local.has_sns } : key => val if val
+  }
 
   statement {
     effect = "Allow"
@@ -109,7 +125,9 @@ data "aws_iam_policy_document" "sns" {
 }
 
 data "aws_iam_policy_document" "kms" {
-  for_each = local.has_kms ? { enabled : true } : {}
+  for_each = {
+    for key, val in { enabled = local.has_kms } : key => val if val
+  }
 
   statement {
     effect = "Allow"
