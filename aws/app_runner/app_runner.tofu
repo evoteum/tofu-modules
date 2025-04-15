@@ -23,9 +23,7 @@ resource "aws_apprunner_service" "this" {
     }
 
     dynamic "code_repository" {
-      for_each = {
-        for key, val in { enabled = local.is_code_source } : key => val if val
-      }
+      for_each = strcontains(var.application_source_uri, "github.com") ? { enabled = true } : {}
       content {
         repository_url = var.application_source_uri
         source_code_version {
@@ -47,9 +45,7 @@ resource "aws_apprunner_service" "this" {
     }
 
     dynamic "image_repository" {
-      for_each = {
-        for key, val in { enabled = local.is_container_source } : key => val if val
-      }
+      for_each = strcontains(var.application_source_uri, "public.ecr.aws") ? { enabled = true } : {}
       content {
         image_identifier      = var.application_source_uri
         image_repository_type = "ECR_PUBLIC"
@@ -73,9 +69,7 @@ resource "aws_apprunner_service" "this" {
       is_publicly_accessible = var.is_publicly_accessible
     }
     dynamic "egress_configuration" {
-      for_each = {
-        for key, val in { enabled = local.is_custom_vpc } : key => val if val
-      }
+      for_each = var.vpc_connector_arn != null ? { enabled = true } : {}
       content {
         egress_type       = "VPC"
         vpc_connector_arn = var.vpc_connector_arn
@@ -83,9 +77,7 @@ resource "aws_apprunner_service" "this" {
     }
 
     dynamic "egress_configuration" {
-      for_each = {
-        for key, val in { enabled = local.is_custom_vpc } : key => val if val
-      }
+      for_each = var.vpc_connector_arn != null ? { enabled = true } : {}
       content {
         egress_type = "DEFAULT"
       }
@@ -95,9 +87,7 @@ resource "aws_apprunner_service" "this" {
 }
 
 resource "aws_apprunner_custom_domain_association" "service" {
-  for_each = {
-    for key, val in { enabled = local.base_domain != null } : key => val if val
-  }
+  for_each    = var.custom_domain != "" ? { enabled = true } : {}
   service_arn = aws_apprunner_service.this.arn
-  domain_name = each.value
+  domain_name = custom_domain_parsed.domain
 }

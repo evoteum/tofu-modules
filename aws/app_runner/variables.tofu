@@ -129,11 +129,7 @@ variable "runtime_environment_secrets" {
 variable "service_arns" {
   description = "Map of service ARNs this App Runner service needs access to"
   type = object({
-    databases = optional(list(string), []) # DynamoDB, RDS, ElastiCache
-    storage   = optional(list(string), []) # S3 buckets
-    secrets   = optional(list(string), []) # Secrets Manager, SSM Parameter Store
-    messaging = optional(list(string), []) # SQS queues, SNS topics
-    kms       = optional(list(string), []) # KMS keys
+    databases = optional(list(string), []) # dynamodb
   })
   default = {}
 }

@@ -1,7 +1,7 @@
 data "aws_iam_policy_document" "dynamodb" {
-  for_each = {
-    for key, val in { enabled = local.has_dynamodb } : key => val if val
-  }
+  for_each = anytrue([
+    for arn in var.service_arns.databases : contains(arn, "dynamodb")
+  ]) ? { enabled = true } : {}
 
   statement {
     effect = "Allow"
@@ -16,125 +16,5 @@ data "aws_iam_policy_document" "dynamodb" {
       "dynamodb:BatchWriteItem"
     ]
     resources = local.dynamodb_arns
-  }
-}
-
-data "aws_iam_policy_document" "rds" {
-  for_each = {
-    for key, val in { enabled = local.has_rds } : key => val if val
-  }
-
-  statement {
-    effect = "Allow"
-    actions = [
-      "rds-db:connect"
-    ]
-    resources = local.rds_arns
-  }
-}
-
-data "aws_iam_policy_document" "elasticache" {
-  for_each = {
-    for key, val in { enabled = local.has_elasticache } : key => val if val
-  }
-
-  statement {
-    effect = "Allow"
-    actions = [
-      "elasticache:Connect"
-    ]
-    resources = local.elasticache_arns
-  }
-}
-
-data "aws_iam_policy_document" "s3" {
-  for_each = {
-    for key, val in { enabled = local.has_s3 } : key => val if val
-  }
-
-  statement {
-    effect = "Allow"
-    actions = [
-      "s3:GetObject",
-      "s3:PutObject",
-      "s3:DeleteObject",
-      "s3:ListBucket"
-    ]
-    resources = concat(local.s3_arns, [for arn in local.s3_arns : "${arn}/*"])
-  }
-}
-
-data "aws_iam_policy_document" "secrets_manager" {
-  for_each = {
-    for key, val in { enabled = local.has_secrets_manager } : key => val if val
-  }
-
-  statement {
-    effect = "Allow"
-    actions = [
-      "secretsmanager:GetSecretValue"
-    ]
-    resources = local.secrets_manager_arns
-  }
-}
-
-data "aws_iam_policy_document" "ssm" {
-  for_each = {
-    for key, val in { enabled = local.has_ssm } : key => val if val
-  }
-
-  statement {
-    effect = "Allow"
-    actions = [
-      "ssm:GetParameter",
-      "ssm:GetParameters"
-    ]
-    resources = local.ssm_arns
-  }
-}
-
-data "aws_iam_policy_document" "sqs" {
-  for_each = {
-    for key, val in { enabled = local.has_sqs } : key => val if val
-  }
-
-  statement {
-    effect = "Allow"
-    actions = [
-      "sqs:SendMessage",
-      "sqs:ReceiveMessage",
-      "sqs:DeleteMessage",
-      "sqs:GetQueueAttributes"
-    ]
-    resources = local.sqs_arns
-  }
-}
-
-data "aws_iam_policy_document" "sns" {
-  for_each = {
-    for key, val in { enabled = local.has_sns } : key => val if val
-  }
-
-  statement {
-    effect = "Allow"
-    actions = [
-      "sns:Publish"
-    ]
-    resources = local.sns_arns
-  }
-}
-
-data "aws_iam_policy_document" "kms" {
-  for_each = {
-    for key, val in { enabled = local.has_kms } : key => val if val
-  }
-
-  statement {
-    effect = "Allow"
-    actions = [
-      "kms:Decrypt",
-      "kms:GenerateDataKey"
-    ]
-    resources = local.kms_arns
   }
 }
