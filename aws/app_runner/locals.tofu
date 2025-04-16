@@ -22,7 +22,7 @@ locals {
   enable_custom_vpc = var.vpc_connector_arn == "" ? false : true
 
   cleaned_version = replace(var.runtime.version, "^v", "")
-  major_version   = split(".", local.cleaned_version)[0]
+  major_version   = split(".", local.cleaned_version)[0]  # Major Version 🫡 https://youtu.be/StOct69DglM
 
   runtime_key = "${lower(var.runtime.language)}:${local.major_version}"
 

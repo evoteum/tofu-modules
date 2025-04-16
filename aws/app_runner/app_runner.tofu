@@ -23,9 +23,9 @@ resource "aws_apprunner_service" "this" {
     }
 
     dynamic "code_repository" {
-      for_each = strcontains(var.application_source_uri, "github.com") ? { enabled = true } : {}
+      for_each = local.is_code_source ? { enabled = true } : {}
       content {
-        repository_url = var.application_source_uri
+        repository_url = var.github_repository
         source_code_version {
           type  = "BRANCH"
           value = var.source_branch
@@ -45,9 +45,9 @@ resource "aws_apprunner_service" "this" {
     }
 
     dynamic "image_repository" {
-      for_each = strcontains(var.application_source_uri, "public.ecr.aws") ? { enabled = true } : {}
+      for_each = local.is_container_source ? { enabled = true } : {}
       content {
-        image_identifier      = var.application_source_uri
+        image_identifier      = var.ecr_repository
         image_repository_type = "ECR_PUBLIC"
         image_configuration {
           port                          = var.port
