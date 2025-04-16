@@ -1,10 +1,8 @@
 locals {
   resource_prefix = "${var.project_name}-${var.environment}"
 
-  is_custom_vpc = var.vpc_connector_arn == null ? false : true
-
-  is_code_source = strcontains(var.application_source_uri, "github.com")
-  is_container_source    = strcontains(var.application_source_uri, "aws") && !local.is_code_source
+  is_code_source      = var.github_repository != "" && var.ecr_repository == ""
+  is_container_source = var.ecr_repository != "" && var.github_repository == ""
 
   runtime_map = {
     "python:3"    = "PYTHON_3"
@@ -19,8 +17,9 @@ locals {
     "ruby:31"     = "RUBY_31"
   }
 
-  enable_dynamodb = length(var.dynamodb_arns) > 0
-  enable_ecr = length(var.ecr_arns) > 0
+  enable_dynamodb   = length(var.dynamodb_arns) > 0
+  enable_ecr        = length(var.ecr_arns) > 0
+  enable_custom_vpc = var.vpc_connector_arn == "" ? false : true
 
   cleaned_version = replace(var.runtime.version, "^v", "")
   major_version   = split(".", local.cleaned_version)[0]

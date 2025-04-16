@@ -39,7 +39,7 @@ resource "aws_iam_role_policy_attachment" "ecr" {
   for_each = local.enable_ecr ? { enabled = true } : {}
 
   role       = aws_iam_role.app_runner.name
-  policy_arn = aws_iam_policy.ecr[0].arn
+  policy_arn = aws_iam_policy.ecr["enabled"].arn
 }
 
 resource "aws_iam_policy" "cloudwatch" {
@@ -68,7 +68,7 @@ resource "aws_iam_policy" "dynamodb" {
   for_each = local.enable_dynamodb ? { enabled = true } : {}
 
   name   = "${local.resource_prefix}-dynamodb-policy"
-  policy = data.aws_iam_policy_document.dynamodb[0].json
+  policy = data.aws_iam_policy_document.dynamodb["enabled"].json
 }
 
 
@@ -76,5 +76,5 @@ resource "aws_iam_role_policy_attachment" "dynamodb" {
   for_each = local.enable_dynamodb ? { enabled = true } : {}
 
   role       = aws_iam_role.app_runner.name
-  policy_arn = aws_iam_policy.dynamodb[0].arn
+  policy_arn = aws_iam_policy.dynamodb["enabled"].arn
 }

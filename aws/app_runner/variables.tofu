@@ -1,8 +1,3 @@
-variable "application_source_uri" {
-  description = "URI of the application source. Must be one of:\n- A GitHub repository URL (must contain \"github.com\")\n- An ECR image URI (must contain \"aws\", must NOT contain \"github.com\")"
-  type        = string
-}
-
 variable "auto_deployments_enabled" {
   description = "Whether continuous integration from the source repository is enabled for the App Runner service. If set to true, each repository change (source code commit or new image version) starts a deployment."
   type        = bool
@@ -32,10 +27,34 @@ variable "custom_domain" {
   default     = ""
 }
 
+variable "dynamodb_arns" {
+  description = "Amazon Resource Names of all the DynamoDB tables that this service needs access to"
+  type        = list(string)
+  default     = []
+}
+
+variable "ecr_arns" {
+  description = "Amazon Resource Names of all the ECR repos that this service needs access to"
+  type        = list(string)
+  default     = []
+}
+
+variable "ecr_repository" {
+  description = "The container path to the ECR repository, for use when deploying a container. Leave github_repository empty."
+  type        = string
+  default     = ""
+}
+
 variable "environment" {
   description = "Environment name; must be one of the permitted environment names"
   type        = string
   default     = "production"
+}
+
+variable "github_repository" {
+  type        = string
+  description = "The URL of the GitHub. source repository, for use when deploying source code directly. Leave ecr_repository emtpy."
+  default     = ""
 }
 
 variable "health_check_healthy_threshold" {
@@ -108,14 +127,14 @@ variable "runtime" {
   }
 }
 
-variable "runtime_environment_variables" {
-  description = "Environment variables for the App Runner service"
+variable "runtime_environment_secrets" {
+  description = "Environment secrets for the App Runner service"
   type        = map(string)
   default     = {}
 }
 
-variable "runtime_environment_secrets" {
-  description = "Environment secrets for the App Runner service"
+variable "runtime_environment_variables" {
+  description = "Environment variables for the App Runner service"
   type        = map(string)
   default     = {}
 }
@@ -135,17 +154,5 @@ variable "start_command" {
 variable "vpc_connector_arn" {
   description = "VPC connector ARN"
   type        = string
-  default     = null
-}
-
-variable "dynamodb_arns" {
-  description = "Amazon Resource Names of all the DynamoDB tables that this service needs access to"
-  type = list(string)
-  default = []
-}
-
-variable "ecr_arns" {
-  description = "Amazon Resource Names of all the ECR repos that this service needs access to"
-  type = list(string)
-  default = []
+  default     = ""
 }
