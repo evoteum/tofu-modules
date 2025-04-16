@@ -13,6 +13,6 @@ data "aws_iam_policy_document" "dynamodb" {
       "dynamodb:BatchGetItem",
       "dynamodb:BatchWriteItem"
     ]
-    resources = local.dynamodb_arns
+    resources = var.dynamodb_arns
   }
 }

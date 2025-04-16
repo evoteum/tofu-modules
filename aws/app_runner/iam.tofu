@@ -14,7 +14,7 @@ resource "aws_iam_role" "app_runner" {
 }
 
 resource "aws_iam_policy" "ecr" {
-  for_each = var.enable_ecr ? { enabled = true } : {}
+  for_each = local.enable_ecr ? { enabled = true } : {}
 
   name = "${local.resource_prefix}-ecr-policy"
 
@@ -30,13 +30,13 @@ resource "aws_iam_policy" "ecr" {
         "ecr-public:DescribeImages",
         "ecr-public:GetRepositoryCatalogData"
       ]
-      Resource = "*"
+      Resource = var.ecr_arns
     }]
   })
 }
 
 resource "aws_iam_role_policy_attachment" "ecr" {
-  for_each = var.enable_ecr ? { enabled = true } : {}
+  for_each = local.enable_ecr ? { enabled = true } : {}
 
   role       = aws_iam_role.app_runner.name
   policy_arn = aws_iam_policy.ecr[0].arn
@@ -65,9 +65,7 @@ resource "aws_iam_role_policy_attachment" "cloudwatch" {
 }
 
 resource "aws_iam_policy" "dynamodb" {
-  for_each = anytrue([
-    for arn in var.service_arns.databases : contains(arn, "dynamodb")
-  ]) ? { enabled = true } : {}
+  for_each = local.enable_dynamodb ? { enabled = true } : {}
 
   name   = "${local.resource_prefix}-dynamodb-policy"
   policy = data.aws_iam_policy_document.dynamodb[0].json
@@ -75,9 +73,7 @@ resource "aws_iam_policy" "dynamodb" {
 
 
 resource "aws_iam_role_policy_attachment" "dynamodb" {
-  for_each = anytrue([
-    for arn in var.service_arns.databases : contains(arn, "dynamodb")
-  ]) ? { enabled = true } : {}
+  for_each = local.enable_dynamodb ? { enabled = true } : {}
 
   role       = aws_iam_role.app_runner.name
   policy_arn = aws_iam_policy.dynamodb[0].arn

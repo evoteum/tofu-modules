@@ -1,5 +1,5 @@
 variable "application_source_uri" {
-  description = "URI of the application source. Must be one of:\n- A GitHub repository URL (must contain \"github.com\")\n- An ECR image URI "
+  description = "URI of the application source. Must be one of:\n- A GitHub repository URL (must contain \"github.com\")\n- An ECR image URI (must contain \"aws\", must NOT contain \"github.com\")"
   type        = string
 }
 
@@ -30,12 +30,6 @@ variable "custom_domain" {
   description = "Custom domain endpoint to associate"
   type        = string
   default     = ""
-}
-
-variable "enable_ecr" {
-  description = "Enable ECR access for App Runner"
-  type        = bool
-  default     = false
 }
 
 variable "environment" {
@@ -126,14 +120,6 @@ variable "runtime_environment_secrets" {
   default     = {}
 }
 
-variable "service_arns" {
-  description = "Map of service ARNs this App Runner service needs access to"
-  type = object({
-    databases = optional(list(string), []) # dynamodb
-  })
-  default = {}
-}
-
 variable "source_branch" {
   description = "If using source deployment, which branch should be deployed?"
   type        = string
@@ -150,4 +136,16 @@ variable "vpc_connector_arn" {
   description = "VPC connector ARN"
   type        = string
   default     = null
+}
+
+variable "dynamodb_arns" {
+  description = "Amazon Resource Names of all the DynamoDB tables that this service needs access to"
+  type = list(string)
+  default = []
+}
+
+variable "ecr_arns" {
+  description = "Amazon Resource Names of all the ECR repos that this service needs access to"
+  type = list(string)
+  default = []
 }
