@@ -89,5 +89,5 @@ resource "aws_apprunner_service" "this" {
 resource "aws_apprunner_custom_domain_association" "service" {
   for_each    = var.custom_domain != "" ? { enabled = true } : {}
   service_arn = aws_apprunner_service.this.arn
-  domain_name = custom_domain_parsed.domain
+  domain_name = local.custom_domain_parsed.host
 }
