@@ -69,7 +69,7 @@ resource "aws_apprunner_service" "this" {
       is_publicly_accessible = var.is_publicly_accessible
     }
     dynamic "egress_configuration" {
-      for_each = var.vpc_connector_arn != null ? { enabled = true } : {}
+      for_each = var.vpc_connector_arn != "" ? { enabled = true } : {}
       content {
         egress_type       = "VPC"
         vpc_connector_arn = var.vpc_connector_arn
@@ -77,7 +77,7 @@ resource "aws_apprunner_service" "this" {
     }
 
     dynamic "egress_configuration" {
-      for_each = var.vpc_connector_arn != null ? { enabled = true } : {}
+      for_each = var.vpc_connector_arn == "" ? { enabled = true } : {}
       content {
         egress_type = "DEFAULT"
       }
