@@ -53,7 +53,7 @@ variable "health_check_healthy_threshold" {
 variable "health_check_interval" {
   description = "Health check interval"
   type        = number
-  default     = 30
+  default     = 20
 }
 
 variable "health_check_path" {

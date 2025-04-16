@@ -1,7 +1,5 @@
 data "aws_iam_policy_document" "dynamodb" {
-  for_each = anytrue([
-    for arn in var.service_arns.databases : contains(arn, "dynamodb")
-  ]) ? { enabled = true } : {}
+  for_each = local.enable_dynamodb ? { enabled = true } : {}
 
   statement {
     effect = "Allow"

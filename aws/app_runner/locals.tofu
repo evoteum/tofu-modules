@@ -3,8 +3,6 @@ locals {
 
   dynamodb_arns = [for arn in var.service_arns.databases : arn if can(regex("^arn:aws:dynamodb:", arn))]
 
-  custom_domain_parsed = provider::netparse::parse_url(var.custom_domain)
-
   resource_prefix = "${var.project_name}-${var.environment}"
 
   is_custom_vpc = var.vpc_connector_arn == null ? false : true
@@ -34,4 +32,10 @@ locals {
   runtime_key = "${lower(var.runtime.language)}:${local.major_version}"
 
   apprunner_runtime = lookup(local.runtime_map, local.runtime_key, null)
+
+  enable_dynamodb = anytrue([
+    for arn in var.service_arns.databases : contains(arn, "dynamodb")
+  ])
+
+  custom_domain_parsed = provider::netparse::parse_url(var.custom_domain)
 }
