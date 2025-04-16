@@ -1,6 +1,7 @@
 locals {
   resource_prefix = "${var.project_name}-${var.environment}"
 
+  # These will silently force the creation of nothing if neither or both vars are set.
   is_code_source      = var.github_repository != "" && var.ecr_repository == ""
   is_container_source = var.ecr_repository != "" && var.github_repository == ""
 
@@ -22,7 +23,7 @@ locals {
   enable_custom_vpc = var.vpc_connector_arn == "" ? false : true
 
   cleaned_version = replace(var.runtime.version, "^v", "")
-  major_version   = split(".", local.cleaned_version)[0]  # Major Version 🫡 https://youtu.be/StOct69DglM
+  major_version   = split(".", local.cleaned_version)[0] # Major Version 🫡 https://youtu.be/StOct69DglM
 
   runtime_key = "${lower(var.runtime.language)}:${local.major_version}"
 

@@ -26,6 +26,7 @@ resource "aws_apprunner_service" "this" {
       for_each = local.is_code_source ? { enabled = true } : {}
       content {
         repository_url = var.github_repository
+        source_directory = var.source_directory
         source_code_version {
           type  = "BRANCH"
           value = var.source_branch
