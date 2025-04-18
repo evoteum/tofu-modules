@@ -20,6 +20,7 @@ locals {
   enable_dynamodb   = length(var.dynamodb_arns) > 0
   enable_ecr        = length(var.ecr_arns) > 0
   enable_custom_vpc = var.vpc_connector_arn == "" ? false : true
+  enable_custom_domain = length(var.custom_domain) > 0
 
   cleaned_version = replace(var.runtime.version, "^v", "")
   major_version   = regex("^([0-9]+)", local.cleaned_version)[0] # Major Version 🫡 https://youtu.be/StOct69DglM
