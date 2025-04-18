@@ -7,3 +7,7 @@ output "dns_records" {
   description = "The DNS values needed to configure a custom domain name"
   value       = aws_apprunner_custom_domain_association.service["custom_domain"].dns_target > 0 ? aws_apprunner_custom_domain_association.service["custom_domain"].dns_target : null
 }
+
+output "runtime" {
+  value = local.apprunner_runtime
+}
