@@ -17,9 +17,9 @@ locals {
     "ruby:31"     = "RUBY_31"
   }
 
-  enable_dynamodb   = length(var.dynamodb_arns) > 0
-  enable_ecr        = length(var.ecr_arns) > 0
-  enable_custom_vpc = var.vpc_connector_arn == "" ? false : true
+  enable_dynamodb      = length(var.dynamodb_arns) > 0
+  enable_ecr           = length(var.ecr_arns) > 0
+  enable_custom_vpc    = var.vpc_connector_arn == "" ? false : true
   enable_custom_domain = length(var.custom_domain) > 0
 
   cleaned_version = replace(var.runtime.version, "^v", "")

@@ -1,5 +1,5 @@
 locals {
-  table_name    = lower("${var.project_name}-${var.environment}-${var.table_name}")
+  table_name = lower("${var.project_name}-${var.environment}-${var.table_name}")
 }
 
 resource "aws_dynamodb_table" "this" {

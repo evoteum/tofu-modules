@@ -14,6 +14,12 @@ variable "backup_bucket" {
   default     = ""
 }
 
+variable "billing_mode" {
+  default     = "PAY_PER_REQUEST"
+  type        = string
+  description = "Controls how you are charged for read and write throughput and how you manage capacity. The valid values are PROVISIONED and PAY_PER_REQUEST."
+}
+
 variable "environment" {
   description = "Environment name; must be one of the permitted environment names"
   type        = string
@@ -31,9 +37,19 @@ variable "global_secondary_indexes" {
   default = {}
 }
 
+variable "hash_key" {
+  type        = string
+  description = "Name of the hash key in the index; must be defined as an attribute."
+}
+
 variable "project_name" {
   description = "Project name to be used for resource naming"
   type        = string
+}
+
+variable "range_key" {
+  type        = string
+  description = "Attribute to use as the range (sort) key. Must also be defined as an attribute."
 }
 
 variable "table_name" {
@@ -41,20 +57,4 @@ variable "table_name" {
   type        = string
   sensitive   = false
   default     = "table"
-}
-
-variable "hash_key" {
-  type = string
-  description = "Name of the hash key in the index; must be defined as an attribute."
-}
-
-variable "range_key" {
-  type = string
-  description = "Attribute to use as the range (sort) key. Must also be defined as an attribute."
-}
-
-variable "billing_mode" {
-  default = "PAY_PER_REQUEST"
-  type = string
-  description = "Controls how you are charged for read and write throughput and how you manage capacity. The valid values are PROVISIONED and PAY_PER_REQUEST."
 }
