@@ -11,15 +11,15 @@ resource "aws_dynamodb_table" "this" {
   dynamic "attribute" {
     for_each = var.attributes
     content {
-      name = attribute.value.name
-      type = attribute.value.type
+      name = attribute.key
+      type = upper(attribute.value)
     }
   }
 
   dynamic "global_secondary_index" {
     for_each = var.global_secondary_indexes
     content {
-      name            = global_secondary_index.value.name
+      name            = global_secondary_index.key
       hash_key        = global_secondary_index.value.hash_key
       range_key       = global_secondary_index.value.range_key
       projection_type = global_secondary_index.value.projection_type

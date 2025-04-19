@@ -1,10 +1,13 @@
 variable "attributes" {
-  description = "Set of nested attribute definitions. Only required for hash_key and range_key attributes"
-  type = map(object({
-    name = string
-    type = string
-  }))
-  default = {}
+  description = "A map of attribute names to their types. Valid types: S, N, B."
+  type        = map(string)
+  default     = {}
+  validation {
+    condition = alltrue([
+      for t in values(var.attributes) : contains(["s", "n", "b", "S", "N", "B"], t)
+    ])
+    error_message = "All attribute types must be one of: S, N, or B."
+  }
 }
 
 variable "backup_bucket" {
@@ -27,9 +30,8 @@ variable "environment" {
 }
 
 variable "global_secondary_indexes" {
-  description = "GSIs for the table"
+  description = "Map of GSI names to their index configuration"
   type = map(object({
-    name            = string
     hash_key        = string
     range_key       = string
     projection_type = string
