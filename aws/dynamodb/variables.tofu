@@ -10,13 +10,6 @@ variable "attributes" {
   }
 }
 
-variable "backup_bucket" {
-  description = "The name of the S3 bucket to use for backups."
-  type        = string
-  sensitive   = true
-  default     = ""
-}
-
 variable "billing_mode" {
   default     = "PAY_PER_REQUEST"
   type        = string

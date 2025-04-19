@@ -34,13 +34,3 @@ resource "aws_dynamodb_table" "this" {
     prevent_destroy = false
   }
 }
-
-
-resource "aws_dynamodb_table_export" "this" {
-  for_each = var.backup_bucket != "" ? { enabled : true } : {}
-
-  table_arn     = aws_dynamodb_table.this.arn
-  s3_bucket     = var.backup_bucket
-  s3_prefix     = "${local.table_name}/${formatdate("YYYY-MM-DDThh-mm-ssZZZ", timestamp())}"
-  export_format = "DYNAMODB_JSON"
-}
