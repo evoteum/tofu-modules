@@ -1,7 +1,34 @@
+variable "attributes" {
+  description = "Set of nested attribute definitions. Only required for hash_key and range_key attributes"
+  type = map(object({
+    name = string
+    type = string
+  }))
+  default = {}
+}
+
+variable "backup_bucket" {
+  description = "The name of the S3 bucket to use for backups."
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
 variable "environment" {
   description = "Environment name; must be one of the permitted environment names"
   type        = string
   default     = "production"
+}
+
+variable "global_secondary_indexes" {
+  description = "GSIs for the table"
+  type = map(object({
+    name            = string
+    hash_key        = string
+    range_key       = string
+    projection_type = string
+  }))
+  default = {}
 }
 
 variable "project_name" {
@@ -14,4 +41,20 @@ variable "table_name" {
   type        = string
   sensitive   = false
   default     = "table"
+}
+
+variable "hash_key" {
+  type = string
+  description = "Name of the hash key in the index; must be defined as an attribute."
+}
+
+variable "range_key" {
+  type = string
+  description = "Attribute to use as the range (sort) key. Must also be defined as an attribute."
+}
+
+variable "billing_mode" {
+  default = "PAY_PER_REQUEST"
+  type = string
+  description = "Controls how you are charged for read and write throughput and how you manage capacity. The valid values are PROVISIONED and PAY_PER_REQUEST."
 }
