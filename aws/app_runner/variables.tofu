@@ -12,7 +12,7 @@ variable "aws_apprunner_connection_arn" {
 variable "build_command" {
   description = "If using source deployment, the command needed to build the application"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "cpu" {
@@ -148,7 +148,7 @@ variable "source_branch" {
 variable "start_command" {
   description = "If using source deployment, the command needed to run the application"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "vpc_connector_arn" {
@@ -160,5 +160,5 @@ variable "vpc_connector_arn" {
 variable "source_directory" {
   description = "If using source deployment, the path of the directory that stores source code and configuration files. The build and start commands also execute from here. The path is absolute from root and, if not specified, defaults to the repository root."
   type        = string
-  default     = ""
+  default     = null
 }
