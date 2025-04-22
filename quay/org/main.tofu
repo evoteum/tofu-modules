@@ -7,6 +7,6 @@ terraform {
 }
 
 resource "quay_organization" "org" {
-  name        = var.organisation
-  email       = var.email
+  name  = var.organisation
+  email = var.email
 }

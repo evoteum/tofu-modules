@@ -1,11 +1,11 @@
 locals {
   controller_repo_link = "[${var.management_repo_name}](${var.management_repo_url})."
-  random_party_emoji = join("", random_shuffle.party_emoji.result)
+  random_party_emoji   = join("", random_shuffle.party_emoji.result)
 }
 
 resource "random_shuffle" "party_emoji" {
   # Because it's delightfully silly :D
-  input        = [
+  input = [
     "🌟",
     "🍾",
     "🎂",
