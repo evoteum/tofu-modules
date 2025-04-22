@@ -54,5 +54,5 @@ variable "record_name" {
 
 variable "zone_id" {
   description = "ID of the zone that the domain is in"
-  type = string
+  type        = string
 }
