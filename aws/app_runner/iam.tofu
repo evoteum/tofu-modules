@@ -10,7 +10,7 @@ resource "aws_iam_role" "app_runner" {
         Service = [
           "tasks.apprunner.amazonaws.com",
           "build.apprunner.amazonaws.com"
-        ]      }
+      ] }
     }]
   })
 }
