@@ -1,5 +1,7 @@
 resource "cloudflare_zone" "this" {
-  account_id = var.account_id
+  account = {
+    id = var.account_id
+  }
   zone       = var.domain_name
   type       = "full"
 }
