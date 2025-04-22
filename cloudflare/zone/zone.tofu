@@ -1,9 +1,5 @@
-resource "cloudflare_zone" "service" {
+resource "cloudflare_zone" "this" {
   account_id = var.account_id
   zone       = var.domain_name
   type       = "full"
-}
-
-removed {
-  from = cloudflare_zone.this
 }
