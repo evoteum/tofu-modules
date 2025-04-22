@@ -1,6 +1,7 @@
 variable "availability_zones" {
   description = "List of availability zones; default is all available"
   type        = list(string)
+  default     = []
 }
 
 variable "environment" {
