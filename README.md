@@ -92,6 +92,7 @@ It contains the following modules:
 .
 ├── aws
 │   ├── app_runner
+│   ├── certificate
 │   ├── cloudfront
 │   ├── dynamodb
 │   ├── networking
