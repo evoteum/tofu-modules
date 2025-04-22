@@ -95,6 +95,7 @@ It contains the following modules:
 │   ├── certificate
 │   ├── cloudfront
 │   ├── dynamodb
+│   ├── ecs_cluster
 │   ├── networking
 │   └── s3
 ├── cloudflare
