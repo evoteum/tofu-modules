@@ -3,3 +3,7 @@ resource "cloudflare_zone" "service" {
   zone       = var.domain_name
   type       = "full"
 }
+
+removed {
+  from = cloudflare_zone.this
+}
