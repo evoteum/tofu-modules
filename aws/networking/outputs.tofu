@@ -22,3 +22,8 @@ output "public_route_table_id" {
   description = "ID of the public route table"
   value       = aws_route_table.public.id
 }
+
+output "vpc_arn" {
+  description = "ARN of the VPC"
+  value = aws_vpc.main.arn
+}
