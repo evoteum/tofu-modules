@@ -16,18 +16,6 @@ variable "enable_container_insights" {
   default     = false
 }
 
-variable "vpc_arn" {
-  default     = null
-  description = "ARN of the vpc where this cluster will live"
-  type        = string
-}
-
-variable "subnet_ids" {
-  description = "Subnets for ALB and ECS tasks"
-  type        = list(string)
-}
-
-
 variable "project_name" {
   description = "Project name"
   type        = string
