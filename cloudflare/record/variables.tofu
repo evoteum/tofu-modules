@@ -1,8 +1,3 @@
-variable "domain" {
-  description = "The exact domain that we are configuring eg example.com"
-  type        = string
-}
-
 variable "type" {
   description = "The type of DNS record that we are managing"
   type        = string
@@ -46,7 +41,7 @@ variable "proxied" {
   default     = true
 }
 
-variable "record_name" {
+variable "name" {
   type        = string
   description = "DNS record name (or @ for the zone apex) in Punycode"
   default     = "@"
