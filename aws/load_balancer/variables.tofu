@@ -1,9 +1,3 @@
-variable "enable_http_redirect" {
-  default     = true
-  description = "Force everyone to HTTPS"
-  type        = bool
-}
-
 variable "certificate_arn" {
   description = "ARN of the certificate to associate with this LB"
   type        = string
@@ -15,20 +9,16 @@ variable "enable_deletion_protection" {
   description = "Should deletion protection be enabled?"
 }
 
+variable "enable_http_redirect" {
+  default     = true
+  description = "Force everyone to HTTPS"
+  type        = bool
+}
+
 variable "environment" {
   description = "Environment name; must be one of the permitted environment names"
   type        = string
   default     = "production"
-}
-
-variable "subnet_ids" {
-  description = "Subnets to use for the load balancer"
-  type        = list(string)
-}
-
-variable "project_name" {
-  description = "Project name"
-  type        = string
 }
 
 variable "name" {
@@ -37,13 +27,28 @@ variable "name" {
   default     = "lb"
 }
 
+variable "project_name" {
+  description = "Project name"
+  type        = string
+}
+
+variable "subnet_ids" {
+  description = "Subnets to use for the load balancer"
+  type        = list(string)
+}
+
+variable "type" {
+  description = "Type of load balancer to create. Possible values are application, gateway, or network."
+  default     = "application"
+  type        = string
+}
+
 variable "vpc_id" {
   description = "ID of the VPC"
   type        = string
 }
 
-variable "type" {
-  description = "Type of load balancer to create. Possible values are application, gateway, or network."
-  default = "application"
-  type = string
+variable "idle_timeout" {
+  default = 60
+  type = number
 }

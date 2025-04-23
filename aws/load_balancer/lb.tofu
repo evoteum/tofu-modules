@@ -6,7 +6,7 @@ resource "aws_lb" "this" {
   subnets            = var.subnet_ids
 
   enable_deletion_protection = var.enable_deletion_protection
-  idle_timeout               = 60
+  idle_timeout               = var.idle_timeout
 }
 
 resource "aws_lb_listener" "https" {
