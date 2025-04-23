@@ -1,5 +1,5 @@
 locals {
-  flattened_tags = [for k, v in var.tags : "${k}:${v}"]
+  flattened_tags = join(",", [for k, v in var.tags : "${k}=${v}"])
 }
 
 resource "cloudflare_record" "this" {
@@ -8,5 +8,5 @@ resource "cloudflare_record" "this" {
   content = var.value
   type    = var.type
   ttl     = 3600
-  tags    = local.flattened_tags
+  comment = local.flattened_tags
 }

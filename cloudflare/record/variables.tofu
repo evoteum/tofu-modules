@@ -31,7 +31,7 @@ variable "time_to_live" {
 
 variable "tags" {
   type        = map(string)
-  description = "Custom key:value tags for the DNS record. This field has no effect on DNS responses."
+  description = "Custom tags for the DNS record. This field has no effect on DNS responses."
   default     = {}
 }
 
