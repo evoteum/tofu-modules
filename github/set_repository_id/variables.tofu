@@ -1,4 +1,4 @@
-variable "repository_full_name" {
-  description = "Full repository name (e.g., example/foo)"
+variable "repository_name" {
+  description = "repository name"
   type        = string
 }
