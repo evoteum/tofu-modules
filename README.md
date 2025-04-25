@@ -105,6 +105,7 @@ It contains the following modules:
 ├── github
 │   ├── documentation
 │   ├── repo
+│   ├── set_repository_id
 │   ├── variable
 │   └── workflows
 └── quay
