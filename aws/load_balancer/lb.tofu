@@ -2,7 +2,9 @@ resource "aws_lb" "this" {
   name               = "${local.resource_prefix}-${var.name}"
   internal           = false
   load_balancer_type = var.type
-  security_groups    = aws_security_group.lb.id
+  security_groups    = [
+    aws_security_group.lb.id
+  ]
   subnets            = var.subnet_ids
 
   enable_deletion_protection = var.enable_deletion_protection
