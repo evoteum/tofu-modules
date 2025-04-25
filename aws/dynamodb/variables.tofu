@@ -53,3 +53,8 @@ variable "table_name" {
   sensitive   = false
   default     = "table"
 }
+
+variable "project_id" {
+  description = "ID of the project"
+  type = string
+}
