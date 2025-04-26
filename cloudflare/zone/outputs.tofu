@@ -6,3 +6,8 @@ output "id" {
   description = "The Cloudflare zone ID"
   value       = cloudflare_zone.this.id
 }
+
+output "zone" {
+  description = "The name of the zone we are managing"
+  value = cloudflare_zone.this.zone
+}
