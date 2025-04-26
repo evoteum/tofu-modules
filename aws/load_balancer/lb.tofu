@@ -43,3 +43,7 @@ resource "aws_lb_listener" "http" {
     }
   }
 }
+
+output "certificate_arn_debug" {
+  value = var.certificate_arn
+}
