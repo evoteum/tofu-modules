@@ -96,6 +96,7 @@ It contains the following modules:
 │   ├── cloudfront
 │   ├── dynamodb
 │   ├── ecs_cluster
+│   ├── ecs_service
 │   ├── load_balancer
 │   ├── networking
 │   └── s3
