@@ -21,6 +21,11 @@ variable "environment" {
   default     = "production"
 }
 
+variable "idle_timeout" {
+  default = 60
+  type    = number
+}
+
 variable "name" {
   description = "the name of this LB"
   type        = string
@@ -51,9 +56,4 @@ variable "type" {
 variable "vpc_id" {
   description = "ID of the VPC"
   type        = string
-}
-
-variable "idle_timeout" {
-  default = 60
-  type = number
 }

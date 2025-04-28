@@ -9,5 +9,5 @@ output "id" {
 
 output "zone" {
   description = "The name of the zone we are managing"
-  value = cloudflare_zone.this.zone
+  value       = cloudflare_zone.this.zone
 }
