@@ -1,6 +1,6 @@
 output "id" {
   description = "The ID of the created GitHub repository"
-  value       = github_repository.repo.id
+  value       = github_repository.repo.repo_id
 }
 
 output "name" {
