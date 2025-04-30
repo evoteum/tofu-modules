@@ -98,6 +98,7 @@ It contains the following modules:
 │   ├── ecs_cluster
 │   ├── ecs_service
 │   ├── load_balancer
+│   ├── load_balancer_domain_binding
 │   ├── networking
 │   └── s3
 ├── cloudflare
