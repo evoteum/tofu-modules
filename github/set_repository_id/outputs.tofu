@@ -1,3 +1,3 @@
 output "repository_id" {
-  value = data.github_repository.this.id
+  value = var.repository_id
 }
