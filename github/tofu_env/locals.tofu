@@ -29,5 +29,5 @@ locals {
     local.all_variables,
     local.all_secrets,
   )
-  tofu_env = [for k, v in local.env_names : "${k}=${v}"]
+  tofu_env = join("\n", [for k, v in local.env_names : "${k}=${v}"])
 }
