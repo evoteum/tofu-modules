@@ -10,12 +10,12 @@ locals {
   ))
   env_variables = {
     for var in local.all_github_actions_variables :
-    "TF_VAR_${var.name}" => "\${{ vars.upper(var.value) }}"
+    "TF_VAR_${var.name}" => "$${{ vars.upper(var.value) }}"
   }
 
   env_secrets = {
     for var in local.all_github_actions_secrets :
-    "TF_VAR_${var.name}" => "\${{ secrets.upper(var.value) }}"
+    "TF_VAR_${var.name}" => "$${{ secrets.upper(var.value) }}"
   }
   env_names = merge(
     local.env_variables,
