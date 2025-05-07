@@ -14,3 +14,7 @@ output "zone_id" {
   value       = aws_lb.this.zone_id
   description = "The canonical hosted zone ID of the load balancer (useful for DNS records)"
 }
+
+output "security_group_id" {
+  value = aws_security_group.lb.id
+}
