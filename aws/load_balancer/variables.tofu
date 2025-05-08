@@ -4,13 +4,17 @@ variable "certificate_arn" {
 }
 
 variable "enable_deletion_protection" {
-  default     = true
+  default     = false
   type        = bool
   description = "Should deletion protection be enabled?"
+  nullable    = false
+
 }
 
 variable "enable_http_redirect" {
-  default     = true
+  default  = true
+  nullable = false
+
   description = "Force everyone to HTTPS"
   type        = bool
 }
@@ -19,17 +23,23 @@ variable "environment" {
   description = "Environment name; must be one of the permitted environment names"
   type        = string
   default     = "production"
+  nullable    = false
+
 }
 
 variable "idle_timeout" {
-  default = 60
-  type    = number
+  default  = 60
+  nullable = false
+
+  type = number
 }
 
 variable "name" {
   description = "the name of this LB"
   type        = string
   default     = "lb"
+  nullable    = false
+
 }
 
 variable "project_id" {
@@ -50,6 +60,7 @@ variable "subnet_ids" {
 variable "type" {
   description = "Type of load balancer to create. Possible values are application, gateway, or network."
   default     = "application"
+  nullable    = false
   type        = string
 }
 
