@@ -5,15 +5,16 @@ locals {
     time_static.init.month,
     time_static.init.day
   )
-  container_repository_doc = var.artefact_type == "container" ? "docs/container_repository.md" : ""
   common_docs = [
+    "docs/README.md",
     "docs/adr/0001-record-architecture-decisions.md",
     "docs/adr/README.md",
-    "docs/README.md",
+    "docs/container_repository.md",
     "docs/github_variables.md",
-    local.container_repository_doc,
   ]
   markdown_files = toset(compact(local.common_docs))
+
+
 }
 
 resource "time_static" "init" {}
@@ -25,7 +26,6 @@ resource "github_repository_file" "docs" {
   file       = each.value
   content = join("\n", [
     templatefile("${path.module}/templates/${each.value}", {
-      ARTEFACT_TYPE               = var.artefact_type
       CONTAINER_REPO_LINK         = local.container_repo_link
       CONTROLLER_REPO_LINK        = local.controller_repo_link
       INIT_DATE                   = local.init_date
@@ -50,7 +50,3 @@ resource "github_repository_file" "adr_dir" {
   file       = ".adr-dir"
   repository = var.repository_name
 }
-
-
-
-

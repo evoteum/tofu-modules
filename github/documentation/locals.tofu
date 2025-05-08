@@ -1,6 +1,6 @@
 locals {
   container_repo_link  = var.quay_repository_url == null || var.quay_repository_url == "" ? "" : "[${var.quay_domain}](${var.quay_repository_url})"
-  controller_repo_link = "[${var.management_repo_name}](${var.management_repo_url})"
+  controller_repo_link = var.management_repo_name == "" ? "" : " in the [${var.management_repo_name}](${var.management_repo_url}) repository"
 
   github_organisation_secret_names = join("\n", [
     for name in sort([

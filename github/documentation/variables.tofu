@@ -1,17 +1,13 @@
-variable "artefact_type" {
-  description = "Type of artefact this repo produces (e.g., container)"
-  type        = string
-  default     = ""
-}
-
 variable "management_repo_name" {
   description = "The name of the repo that manages the target repo"
   type        = string
+  default     = ""
 }
 
 variable "management_repo_url" {
   description = "The HTML URL of the repo that manages the target repo"
   type        = string
+  default     = ""
 }
 
 variable "quay_domain" {
