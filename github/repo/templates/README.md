@@ -129,30 +129,10 @@ PRs are welcome.
 ## License
 [//]: # (REQUIRED)
 
-All our code is licenced under the AGPL-3.0. See [LICENSE](LICENSE) for more information.
+### Code
 
-<!-- BEGIN_TF_DOCS -->
-## Requirements
+All source code in this repository is licenced under the [GNU Affero General Public License v3.0 (AGPL-3.0)](https://www.gnu.org/licenses/agpl-3.0.en.html). A copy of this is provided in the [LICENSE](LICENSE).
 
-No requirements.
+### Non-code content
 
-## Providers
-
-No providers.
-
-## Modules
-
-No modules.
-
-## Resources
-
-No resources.
-
-## Inputs
-
-No inputs.
-
-## Outputs
-
-No outputs.
-<!-- END_TF_DOCS -->
+All non-code content in this repository, including but not limited to images, diagrams or prose documentation, is licenced under the [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/) licence.
