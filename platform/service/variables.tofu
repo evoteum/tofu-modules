@@ -13,6 +13,11 @@ variable "cloudflare_account_id" {
   type        = string
 }
 
+variable "aws_region" {
+  description = "the AWS region that we are deploying to"
+  type = string
+}
+
 variable "cluster_arn" {
   description = "ARN of the ECS cluster to deploy into"
   type        = string
@@ -60,11 +65,8 @@ variable "environment" {
 
 variable "environment_variables" {
   description = "List of environment variables to pass into the container"
-  type = list(object({
-    name  = string
-    value = string
-  }))
-  default = []
+  type = map(string)
+  default = {}
 }
 
 variable "health_check_path" {

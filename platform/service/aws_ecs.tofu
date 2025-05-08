@@ -1,5 +1,12 @@
 locals {
   container_image_latest = "${module.quay_repository.path}:latest"
+  environment_variables = merge(
+    var.environment_variables,
+    {
+    AWS_REGION     = var.aws_region,
+    DYNAMODB_TABLE = module.aws_dynamodb.table_name,
+    }
+  )
 }
 
 module "aws_ecs_service" {
@@ -11,7 +18,9 @@ module "aws_ecs_service" {
   cpu                   = var.cpu
   desired_count         = var.desired_count
   dynamodb_table_arn    = module.aws_dynamodb.table_arn
-  environment           = var.environment
+  environment           = {
+
+  }
   environment_variables = var.environment_variables
   health_check_path     = var.health_check_path
   launch_type           = var.launch_type
