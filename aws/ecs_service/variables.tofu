@@ -1,3 +1,8 @@
+variable "alb_security_group_id" {
+  description = "The security group ID of the ALB that will send traffic to this ECS service"
+  type        = string
+}
+
 variable "cluster_arn" {
   description = "ARN of the ECS cluster to deploy into"
   type        = string
@@ -25,6 +30,11 @@ variable "desired_count" {
   default     = 1
 }
 
+variable "dynamodb_table_arn" {
+  type        = string
+  description = "ARN of the DynamoDB table the app will access"
+}
+
 variable "environment" {
   description = "Environment name; must be one of the permitted environment names"
   type        = string
@@ -40,11 +50,38 @@ variable "environment_variables" {
   default = []
 }
 
+variable "health_check_path" {
+  type        = string
+  description = "path to the health check"
+  default     = "/health"
+  nullable    = false
+
+}
+
+variable "launch_type" {
+  default  = "FARGATE"
+  type     = string
+  nullable = false
+  description = "Launch type on which to run your service. The valid values are EC2, FARGATE, and EXTERNAL."
+}
+
+variable "log_retention_in_days" {
+  type        = number
+  description = "Number of days to keep logs"
+  default     = 3
+  nullable    = false
+}
 
 variable "memory" {
   description = "Amount of memory (in MiB) used by the task (e.g. 512, 1024)"
   type        = number
   default     = 1024
+}
+
+variable "network_mode" {
+  default     = "awsvpc"
+  description = "Docker networking mode to use for the containers in the task. Valid values are none, bridge, awsvpc, and host."
+  type        = string
 }
 
 variable "project_id" {
@@ -63,36 +100,12 @@ variable "region" {
   default     = "eu-west-2"
 }
 
-
-variable "network_mode" {
-  default     = "awsvpc"
-  description = "Docker networking mode to use for the containers in the task. Valid values are none, bridge, awsvpc, and host."
-  type        = string
-}
-
-variable "security_group_ids" {
-  description = "List of security group IDs for ECS networking"
-  type        = list(string)
-}
-
 variable "subnet_ids" {
   description = "List of subnet IDs for ECS networking"
   type        = list(string)
 }
 
-variable "launch_type" {
-  default     = "FARGATE"
+variable "vpc_id" {
+  description = "ID of the VPC that this service will be installed in"
   type        = string
-  description = "Launch type on which to run your service. The valid values are EC2, FARGATE, and EXTERNAL."
-}
-
-variable "dynamodb_table_arn" {
-  type        = string
-  description = "ARN of the DynamoDB table the app will access"
-}
-
-variable "log_retention_in_days" {
-  type        = number
-  description = "Number of days to keep logs"
-  default     = 3
 }

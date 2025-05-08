@@ -14,9 +14,12 @@ data "aws_iam_policy_document" "execution_assume_role" {
 resource "aws_iam_role" "execution_role" {
   name               = "${local.resource_prefix}-execution-role"
   assume_role_policy = data.aws_iam_policy_document.execution_assume_role.json
+}
 
-  managed_policy_arns = [
-    "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+resource "aws_iam_role_policy_attachments_exclusive" "execution_role" {
+  role_name = aws_iam_role.execution_role.name
+  policy_arns = [
+    "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
   ]
 }
 
