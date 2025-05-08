@@ -110,6 +110,8 @@ It contains the following modules:
 │   ├── set_repository_id
 │   ├── variable
 │   └── workflows
+├── platform
+│   └── service
 └── quay
     ├── org
     └── repo
