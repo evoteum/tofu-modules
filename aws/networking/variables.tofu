@@ -8,6 +8,7 @@ variable "environment" {
   description = "Environment name; must be one of the permitted environment names"
   type        = string
   default     = "production"
+  nullable    = false
 }
 
 variable "project_id" {
@@ -23,7 +24,8 @@ variable "project_name" {
 variable "public_subnets" {
   description = "List of public subnet CIDR blocks"
   type        = list(string)
-  default     = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+  nullable    = false
+  default = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
 }
 
 variable "vpc_cidr" {

@@ -13,13 +13,15 @@ variable "attributes" {
 variable "billing_mode" {
   default     = "PAY_PER_REQUEST"
   type        = string
+  nullable    = false
   description = "Controls how you are charged for read and write throughput and how you manage capacity. The valid values are PROVISIONED and PAY_PER_REQUEST."
 }
 
 variable "environment" {
   description = "Environment name; must be one of the permitted environment names"
   type        = string
-  default     = "production"
+  nullable    = false
+  default = "production"
 }
 
 variable "global_secondary_indexes" {
@@ -29,7 +31,8 @@ variable "global_secondary_indexes" {
     range_key       = string
     projection_type = string
   }))
-  default = {}
+  default  = {}
+  nullable = false
 }
 
 variable "hash_key" {
@@ -51,7 +54,8 @@ variable "table_name" {
   description = "Name of the DynamoDB table"
   type        = string
   sensitive   = false
-  default     = "table"
+  nullable    = false
+  default = "table"
 }
 
 variable "project_id" {

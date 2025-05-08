@@ -27,6 +27,7 @@ variable "time_to_live" {
   description = "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400"
   default     = 1
   type        = number
+  nullable    = false
 }
 
 variable "tags" {
@@ -39,12 +40,14 @@ variable "proxied" {
   type        = bool
   description = "Whether the record is receiving the performance and security benefits of Cloudflare."
   default     = true
+  nullable    = false
 }
 
 variable "name" {
   type        = string
   description = "DNS record name (or @ for the zone apex) in Punycode"
   default     = "@"
+  nullable    = false
 }
 
 variable "zone_id" {

@@ -5,5 +5,5 @@ variable "repository_name" {
 
 variable "repository_id" {
   description = "ID of the repository"
-  type = string
+  type        = string
 }
