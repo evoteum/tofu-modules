@@ -21,7 +21,7 @@ module "aws_ecs_service" {
   environment           = {
 
   }
-  environment_variables = var.environment_variables
+  environment_variables = local.environment_variables
   health_check_path     = var.health_check_path
   launch_type           = var.launch_type
   log_retention_in_days = var.log_retention_in_days
