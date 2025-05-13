@@ -1,4 +1,4 @@
-variable "alb_security_group_id" {
+variable "security_group_id" {
   description = "The security group ID of the ALB that will send traffic to this ECS service"
   type        = string
 }

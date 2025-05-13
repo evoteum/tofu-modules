@@ -14,7 +14,7 @@ resource "aws_vpc_security_group_ingress_rule" "from_alb" {
   from_port                    = var.container_port
   to_port                      = var.container_port
   ip_protocol                  = "tcp"
-  referenced_security_group_id = var.alb_security_group_id
+  referenced_security_group_id = var.security_group_ids
 }
 
 resource "aws_vpc_security_group_egress_rule" "allow_all" {
