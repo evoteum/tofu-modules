@@ -152,9 +152,14 @@ variable "repository_visibility" {
   type        = string
 }
 
-variable "security_group_id" {
-  description = "The security group ID of the ALB that will send traffic to this ECS service"
+variable "lb_security_group_id" {
+  description = "The security group ID of the Load Balancer that will send traffic to this ECS service"
   type        = string
+}
+
+variable_"service_security_group_ids" {
+  description = "The security group(s) associated with the service"
+  type = list(string)
 }
 
 variable "subnet_ids" {
