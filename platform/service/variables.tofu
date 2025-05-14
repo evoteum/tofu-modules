@@ -3,7 +3,7 @@ variable "alb_dns_name" {
   type        = string
 }
 
-variable "security_group_ids" {
+variable "security_group_id" {
   description = "The security group ID of the ALB that will send traffic to this ECS service"
   type        = string
 }
