@@ -28,7 +28,7 @@ module "aws_ecs_service" {
   project_id            = var.repository_id
   project_name          = var.repository_name
   region                = var.region
-  security_group_ids    = var.security_group_ids
+  security_group_id     = var.security_group_id
   subnet_ids            = var.subnet_ids
   vpc_id                = var.vpc_id
 }
