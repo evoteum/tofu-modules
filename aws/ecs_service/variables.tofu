@@ -1,8 +1,3 @@
-variable "security_group_id" {
-  description = "The security group ID of the ALB that will send traffic to this ECS service"
-  type        = string
-}
-
 variable "cluster_arn" {
   description = "ARN of the ECS cluster to deploy into"
   type        = string
@@ -98,6 +93,11 @@ variable "region" {
   description = "AWS region"
   type        = string
   default     = "eu-west-2"
+}
+
+variable "security_group_id" {
+  description = "The security group ID of the ALB that will send traffic to this ECS service"
+  type        = string
 }
 
 variable "subnet_ids" {
