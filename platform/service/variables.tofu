@@ -3,19 +3,14 @@ variable "alb_dns_name" {
   type        = string
 }
 
-variable "security_group_id" {
-  description = "The security group ID of the ALB that will send traffic to this ECS service"
-  type        = string
+variable "aws_region" {
+  description = "the AWS region that we are deploying to"
+  type = string
 }
 
 variable "cloudflare_account_id" {
   description = "ID of the cloudflare account"
   type        = string
-}
-
-variable "aws_region" {
-  description = "the AWS region that we are deploying to"
-  type = string
 }
 
 variable "cluster_arn" {
@@ -155,6 +150,16 @@ variable "repository_url" {
 variable "repository_visibility" {
   description = "Whether this repository is public or private"
   type        = string
+}
+
+variable "security_group_id" {
+  description = "The security group ID of the ALB that will send traffic to this ECS service"
+  type        = string
+}
+
+variable "subnet_ids" {
+  description = "List of subnet IDs for ECS networking"
+  type        = list(string)
 }
 
 variable "vpc_id" {
