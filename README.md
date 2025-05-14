@@ -106,6 +106,7 @@ It contains the following modules:
 │   └── zone
 ├── github
 │   ├── documentation
+│   ├── pre_commit
 │   ├── repo
 │   ├── set_repository_id
 │   ├── variable
