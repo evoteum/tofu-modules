@@ -1,0 +1,45 @@
+###################################################################################
+# ⚠️ This file is controlled by OpenTofu in the {{ controller_repo_name }} repository.
+#    Manual changes will be **overwritten** within 24 hours.
+###################################################################################
+
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+      - id: check-merge-conflict
+{% for tool in tools %}
+  {% if "python" in tools %}
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+  {% elif tool == "go" %}
+  - repo: https://github.com/TekWizely/pre-commit-golang
+    rev: v1.0.0-rc.1
+    hooks:
+      - id: go-fmt
+      - id: go-imports
+      - id: go-vet
+      - id: go-test
+      - id: golangci-lint
+      - id: gosec
+  {% elif tool == "tofu" %}
+  - repo: https://github.com/evoteum/pre-commit-hooks
+    rev: main
+    hooks:
+      - id: tofu-fmt
+      - id: tofu-validate
+      - id: tofu-sort
+  {% endif %}
+{% endfor %}
