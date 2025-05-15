@@ -8,7 +8,6 @@ variable "enable_deletion_protection" {
   type        = bool
   description = "Should deletion protection be enabled?"
   nullable    = false
-
 }
 
 variable "enable_http_redirect" {
