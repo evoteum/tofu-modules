@@ -5,7 +5,7 @@ variable "alb_dns_name" {
 
 variable "aws_region" {
   description = "the AWS region that we are deploying to"
-  type = string
+  type        = string
 }
 
 variable "cloudflare_account_id" {
@@ -60,8 +60,8 @@ variable "environment" {
 
 variable "environment_variables" {
   description = "List of environment variables to pass into the container"
-  type = map(string)
-  default = {}
+  type        = map(string)
+  default     = {}
 }
 
 variable "health_check_path" {
@@ -79,6 +79,11 @@ variable "launch_type" {
   default     = "FARGATE"
   type        = string
   description = "Launch type on which to run your service. The valid values are EC2, FARGATE, and EXTERNAL."
+}
+
+variable "lb_security_group_id" {
+  description = "The security group ID of the Load Balancer that will send traffic to this ECS service"
+  type        = string
 }
 
 variable "listener_arn" {
@@ -115,12 +120,6 @@ variable "priority" {
   default     = null
 }
 
-variable "region" {
-  description = "AWS region"
-  type        = string
-  default     = "eu-west-2"
-}
-
 variable "repository_archived" {
   description = "Whether the repository is archived"
   type        = bool
@@ -152,14 +151,10 @@ variable "repository_visibility" {
   type        = string
 }
 
-variable "lb_security_group_id" {
-  description = "The security group ID of the Load Balancer that will send traffic to this ECS service"
-  type        = string
-}
-
-variable_"service_security_group_ids" {
-  description = "The security group(s) associated with the service"
-  type = list(string)
+variable "service_security_group_ids" {
+  description = "Optional additional security group(s) to assign to this ECS service"
+  type        = list(string)
+  default     = []
 }
 
 variable "subnet_ids" {
