@@ -21,7 +21,7 @@ variable "environment" {
   description = "Environment name; must be one of the permitted environment names"
   type        = string
   nullable    = false
-  default = "production"
+  default     = "production"
 }
 
 variable "global_secondary_indexes" {
@@ -40,6 +40,11 @@ variable "hash_key" {
   description = "Name of the hash key in the index; must be defined as an attribute."
 }
 
+variable "project_id" {
+  description = "ID of the project"
+  type        = string
+}
+
 variable "project_name" {
   description = "Project name to be used for resource naming"
   type        = string
@@ -55,10 +60,5 @@ variable "table_name" {
   type        = string
   sensitive   = false
   nullable    = false
-  default = "table"
-}
-
-variable "project_id" {
-  description = "ID of the project"
-  type        = string
+  default     = "table"
 }
