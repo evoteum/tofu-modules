@@ -15,17 +15,21 @@ locals {
   }
 
   cloudflare_zone_variables = {
+    cloudflare_zone_id = {
     scope     = var.repository_name
     name      = "cloudflare_zone_id"
     value     = module.cloudflare_zone.id
     sensitive = true
   }
+  }
 
   certificate_variables = {
-    scope     = var.repository_name
-    name      = "certificate_arn"
-    value     = module.aws_certificate.certificate_arn
-    sensitive = true
+    certificate_arn = {
+      scope     = var.repository_name
+      name      = "certificate_arn"
+      value     = module.aws_certificate.certificate_arn
+      sensitive = true
+    }
   }
 
   all_github_variables = merge(
