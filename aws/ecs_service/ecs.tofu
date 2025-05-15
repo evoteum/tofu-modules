@@ -32,7 +32,7 @@ resource "aws_ecs_task_definition" "this" {
         logDriver = "awslogs"
         options = {
           awslogs-group         = aws_cloudwatch_log_group.this.name
-          awslogs-region        = var.region
+          awslogs-region        = var.aws_region
           awslogs-stream-prefix = var.project_name
         }
       }
@@ -48,8 +48,11 @@ resource "aws_ecs_service" "this" {
   desired_count   = var.desired_count
 
   network_configuration {
-    subnets          = var.subnet_ids
-    security_groups  = var.security_group_id
+    subnets = var.subnet_ids
+    security_groups = compact(flatten([
+      aws_security_group.ecs_service.id,
+      var.service_security_group_ids,
+    ]))
     assign_public_ip = false
   }
 

@@ -1,3 +1,9 @@
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+  default     = "eu-west-2"
+}
+
 variable "cluster_arn" {
   description = "ARN of the ECS cluster to deploy into"
   type        = string
@@ -54,10 +60,15 @@ variable "health_check_path" {
 }
 
 variable "launch_type" {
-  default  = "FARGATE"
-  type     = string
-  nullable = false
+  default     = "FARGATE"
+  type        = string
+  nullable    = false
   description = "Launch type on which to run your service. The valid values are EC2, FARGATE, and EXTERNAL."
+}
+
+variable "lb_security_group_id" {
+  description = "The security group ID of the load balancer that will send traffic to this ECS service"
+  type        = string
 }
 
 variable "log_retention_in_days" {
@@ -89,15 +100,10 @@ variable "project_name" {
   type        = string
 }
 
-variable "region" {
-  description = "AWS region"
-  type        = string
-  default     = "eu-west-2"
-}
-
-variable "security_group_id" {
-  description = "The security group ID of the ALB that will send traffic to this ECS service"
-  type        = string
+variable "service_security_group_ids" {
+  description = "Optional additional security group(s) to assign to this ECS service"
+  type        = list(string)
+  default     = []
 }
 
 variable "subnet_ids" {
