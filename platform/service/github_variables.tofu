@@ -16,11 +16,11 @@ locals {
 
   cloudflare_zone_variables = {
     cloudflare_zone_id = {
-    scope     = var.repository_name
-    name      = "cloudflare_zone_id"
-    value     = module.cloudflare_zone.id
-    sensitive = true
-  }
+      scope     = var.repository_name
+      name      = "cloudflare_zone_id"
+      value     = module.cloudflare_zone.id
+      sensitive = true
+    }
   }
 
   certificate_variables = {

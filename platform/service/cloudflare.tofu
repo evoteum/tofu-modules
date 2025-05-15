@@ -12,12 +12,14 @@ locals {
   }
 
   alb_dns_records = {
-    zone_id = module.cloudflare_zone.id
-    name    = "www"
-    type    = "CNAME"
-    value   = var.alb_dns_name
-    proxied = false
-    ttl     = 60
+    CNAME = {
+      zone_id = module.cloudflare_zone.id
+      name    = "www"
+      type    = "CNAME"
+      value   = var.alb_dns_name
+      proxied = false
+      ttl     = 60
+    }
   }
 
   all_dns_records = merge(
