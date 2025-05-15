@@ -47,4 +47,7 @@ module "cloudflare_record" {
     repository_url = var.repository_url
     ManagedBy      = "OpenTofu"
   }
+  depends_on = [
+    module.aws_certificate
+  ]
 }
