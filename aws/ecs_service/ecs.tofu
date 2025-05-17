@@ -38,6 +38,10 @@ resource "aws_ecs_task_definition" "this" {
       }
     }
   ])
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_ecs_service" "this" {
