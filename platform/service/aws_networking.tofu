@@ -12,6 +12,11 @@ resource "aws_acm_certificate_validation" "this" {
     for dvo in values(module.aws_certificate.domain_validation_options) :
     dvo.name
   ]
+
+  depends_on = [
+    module.aws_certificate,
+    module.cloudflare_record,
+  ]
 }
 
 
@@ -23,4 +28,9 @@ module "aws_load_balancer_domain_binding" {
   target_group_arn = module.aws_ecs_service.target_group_arn
   host             = var.homepage_url
   priority         = var.priority
+
+  depends_on = [
+    module.aws_certificate,
+    module.aws_ecs_service,
+  ]
 }
