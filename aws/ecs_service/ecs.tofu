@@ -44,6 +44,18 @@ resource "aws_ecs_task_definition" "this" {
   }
 }
 
+resource "null_resource" "ecs_task_definition_stabilise" {
+  depends_on = [aws_ecs_task_definition.this]
+
+  provisioner "local-exec" {
+    command = "sleep 15"
+  }
+
+  triggers = {
+    always_run = timestamp()
+  }
+}
+
 resource "aws_ecs_service" "this" {
   name            = local.resource_prefix
   cluster         = var.cluster_arn
@@ -66,5 +78,8 @@ resource "aws_ecs_service" "this" {
     container_port   = var.container_port
   }
 
-  depends_on = [aws_ecs_task_definition.this]
+  depends_on = [
+    aws_ecs_task_definition.this,
+    null_resource.ecs_task_definition_stabilise,
+  ]
 }
