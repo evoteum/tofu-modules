@@ -49,4 +49,10 @@ module "github_variable" {
   scope     = each.value.scope
   name      = each.value.name
   value     = each.value.value
+
+  depends_on = [
+    module.cloudflare_zone,
+    module.quay_repository,
+    module.aws_certificate,
+  ]
 }

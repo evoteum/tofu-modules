@@ -16,6 +16,7 @@ resource "aws_acm_certificate_validation" "this" {
   depends_on = [
     module.aws_certificate,
     module.cloudflare_record,
+    module.cloudflare_zone,
   ]
 }
 
