@@ -26,12 +26,20 @@ module "aws_load_balancer_domain_binding" {
 
   certificate_arn  = module.aws_certificate.certificate_arn
   listener_arn     = var.listener_arn
-  target_group_arn = module.aws_ecs_service.target_group_arn
+  target_group_arn = module.aws_load_balancer_target_group.arn
   host             = var.homepage_url
   priority         = var.priority
 
   depends_on = [
     module.aws_certificate,
-    module.aws_ecs_service,
+    module.aws_load_balancer_target_group,
   ]
+}
+
+module "aws_load_balancer_target_group" {
+  source = "github.com/evoteum/tofu-modules//aws/load_balancer_target_group"
+
+  environment = var.environment
+  project     = var.repository_id
+  vpc_id      = var.vpc_id
 }

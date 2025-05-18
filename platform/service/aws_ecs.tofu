@@ -23,4 +23,8 @@ module "aws_ecs_service" {
   project_name          = var.repository_name
   subnet_ids            = var.subnet_ids
   vpc_id                = var.vpc_id
+
+  depends_on = [
+    module.aws_load_balancer_domain_binding,
+  ]
 }
