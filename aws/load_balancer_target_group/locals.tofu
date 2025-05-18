@@ -1,4 +1,4 @@
 locals {
-  resource_prefix = "${var.project_id}-${var.environment}"
+  resource_prefix = "${var.project}-${var.environment}"
 
 }

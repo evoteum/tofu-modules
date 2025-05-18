@@ -45,7 +45,7 @@ variable "port" {
   default     = 80
 }
 
-variable "project_id" {
+variable "project" {
   description = "An identifier used to namespace resources across environments or services (often a short unique slug)"
   type        = string
 }
