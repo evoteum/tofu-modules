@@ -97,6 +97,7 @@ It contains the following modules:
 │   ├── dynamodb
 │   ├── ecs_cluster
 │   ├── ecs_service
+│   ├── lb_target_group
 │   ├── load_balancer
 │   ├── load_balancer_domain_binding
 │   ├── networking
