@@ -111,6 +111,11 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
+variable "target_group_arn" {
+  description = "ARN of the target group"
+  type        = string
+}
+
 variable "vpc_id" {
   description = "ID of the VPC that this service will be installed in"
   type        = string
