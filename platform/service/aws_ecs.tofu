@@ -22,9 +22,11 @@ module "aws_ecs_service" {
   project_id            = var.repository_id
   project_name          = var.repository_name
   subnet_ids            = var.subnet_ids
+  target_group_arn      = module.aws_load_balancer_target_group.arn
   vpc_id                = var.vpc_id
 
   depends_on = [
     module.aws_load_balancer_domain_binding,
+    module.aws_load_balancer_target_group,
   ]
 }
