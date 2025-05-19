@@ -23,7 +23,7 @@ resource "aws_lb_listener_rule" "this" {
 
   condition {
     host_header {
-      values = [local.clean_host]
+      values = [local.clean_host.domain]
     }
   }
 }
