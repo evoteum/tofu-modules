@@ -43,3 +43,7 @@ module "aws_load_balancer_target_group" {
   project     = var.repository_id
   vpc_id      = var.vpc_id
 }
+
+output "listener_arn" {
+  value = module.aws_load_balancer_domain_binding.listener_rule_arn
+}
