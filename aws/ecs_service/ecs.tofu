@@ -57,7 +57,7 @@ resource "aws_ecs_service" "this" {
       aws_security_group.ecs_service.id,
       var.service_security_group_ids,
     ]))
-    assign_public_ip = false
+    assign_public_ip = true
   }
 
   load_balancer {
