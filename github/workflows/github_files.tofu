@@ -31,7 +31,7 @@ data "jinja_template" "workflow" {
       workflow_name            = each.key
       controller_repo_name     = var.controller_repo_name
       cron_description         = lookup(local.workflow_cron_description, each.key, "Custom schedule")
-      cron_expression          = lookup(local.workflow_cron_expression, each.key, null)
+      cron_expression          = strcontains(each.key, "tofu-") ? "0 23 * * *" : lookup(local.workflow_cron_expression, each.key, null)
       organisation             = var.organisation
       repository_configuration = local.effective_repository_configuration[each.key]
       reusable_workflows_repo  = var.reusable_workflows_repository
