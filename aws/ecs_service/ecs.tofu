@@ -23,9 +23,9 @@ resource "aws_ecs_task_definition" "this" {
         }
       ]
       environment = [
-        for env_var in var.environment_variables : {
-          name  = env_var.name
-          value = env_var.value
+        for k, v in local.environment_variables : {
+          name  = k
+          value = v
         }
       ]
       logConfiguration = {

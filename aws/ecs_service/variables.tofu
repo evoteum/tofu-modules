@@ -43,12 +43,9 @@ variable "environment" {
 }
 
 variable "environment_variables" {
-  description = "List of environment variables to pass into the container"
-  type = list(object({
-    name  = string
-    value = string
-  }))
-  default = []
+  description = "Map of environment variables to pass into the container"
+  type        = map(string)
+  default     = {}
 }
 
 variable "health_check_path" {
