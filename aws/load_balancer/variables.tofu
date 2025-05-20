@@ -3,6 +3,12 @@ variable "certificate_arn" {
   type        = string
 }
 
+variable "container_port" {
+  description = "The port that the container uses"
+  type        = number
+  default     = 8080
+}
+
 variable "enable_deletion_protection" {
   default     = false
   type        = bool

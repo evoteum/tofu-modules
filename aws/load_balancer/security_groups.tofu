@@ -22,6 +22,15 @@ resource "aws_vpc_security_group_ingress_rule" "http" {
   description       = "Allow HTTP traffic from anywhere"
 }
 
+resource "aws_vpc_security_group_ingress_rule" "service" {
+  security_group_id = aws_security_group.lb.id
+  from_port         = var.container_port
+  to_port           = var.container_port
+  ip_protocol       = "tcp"
+  cidr_ipv4         = "0.0.0.0/0"
+  description       = "Allow service traffic from anywhere"
+}
+
 resource "aws_vpc_security_group_egress_rule" "all_out" {
   security_group_id = aws_security_group.lb.id
   ip_protocol       = "-1"
