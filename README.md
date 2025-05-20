@@ -104,6 +104,7 @@ It contains the following modules:
 │   └── s3
 ├── cloudflare
 │   ├── record
+│   ├── root_redirect
 │   └── zone
 ├── github
 │   ├── documentation
