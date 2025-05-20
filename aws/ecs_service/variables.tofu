@@ -36,6 +36,11 @@ variable "dynamodb_table_arn" {
   description = "ARN of the DynamoDB table the app will access"
 }
 
+variable "dynamodb_table_name" {
+  type        = string
+  description = "Name of the DynamoDB table the app will access"
+}
+
 variable "environment" {
   description = "Environment name; must be one of the permitted environment names"
   type        = string

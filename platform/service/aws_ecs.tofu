@@ -12,6 +12,7 @@ module "aws_ecs_service" {
   cpu                   = var.cpu
   desired_count         = var.desired_count
   dynamodb_table_arn    = module.aws_dynamodb.table_arn
+  dynamodb_table_name   = module.aws_dynamodb.table_name
   environment           = var.environment
   health_check_path     = var.health_check_path
   launch_type           = var.launch_type
