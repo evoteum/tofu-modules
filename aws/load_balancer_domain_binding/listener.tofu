@@ -14,7 +14,10 @@ resource "aws_lb_listener_rule" "this" {
 
   condition {
     host_header {
-      values = [local.clean_host.domain]
+      values = [
+        local.clean_host.domain,
+        "www.${local.clean_host.domain}"
+      ]
     }
   }
 }
