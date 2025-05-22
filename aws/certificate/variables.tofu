@@ -5,6 +5,6 @@ variable "domain_name" {
 
 variable "subject_alternative_names" {
   type        = list(string)
-  default     = null
-  description = "allow you to secure multiple subdomains from one certificate, eg, api.example.com www..example.com"
+  default     = []
+  description = "Optional additional domain names to secure, such as www.example.com or api.example.com"
 }
