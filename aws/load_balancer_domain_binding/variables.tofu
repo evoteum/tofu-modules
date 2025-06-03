@@ -9,7 +9,7 @@ variable "host" {
 }
 
 variable "listener_arn" {
-  description = "ARN of the listener to assiociate the listener rule to"
+  description = "ARN of the listener to associate the listener rule to"
   type        = string
 }
 
