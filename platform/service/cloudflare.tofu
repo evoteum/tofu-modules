@@ -24,7 +24,7 @@ locals {
       zone_id = module.cloudflare_zone.id
       name    = "@"
       type    = "CNAME"
-      value   = "www.${local.clean_host}"
+      value   = "www.${local.clean_host.domain}"
       proxied = true
       ttl     = 1
     },
