@@ -78,6 +78,7 @@ variable "has_pages" {
   description = "Whether to enable GitHub Pages for this repository"
   type        = bool
   default     = false
+  nullable    = false
 }
 
 variable "has_projects" {
