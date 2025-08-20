@@ -74,6 +74,12 @@ variable "has_issues" {
   nullable    = false
 }
 
+variable "has_pages" {
+  description = "Whether to enable GitHub Pages for this repository"
+  type        = bool
+  default     = false
+}
+
 variable "has_projects" {
   description = "Enable GitHub projects"
   type        = bool
@@ -134,6 +140,30 @@ variable "name" {
 variable "organisation" {
   description = "Name of the organisation we are deploying to"
   type        = string
+}
+
+variable "pages_build_type" {
+  description = "Type of GitHub Pages build (legacy or workflow). Requires has_pages"
+  type        = string
+  default     = "legacy"
+}
+
+variable "pages_cname" {
+  description = "Optional custom domain for GitHub Pages. Requires has_pages"
+  type        = string
+  default     = null
+}
+
+variable "pages_source_branch" {
+  description = "Branch used for GitHub Pages (required if legacy build_type). Requires has_pages"
+  type        = string
+  default     = "main"
+}
+
+variable "pages_source_path" {
+  description = "Path in the repository for GitHub Pages (default /). Requires has_pages"
+  type        = string
+  default     = "/"
 }
 
 variable "squash_merge_commit_message" {

@@ -27,6 +27,22 @@ resource "github_repository" "repo" {
   vulnerability_alerts        = var.vulnerability_alerts
   topics                      = var.topics
 
+  dynamic "pages" {
+    for_each = var.has_pages ? [1] : []
+    content {
+      build_type = var.pages_build_type
+      cname      = var.pages_cname
+
+      dynamic "source" {
+        for_each = var.pages_build_type == "legacy" ? [1] : []
+        content {
+          branch = var.pages_source_branch
+          path   = var.pages_source_path
+        }
+      }
+    }
+  }
+
   lifecycle {
     prevent_destroy = true
     ignore_changes = [
