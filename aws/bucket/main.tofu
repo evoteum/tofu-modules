@@ -10,8 +10,3 @@ terraform {
     }
   }
 }
-
-resource "random_password" "bucket_suffix" {
-  length = var.bucket_suffix_length
-    special = false
-}
