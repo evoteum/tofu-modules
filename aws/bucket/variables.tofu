@@ -4,7 +4,7 @@ variable "archive_days" {
   sensitive   = false
   default     = null
   validation {
-    condition     = var.archive_days == null || var.archive_days >= 0
+    condition     = var.archive_days == null || try(var.archive_days >= 0, true)
     error_message = "archive_days must be null or a non-negative integer."
   }
 }
