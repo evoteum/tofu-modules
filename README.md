@@ -92,6 +92,7 @@ It contains the following modules:
 .
 ├── aws
 │   ├── app_runner
+│   ├── bucket
 │   ├── certificate
 │   ├── cloudfront
 │   ├── dynamodb
@@ -100,8 +101,7 @@ It contains the following modules:
 │   ├── load_balancer
 │   ├── load_balancer_domain_binding
 │   ├── load_balancer_target_group
-│   ├── networking
-│   └── s3
+│   └── networking
 ├── cloudflare
 │   ├── record
 │   ├── root_redirect
