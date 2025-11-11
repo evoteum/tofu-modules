@@ -1,5 +1,5 @@
 locals {
-  container_image_latest = "${module.quay_repository.path}:latest"
+  container_image_latest = "${var.quay_repository_path}:latest"
 }
 
 module "aws_ecs_service" {

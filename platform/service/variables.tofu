@@ -109,24 +109,14 @@ variable "network_mode" {
   type        = string
 }
 
-variable "organisation" {
-  description = "The name of the organisation"
-  type        = string
-}
-
 variable "priority" {
   description = "Manual priority of the listener rule (must be unique per listener). If not set, a priority will be automatically assigned."
   type        = number
   default     = null
 }
 
-variable "repository_archived" {
-  description = "Whether the repository is archived"
-  type        = bool
-}
-
-variable "repository_description" {
-  description = "The description of this git repository"
+variable "quay_repository_path" {
+  description = "Container image path in Quay"
   type        = string
 }
 
@@ -144,17 +134,6 @@ variable "repository_url" {
   description = "HTML URL of this git repository"
   type        = string
   default     = ""
-}
-
-variable "repository_visibility" {
-  description = "Whether this repository is public or private"
-  type        = string
-}
-
-variable "service_security_group_ids" {
-  description = "Optional additional security group(s) to assign to this ECS service"
-  type        = list(string)
-  default     = []
 }
 
 variable "subnet_ids" {

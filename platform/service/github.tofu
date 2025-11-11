@@ -1,18 +1,4 @@
 locals {
-  quay_repository_attributes = [
-    "path",
-    "url",
-  ]
-
-  quay_variables = {
-    for attribute in local.quay_repository_attributes :
-    "quay_repository_${attribute}" => {
-      scope     = var.repository_name
-      name      = "quay_repository_${attribute}"
-      value     = lookup(module.quay_repository, attribute, null)
-      sensitive = false
-    }
-  }
 
   cloudflare_zone_variables = {
     cloudflare_zone_id = {
@@ -35,7 +21,6 @@ locals {
   all_github_variables = merge(
     local.certificate_variables,
     local.cloudflare_zone_variables,
-    local.quay_variables,
   )
 
 }
@@ -52,7 +37,6 @@ module "github_variable" {
 
   depends_on = [
     module.cloudflare_zone,
-    module.quay_repository,
     module.aws_certificate,
   ]
 }
