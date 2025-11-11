@@ -14,8 +14,17 @@ locals {
     }
   }
 
+  repository_id_variable = {
+    "repository_id" = {
+      scope     = var.name
+      name      = "REPOSITORY_ID"
+      value     = github_repository.repo.repo_id
+      sensitive = false
+    }
+  }
+
   all_github_variables = merge(
     local.quay_variables,
+    local.repository_id_variable,
   )
-
 }
