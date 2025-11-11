@@ -16,9 +16,11 @@
 [//]: # (Must link to local image in current repository)
 
 
+
 [//]: # (Badges)
 [//]: # (OPTIONAL)
 [//]: # (Must not have its own title)
+
 
 
 [//]: # (Short description)
@@ -40,20 +42,14 @@ ${DESCRIPTION}
 ## Table of Contents
 
 [//]: # (REQUIRED)
-[//]: # (Delete as appropriate)
+[//]: # (Managed automatically)
+[//]: # (Changes between the TABLE_OF_CONTENTS_START and TABLE_OF_CONTENTS_END markers will be overritten)
 
-1. [Security](#security)
-1. [Background](#background)
-1. [Install](#install)
-1. [Usage](#usage)
-1. [Any extra sections as required]
-1. [Documentation](#documentation)
-1. [Repository Configuration](#repository-configuration)
-1. [API](#api)
-1. [Maintainers](#maintainers)
-1. [Thanks](#thanks)
-1. [Contributing](#contributing)
-1. [License](#license)
+[//]: # (TOCGEN_TABLE_OF_CONTENTS_START)
+
+[//]: # (Table of contents will be automatically generated and inserted here.)
+
+[//]: # (TOCGEN_TABLE_OF_CONTENTS_END)
 
 [//]: # (## Security)
 [//]: # (OPTIONAL)
@@ -64,6 +60,8 @@ ${DESCRIPTION}
 [//]: # (## Background)
 [//]: # (OPTIONAL)
 [//]: # (Explain the motivation and abstract dependencies for this repo)
+
+
 
 ## Install
 
@@ -93,9 +91,9 @@ Further documentation is in the [`docs`](docs/) directory.
 
 ## Repository Configuration
 
-> [!WARNING]  
-> This repo is controlled by OpenTofu in the ${CONTROLLER_REPO_LINK} repository.  
->  
+> [!WARNING]
+> This repo is controlled by OpenTofu in the ${CONTROLLER_REPO_LINK} repository.
+>
 > Manual configuration changes will be overwritten the next time OpenTofu runs.
 
 
@@ -131,8 +129,11 @@ PRs are welcome.
 
 ### Code
 
-All source code in this repository is licenced under the [GNU Affero General Public License v3.0 (AGPL-3.0)](https://www.gnu.org/licenses/agpl-3.0.en.html). A copy of this is provided in the [LICENSE](LICENSE).
+All source code in this repository is licenced under the [GNU Affero General Public License v3.0 (AGPL-3.0)](https://www.gnu.org/licenses/agpl-3.0.en.html). A
+copy of this is provided in the [LICENSE](LICENSE).
 
 ### Non-code content
 
-All non-code content in this repository, including but not limited to images, diagrams or prose documentation, is licenced under the [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/) licence.
+All non-code content in this repository, including but not limited to images, diagrams or prose documentation, is
+licenced under the
+[Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/) licence.
