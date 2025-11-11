@@ -41,28 +41,34 @@ Welcome to the **OpenTofu Modules Repository**! This repository contains reusabl
 
 Wherever you need to define a new thing in Tofu, you can use these modules to do so. They are designed to be **reusable**, **composable** and **easy to use**. Always aim to create a new module rather than a unique resource.
 
+These modules aim to provide a more idiomatic and intuitive interface for infrastructure definition, especially in cases where Terraform providers have arguably taken [_courageous_](https://youtu.be/ik8JT2S-kBE) design decisions. By abstracting away awkward or unintuitive syntax, such as single-record limitations or mismatched schema expectations, the modules offer a cleaner, more consistent experience aligned with Terraform best practices. This should make them easier and safer to use than directly relying on some of the raw provider resources.
+
 [//]: # (Keep this note to help people understand how to configure this repo.)
 The configuration of this repo is managed by OpenTofu in [estate-repos](https://github.com/evoteum/estate-repos).
 
 ## Table of Contents
 
 [//]: # (REQUIRED)
-[//]: # (Delete as appropriate)
+[//]: # (TOCGEN_TABLE_OF_CONTENTS_START)
 
 1. [Security](#security)
 1. [Background](#background)
 1. [Install](#install)
 1. [Usage](#usage)
+2. [Extracting variable names](#extracting-variable-names)
 1. [Contributing](#contributing)
 1. [License](#license)
 
-[//]: # (## Security)
+[//]: # (TOCGEN_TABLE_OF_CONTENTS_END)
+
+
+## Security
 [//]: # (OPTIONAL)
 [//]: # (May go here if it is important to highlight security concerns.)
 
 This repo is public and does not contain any sensitive information. All secrets are variables in the CI/CD pipeline.
 
-[//]: # (## Background)
+## Background
 [//]: # (OPTIONAL)
 [//]: # (Explain the motivation and abstract dependencies for this repo)
 
@@ -125,7 +131,7 @@ To use the modules, you can import them into your Tofu configuration like so:
 
 ```tofu
 module "networking" {
-  source = "git@github.com:evoteum/tofu-modules.git//aws/networking?ref=main"
+  source = "github.com:evoteum/tofu-modules.git//aws/networking?ref=main"
 }
 ```
 
@@ -141,6 +147,13 @@ Modules use [terraform-docs](https://terraform-docs.io/) to generate README.md f
 [//]: # (This is a space for ≥0 sections to be included,)
 [//]: # (each of which must have their own titles.)
 
+## Extracting variable names
+
+To get a list of variable names from a variables.tofu file, just run,
+
+```shell
+grep '^variable' variables.tofu | cut -d '"' -f2
+```
 
 [//]: # (## API)
 [//]: # (OPTIONAL)
