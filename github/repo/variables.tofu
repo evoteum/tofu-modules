@@ -31,6 +31,7 @@ variable "archived" {
   description = "The repository is archived"
   type        = bool
   default     = false
+  nullable    = false
 }
 
 variable "artifact_type" {
