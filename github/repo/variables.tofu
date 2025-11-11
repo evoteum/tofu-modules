@@ -31,6 +31,12 @@ variable "archived" {
   description = "The repository is archived"
   type        = bool
   default     = false
+}
+
+variable "artifact_type" {
+  description = "Artifact that the project needs to produce."
+  type        = string
+  default     = ""
   nullable    = false
 }
 
