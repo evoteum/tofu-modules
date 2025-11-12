@@ -24,9 +24,10 @@ locals {
   }
 
   all_github_variables = merge(
-    local.quay_variables,
     local.repository_id_variable,
+    local.quay_variables,
   )
+
 }
 
 module "github_variable" {
@@ -42,4 +43,8 @@ module "github_variable" {
     module.quay_repository,
     github_repository.repo,
   ]
+}
+
+output "quay_info" {
+  value = module.quay_repository
 }
