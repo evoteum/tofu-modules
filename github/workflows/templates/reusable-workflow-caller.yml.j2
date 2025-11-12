@@ -7,7 +7,11 @@ name: {{ workflow_name }}
 
 on:
   workflow_dispatch:
-{%- if repository_configuration.source_path or repository_configuration.trigger_files %}
+{%- if workflow_name == "tocgen" %}
+  push:
+    paths:
+      - "**/*.md"
+{%- elif repository_configuration.source_path or repository_configuration.trigger_files %}
   push:
     paths:
       {%- if repository_configuration.source_path %}
