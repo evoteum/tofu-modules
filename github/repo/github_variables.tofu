@@ -9,7 +9,7 @@ locals {
     "quay_repository_${attribute}" => {
       scope     = var.name
       name      = "quay_repository_${attribute}"
-      value     = try(module.quay_repository[attribute], null)
+      value     = lookup(module.quay_repository, attribute, null)
       sensitive = false
     }
   }
