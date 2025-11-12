@@ -1,17 +1,17 @@
 locals {
-  quay_repository_attributes = [
-    "path",
-    "url",
-  ]
+  quay_output_map = {
+    path = try(module.quay_repository.path, "")
+    url  = try(module.quay_repository.url, "")
+  }
 
   quay_variables = {
-    for attribute in local.quay_repository_attributes :
+    for attribute, val in local.quay_output_map :
     "quay_repository_${attribute}" => {
       scope     = var.name
       name      = "quay_repository_${attribute}"
-      value     = lookup(module.quay_repository, attribute, null)
+      value     = val
       sensitive = false
-    }
+    } if val != ""
   }
 
   repository_id_variable = {
@@ -43,8 +43,4 @@ module "github_variable" {
     module.quay_repository,
     github_repository.repo,
   ]
-}
-
-output "quay_info" {
-  value = module.quay_repository
 }
