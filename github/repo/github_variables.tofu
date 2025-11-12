@@ -28,3 +28,18 @@ locals {
     local.repository_id_variable,
   )
 }
+
+module "github_variable" {
+  source   = "github.com/evoteum/tofu-modules//github/variable"
+  for_each = local.all_github_variables
+
+  scope     = each.value.scope
+  name      = each.value.name
+  value     = each.value.value
+  sensitive = each.value.sensitive
+
+  depends_on = [
+    module.quay_repository,
+    github_repository.repo,
+  ]
+}
