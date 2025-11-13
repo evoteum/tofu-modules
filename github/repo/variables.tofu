@@ -34,13 +34,6 @@ variable "archived" {
   nullable    = false
 }
 
-variable "artifact_type" {
-  description = "Artifact that the project needs to produce."
-  type        = string
-  default     = ""
-  nullable    = false
-}
-
 variable "delete_branch_on_merge" {
   description = "Automatically delete the branch after merging"
   type        = bool
