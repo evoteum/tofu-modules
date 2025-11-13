@@ -24,7 +24,7 @@ resource "github_repository" "repo" {
   license_template            = var.license_template
   archived                    = var.archived
   archive_on_destroy          = true
-  vulnerability_alerts        = var.vulnerability_alerts
+  vulnerability_alerts        = var.archived ? null : var.vulnerability_alerts
   topics                      = var.topics
 
   dynamic "pages" {
