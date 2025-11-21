@@ -47,7 +47,8 @@ ${DESCRIPTION}
 
 [//]: # (TOCGEN_TABLE_OF_CONTENTS_START)
 
-[//]: # (Table of contents will be automatically generated and inserted here.)
+[//]: # (Set `tocgen: true` in estate-repos/repos.yaml to enable automatic table of contents management.)
+[//]: # (Or just do it manually like a weirdo, you do you...)
 
 [//]: # (TOCGEN_TABLE_OF_CONTENTS_END)
 
