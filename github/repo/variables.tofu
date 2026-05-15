@@ -147,6 +147,7 @@ variable "pages_build_type" {
   description = "Type of GitHub Pages build (legacy or workflow). Requires has_pages"
   type        = string
   default     = "legacy"
+  nullable    = false
 }
 
 variable "pages_cname" {
