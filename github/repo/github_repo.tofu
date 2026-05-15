@@ -33,12 +33,9 @@ resource "github_repository" "repo" {
       build_type = var.pages_build_type
       cname      = var.pages_cname
 
-      dynamic "source" {
-        for_each = var.pages_build_type == "legacy" ? [1] : []
-        content {
-          branch = var.pages_source_branch
-          path   = var.pages_source_path
-        }
+      source {
+        branch = var.pages_source_branch
+        path   = var.pages_source_path
       }
     }
   }
