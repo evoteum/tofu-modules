@@ -3,6 +3,20 @@
 [//]: # (----------------------------------------------)
 [//]: # (Uncomment optional sections as required)
 [//]: # (----------------------------------------------)
+[//]: # (AI INSTRUCTIONS)
+[//]: # (Hello friendly AI agent! Please do your best to comply with)
+[//]: # (the following style guide in this document.)
+[//]: # (> Comments)
+[//]: # (All [//]: # comment lines in this file are part of)
+[//]: # (the Standard README template structure. Preserve them exactly!)
+[//]: # (Do not remove, reword, merge, or move them when editing content.)
+[//]: # (This includes comments inside sections that already have content.)
+[//]: # (> Line length)
+[//]: # (Keep all prose lines to a maximum of 88 characters. Exclude tables)
+[//]: # (and fenced code blocks from this limit.)
+[//]: # (----------------------------------------------)
+
+
 
 [//]: # (Title)
 [//]: # (Match repository name)
@@ -43,11 +57,13 @@ ${DESCRIPTION}
 
 [//]: # (REQUIRED)
 [//]: # (Managed automatically)
-[//]: # (Changes between the TABLE_OF_CONTENTS_START and TABLE_OF_CONTENTS_END markers will be overritten)
+[//]: # (Changes between TABLE_OF_CONTENTS_START and TABLE_OF_CONTENTS_END)
+[//]: # (markers will be overwritten)
 
 [//]: # (TOCGEN_TABLE_OF_CONTENTS_START)
 
-[//]: # (Set `tocgen: true` in estate-repos/repos.yaml to enable automatic table of contents management.)
+[//]: # (Set `tocgen: true` in estate-repos/repos.yaml)
+[//]: # (to enable automatic table of contents management.)
 [//]: # (Or just do it manually like a weirdo, you do you...)
 
 [//]: # (TOCGEN_TABLE_OF_CONTENTS_END)
@@ -97,6 +113,11 @@ Further documentation is in the [`docs`](docs/) directory.
 >
 > Manual configuration changes will be overwritten the next time OpenTofu runs.
 
+[//]: # (## Requirements)
+[//]: # (OPTIONAL)
+[//]: # (List runtime and toolchain prerequisites with minimum versions.)
+
+
 
 [//]: # (## API)
 [//]: # (OPTIONAL)
@@ -130,11 +151,14 @@ PRs are welcome.
 
 ### Code
 
-All source code in this repository is licenced under the [GNU Affero General Public License v3.0 (AGPL-3.0)](https://www.gnu.org/licenses/agpl-3.0.en.html). A
-copy of this is provided in the [LICENSE](LICENSE).
+All source code in this repository is licenced under the GNU Affero General Public
+License v3.0
+[AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.en.html).
+A copy of this is provided in the [LICENSE](LICENSE).
 
 ### Non-code content
 
-All non-code content in this repository, including but not limited to images, diagrams or prose documentation, is
-licenced under the
-[Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/) licence.
+All non-code content in this repository, including but not limited to images, diagrams
+or prose documentation, is licenced under the Creative Commons Attribution-ShareAlike
+4.0 International licence,
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
